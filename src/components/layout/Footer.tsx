@@ -1,3 +1,4 @@
+import { Linkedin, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { footerLinkGroups } from '../../data/navigation';
 import { Container } from '../common/Container';
@@ -50,7 +51,26 @@ export function Footer() {
             © {new Date().getFullYear()} DeskScholar — a product-focused final-year engineering project.
             Final specifications may change.
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-4">
+            <a
+              href="https://www.linkedin.com/company/desk-scholar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex min-h-10 items-center justify-center text-slate-400 transition-colors hover:text-brand-light"
+            >
+              <Linkedin className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <a
+              href="https://www.instagram.com/desk.scholar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex min-h-10 items-center justify-center text-slate-400 transition-colors hover:text-brand-light"
+            >
+              <Instagram className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <div className="mx-2 hidden h-10 w-px bg-dark-line sm:block" aria-hidden="true" />
             <Link to="/privacy" className="inline-flex min-h-10 items-center transition-colors hover:text-brand-light">
               Privacy Policy
             </Link>

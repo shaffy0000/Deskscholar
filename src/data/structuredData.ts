@@ -24,7 +24,10 @@ export function buildStructuredData(siteUrl: string) {
           addressCountry: 'PK',
         },
       },
-      // sameAs intentionally omitted: no public social profiles are live yet.
+      sameAs: [
+        'https://www.linkedin.com/company/desk-scholar/',
+        'https://www.instagram.com/desk.scholar/',
+      ],
     },
     {
       '@context': 'https://schema.org',
