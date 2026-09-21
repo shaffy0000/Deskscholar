@@ -12,11 +12,11 @@ import { join } from 'node:path';
 import { routeMeta, INDEXABLE_ROUTES } from '../src/data/routeMeta.ts';
 import { buildStructuredData } from '../src/data/structuredData.ts';
 
-const SITE_URL = (process.env.VITE_SITE_URL || '').trim() || 'https://deskscholar.example.com';
-const PLACEHOLDER = SITE_URL.includes('deskscholar.example.com');
+const SITE_URL = (process.env.VITE_SITE_URL || '').trim() || 'https://www.deskscholar.com';
+const PLACEHOLDER = SITE_URL.includes('example.com');
 if (PLACEHOLDER) {
   console.warn(
-    '\n[prerender] WARNING: production domain is not configured. robots.txt, sitemap.xml and canonical URLs use the placeholder https://deskscholar.example.com — set VITE_SITE_URL (Vercel → Settings → Environment Variables) before publishing; never ship the placeholder domain.\n',
+    '\n[prerender] WARNING: production domain is not configured. robots.txt, sitemap.xml and canonical URLs use a placeholder — set VITE_SITE_URL (Vercel → Settings → Environment Variables) before publishing.\n',
   );
 }
 if (!/^https:\/\/[^/]+$/.test(SITE_URL)) {

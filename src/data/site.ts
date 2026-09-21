@@ -9,7 +9,7 @@ export const SITE_NAME = 'DeskScholar';
  * time and also used by scripts/prerender.mjs for raw HTML meta, robots.txt and
  * sitemap.xml. The fallback only appears in local dev output.
  */
-export const SITE_URL = import.meta.env.VITE_SITE_URL?.trim() || 'https://deskscholar.example.com';
+export const SITE_URL = import.meta.env.VITE_SITE_URL?.trim() || 'https://www.deskscholar.com';
 
 export const SITE_TAGLINE = 'Your AI tutor, built into your desk.';
 

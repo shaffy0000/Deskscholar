@@ -4,6 +4,18 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "deskscholar.com" }],
+      "destination": "https://www.deskscholar.com/:path",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
