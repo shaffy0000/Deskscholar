@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Page Not Found (404) — DeskScholar</title>
+    <meta name="description" content="The page you requested does not exist. Return to the DeskScholar home page." />
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; margin: 0; }
+      body {
+        min-height: 100vh; display: grid; place-items: center; padding: 24px;
+        background:
+          radial-gradient(640px 320px at 50% -10%, rgba(98, 91, 246, 0.16), transparent 70%),
+          radial-gradient(420px 260px at 85% 100%, rgba(224, 138, 60, 0.10), transparent 70%),
+          #081321;
+        color: #e2e8f0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; text-align: center;
+      }
+      .card { max-width: 560px; display: grid; gap: 16px; justify-items: center; }
+      .badge {
+        display: inline-flex; align-items: center; gap: 8px; border: 1px solid #1c2c44;
+        background: #102036; color: #f5b87a; border-radius: 999px; padding: 6px 14px;
+        font: 600 11px/1 'Inter', system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase;
+      }
+      h1 { color: #fff; font-family: 'Sora', system-ui, sans-serif; font-size: clamp(28px, 6vw, 44px); line-height: 1.12; letter-spacing: -0.02em; }
+      p { color: #94a3b8; font-size: 15px; line-height: 1.65; }
+      .links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
+      a { display: inline-flex; min-height: 44px; align-items: center; border-radius: 999px; padding: 10px 22px; font: 600 14px/1 'Inter', system-ui, sans-serif; text-decoration: none; transition: filter 150ms ease; }
+      .primary { background: #625bf6; color: #fff; }
+      .primary:hover { background: #4f46d8; }
+      .ghost { border: 1px solid #1c2c44; background: #102036; color: #fff; }
+      .ghost:hover { border-color: #eeecff; color: #eeecff; }
+      a:focus-visible { outline: 2px solid #22c3cf; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) { a { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <span class="badge">404 — off the map</span>
+      <h1>This page isn’t on the desk.</h1>
+      <p>The page you requested doesn’t exist. DeskScholar is a prototype-stage project — some URLs are still on the way.</p>
+      <div class="links">
+        <a class="primary" href="/">Back to Home</a>
+        <a class="ghost" href="/contact">Contact the Team</a>
+      </div>
+    </main>
+  </body>
+</html>

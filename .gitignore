@@ -1,0 +1,14 @@
+node_modules
+dist
+coverage
+.vercel
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+npm-debug.log*
+dev-server.log
+prev.tmp.log
+lighthouse-reports

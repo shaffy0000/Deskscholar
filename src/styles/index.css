@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-midnight: #081321;
+  --color-deep-navy: #102036;
+  --color-ivory: #f6f8fc;
+  --color-white: #ffffff;
+  --color-ink: #111827;
+  --color-slate-text: #5b6b80;
+  --color-violet: #625bf6;
+  --color-violet-dark: #4f46d8;
+  --color-violet-light: #eeecff;
+  --color-aqua: #22c3cf;
+  --color-aqua-dark: #0f6b75;
+  --color-aqua-light: #e4f8fa;
+  --color-border-grey: #dde3ec;
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+}
+
+/* Self-hosted variable fonts (latin subset) — no third-party requests. */
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/sora-var-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-var-latin.woff2') format('woff2');
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky navbar (72px) + breathing room: anchored headings are never hidden behind it. */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-ivory font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-bold text-ink;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-ivory;
+    border-radius: 4px;
+  }
+
+  .dark-section :focus-visible {
+    @apply ring-aqua ring-offset-midnight;
+  }
+
+  ::selection {
+    @apply bg-brand-light text-ink;
+  }
+
+  /* Media can never force the page wider than the viewport. */
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    overflow-wrap: break-word;
+  }
+
+  /*
+   * Final safety net. The overflow causes themselves are fixed (grid
+   * minmax(0,1fr) tracks, wrapping controls, clipped decorative blobs);
+   * this only prevents a stray 1px from creating a horizontal scrollbar.
+   * `clip` (not `hidden`) keeps position: sticky working.
+   */
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* Consistent eyebrow label used above section headings. */
+  .eyebrow {
+    @apply font-display text-xs font-semibold uppercase tracking-[0.16em];
+  }
+
+  /* Select fields get a custom caret so all form controls feel designed. */
+  .select-field {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.5rem;
+  }
+}
+
+@layer utilities {
+  .projection-grid {
+    background-image:
+      linear-gradient(rgba(98, 91, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(98, 91, 246, 0.1) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .projection-grid-dark {
+    background-image:
+      linear-gradient(rgba(98, 91, 246, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(98, 91, 246, 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
