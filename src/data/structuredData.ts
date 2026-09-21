@@ -35,16 +35,6 @@ export function buildStructuredData(siteUrl: string) {
     },
     {
       '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: 'DeskScholar',
-      description:
-        'DeskScholar is an offline-first AI learning companion being designed to understand books, worksheets, handwriting, and spoken questions, then project step-by-step guidance onto the learner’s desk. Prototype stage — not yet available for purchase.',
-      image: `${siteUrl}/assets/deskscholar/og-deskscholar.webp`,
-      brand: { '@type': 'Brand', name: 'DeskScholar' },
-      category: 'Educational technology',
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: homeFaqs.map((faq) => ({
         '@type': 'Question',
