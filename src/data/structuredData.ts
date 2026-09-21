@@ -27,6 +27,7 @@ export function buildStructuredData(siteUrl: string) {
       sameAs: [
         'https://www.linkedin.com/company/desk-scholar/',
         'https://www.instagram.com/desk.scholar/',
+        'https://www.youtube.com/channel/UCp5X3aAfk8fM2NGXqf9YOpg',
       ],
     },
     {

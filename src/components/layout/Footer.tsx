@@ -1,4 +1,4 @@
-import { Linkedin, Instagram } from 'lucide-react';
+import { Linkedin, Instagram, Youtube, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { footerLinkGroups } from '../../data/navigation';
 import { Container } from '../common/Container';
@@ -69,6 +69,22 @@ export function Footer() {
               className="inline-flex min-h-10 items-center justify-center text-slate-400 transition-colors hover:text-brand-light"
             >
               <Instagram className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <a
+              href="https://www.youtube.com/channel/UCp5X3aAfk8fM2NGXqf9YOpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="inline-flex min-h-10 items-center justify-center text-slate-400 transition-colors hover:text-brand-light"
+            >
+              <Youtube className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <a
+              href="mailto:info@deskscholar.com"
+              aria-label="Email"
+              className="inline-flex min-h-10 items-center justify-center text-slate-400 transition-colors hover:text-brand-light"
+            >
+              <Mail className="h-5 w-5" aria-hidden="true" />
             </a>
             <div className="mx-2 hidden h-10 w-px bg-dark-line sm:block" aria-hidden="true" />
             <Link to="/privacy" className="inline-flex min-h-10 items-center transition-colors hover:text-brand-light">
