@@ -5,7 +5,7 @@ import { AppRoutes } from '../src/App';
 import { renderWithProviders } from './utils';
 
 async function setup() {
-  renderWithProviders(<AppRoutes />, { route: '/' });
+  renderWithProviders(<AppRoutes />, { route: '/technology' });
   return await screen.findByTestId('demo-stage', {}, { timeout: 20000 });
 }
 

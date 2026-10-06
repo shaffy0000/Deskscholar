@@ -22,6 +22,23 @@ if (typeof window !== 'undefined' && window.HTMLMediaElement) {
   });
 }
 
+// jsdom/vitest may not expose matchMedia — components query it for reduced motion.
+if (typeof window !== 'undefined' && typeof window.matchMedia !== 'function') {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: (query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }),
+  });
+}
+
 // Element.scrollIntoView + window.scrollTo are not implemented in jsdom.
 if (typeof Element !== 'undefined') {
   Element.prototype.scrollIntoView = vi.fn();

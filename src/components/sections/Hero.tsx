@@ -1,109 +1,102 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, PlayCircle } from 'lucide-react';
-import { heroValues } from '../../data/features';
-import { deskScholarImages, deskScholarImageRatios, deskScholarImageSrcSets } from '../../data/assets';
+import { useEffect, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { deskScholarImages, deskScholarImageSrcSets } from '../../data/assets';
 import { Button } from '../common/Button';
 import { Container } from '../common/Container';
-import { ProductImage } from '../common/ProductImage';
 import { StatusBadge } from '../common/StatusBadge';
-import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
-
-const heroBadges = [
-  { label: 'Offline-first AI', tone: 'aqua' as const },
-  { label: 'English + Urdu', tone: 'violet' as const },
-  { label: 'Voice, vision and projection', tone: 'violet' as const },
-  { label: 'No mandatory subscription planned', tone: 'planned' as const },
-];
 
 export function Hero() {
-  const reduced = useReducedMotion();
+  const [visible, setVisible] = useState(false);
+  const reducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  useEffect(() => {
+    // Small delay so the entrance animation reads
+    const id = setTimeout(() => setVisible(true), 60);
+    return () => clearTimeout(id);
+  }, []);
+
+  const show = reducedMotion || visible;
 
   return (
-    <section className="relative overflow-hidden" aria-labelledby="hero-heading">
-      {/* Warm apricot wash with a hint of violet — the desk-light moment behind the headline. */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-gradient-to-br from-sun-light/70 via-[#F6EEE4] to-brand-light/45"
-        style={{
-          maskImage: 'linear-gradient(to bottom, black, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
-        }}
-        aria-hidden="true"
-      />
-      <Container className="relative pb-16 pt-12 md:pb-20 sm:pt-16 xl:pb-24">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: 'easeOut' }}
+    <section className="relative overflow-hidden -mt-16 lg:-mt-[72px]" aria-labelledby="hero-heading">
+      {/* Full-bleed hero image — the product renders carry the page */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={deskScholarImages.hero}
+          srcSet={deskScholarImageSrcSets.hero}
+          sizes="100vw"
+          alt="DeskScholar offline-first AI learning companion on a study desk."
+          width={1407}
+          height={768}
+          // React 18 doesn't map the camelCase prop — pass the lowercase DOM attribute.
+          {...{ fetchpriority: 'high' }}
+          decoding="async"
+          className="h-full w-full object-cover object-center"
+        />
+        {/* Dark gradient overlay so text reads on any image */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/80 to-ink-900/40"
+          aria-hidden="true"
+        />
+      </div>
+
+      <Container className="relative z-10 pb-20 pt-32 md:pb-28 md:pt-40 lg:pb-32 lg:pt-48">
+        <div className="max-w-2xl">
+          <StatusBadge showDot>
+            One edition needs no subscription
+          </StatusBadge>
+
+          <h1
+            id="hero-heading"
+            className={`mt-6 font-display text-display font-bold tracking-tight text-text-hi ${
+              show
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-[14px]'
+            } ${!reducedMotion ? 'transition-all duration-slow ease-out' : ''}`}
           >
-            <StatusBadge tone="aqua" dot pulse>
-              Offline-first AI learning companion
-            </StatusBadge>
-            <h1 id="hero-heading" className="mt-5 font-display text-display text-ink">
-              Your AI tutor, built into your desk.
-            </h1>
-            <p className="mt-5 max-w-xl text-lead text-muted">
-              Point at a question. Ask naturally. Get step-by-step help projected directly onto your
-              workspace — even when the internet is unavailable.
-            </p>
+            Your AI tutor, built&nbsp;into&nbsp;your&nbsp;desk.
+          </h1>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <CloudflareVideoModal>
-                {({ open }) => (
-                  <Button size="lg" onClick={open}>
-                    <PlayCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
-                    Watch DeskScholar in Action
-                  </Button>
-                )}
-              </CloudflareVideoModal>
-              <Button size="lg" variant="secondary" to="/#how-it-works">
-                Explore How It Works
-                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-              </Button>
-            </div>
-
-            <ul className="mt-7 flex flex-wrap gap-2" aria-label="Key capabilities">
-              {heroBadges.map((badge) => (
-                <li key={badge.label}>
-                  <StatusBadge tone={badge.tone}>{badge.label}</StatusBadge>
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-              Currently in prototype development
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12, ease: 'easeOut' }}
-            data-testid="hero-desk-scene-wrap"
+          <p
+            className={`mt-5 max-w-xl text-body-lg leading-relaxed text-text-lo ${
+              show
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-[14px]'
+            } ${!reducedMotion ? 'transition-all duration-slow ease-out delay-75' : ''}`}
           >
-            <ProductImage
-              src={deskScholarImages.hero}
-              srcSet={deskScholarImageSrcSets.hero}
-              sizes="(min-width: 1024px) 606px, calc(100vw - 40px)"
-              alt="DeskScholar offline-first AI learning companion on a study desk."
-              ratio={deskScholarImageRatios.hero}
-              objectFit="cover"
-              priority
-              surface="dark"
-              className="mx-auto w-full max-w-xl shadow-2xl"
-              containerClassName="rounded-hero shadow-soft"
-            />
-          </motion.div>
+            Point at a question. Ask naturally. Get step-by-step help projected
+            directly onto your workspace — even when the internet is unavailable.
+          </p>
+
+          <div
+            className={`mt-8 flex flex-wrap gap-3 ${
+              show
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-[14px]'
+            } ${!reducedMotion ? 'transition-all duration-slow ease-out delay-150' : ''}`}
+          >
+            <Button size="lg" to="/#how-it-works">
+              Explore How It Works
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+            </Button>
+            <Button size="lg" variant="quiet" to="/editions">
+              See all three editions
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+            </Button>
+          </div>
+
+          <p
+            className={`mt-8 text-micro font-medium text-text-lo ${
+              show
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-[14px]'
+            } ${!reducedMotion ? 'transition-all duration-slow ease-out delay-200' : ''}`}
+          >
+            Currently in prototype development · Three editions planned
+          </p>
         </div>
-
-        <ul className="mt-12 grid gap-3 border-t border-line pt-8 sm:grid-cols-2 lg:grid-cols-4">
-          {heroValues.map((value) => (
-            <li key={value.title} className="rounded-card border border-line bg-white p-4 shadow-soft">
-              <p className="font-display text-sm font-bold text-ink">{value.title}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-muted">{value.description}</p>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );

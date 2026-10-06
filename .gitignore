@@ -12,3 +12,6 @@ npm-debug.log*
 dev-server.log
 prev.tmp.log
 lighthouse-reports
+
+.vercel
+.env*

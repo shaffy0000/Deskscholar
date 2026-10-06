@@ -15,7 +15,7 @@ export const homeFaqs: FaqItem[] = [
     id: 'offline',
     question: 'Does it work without the internet?',
     answer:
-      'The core experience is designed to be offline-first: local speech recognition, local tutoring, local text-to-speech, and projection are planned to run on the device itself. Optional cloud assistance is reserved for difficult questions and is only used with clear indicators and approval.',
+      'It depends on the edition. DeskScholar Independent works with no internet at all — everything happens on the device. DeskScholar Hybrid reads the page and checks working offline but needs a connection to compose new explanations. DeskScholar Connect needs a steady internet connection for all learning features.',
   },
   {
     id: 'answers',
@@ -39,13 +39,19 @@ export const homeFaqs: FaqItem[] = [
     id: 'subscription',
     question: 'Will it require a subscription?',
     answer:
-      'No mandatory subscription is planned for the core offline capabilities. Optional cloud-assisted features could involve third-party usage costs in the future, but nothing has been finalized.',
+      'Two editions plan a monthly subscription because they depend on servers that cost money to run every month. DeskScholar Connect plans around PKR 2,500 per month, and DeskScholar Hybrid plans around PKR 1,000 per month. DeskScholar Independent plans no required subscription because it depends on nothing — an optional companion plan at around PKR 500 per month is planned for curriculum packs and the parent dashboard. All figures are planned and indicative for a product still in development.',
+  },
+  {
+    id: 'which-edition',
+    question: 'Which edition should I choose?',
+    answer:
+      'Start with connectivity. If your internet is unreliable or absent, Independent is the clear choice — it works with no connection at all. If privacy matters most and you have a connection most evenings, Hybrid keeps images on the device and sends only text. If you are equipping a school or tuition centre with reliable Wi-Fi and want the strongest answers on unusual questions, Connect is built for that. Budget is the third consideration: Independent carries no required subscription, Hybrid plans around PKR 1,000 per month, and Connect plans around PKR 2,500 per month. All pricing is planned and indicative.',
   },
   {
     id: 'data',
     question: 'Is student data sent to the cloud?',
     answer:
-      'The design goal is local processing wherever practical. When a difficult question is escalated to optional cloud reasoning, only the minimum necessary content is sent, with clear on-device indicators and planned parent-controlled privacy mode. This marketing website itself does not collect learning records.',
+      'It depends on the edition. DeskScholar Independent sends nothing anywhere — everything stays on the device. DeskScholar Hybrid sends only extracted text, never images. DeskScholar Connect sends camera images to our servers for processing. Each edition is honest about what it sends and where, and the choice is yours.',
   },
   {
     id: 'schools-testing',
@@ -114,6 +120,6 @@ export const technologyFaqs: FaqItem[] = [
     id: 'prototype-hardware',
     question: 'Is the hardware final?',
     answer:
-      'No. The current hardware is a prototype selection for feasibility testing. Final specifications — including the projector, cameras, and compute module — may change during prototype testing.',
+      'No. The current hardware is a prototype selection for feasibility testing. Final specifications may change during prototype testing.',
   },
 ];

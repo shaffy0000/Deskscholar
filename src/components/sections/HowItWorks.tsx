@@ -1,85 +1,110 @@
-import { motion } from 'framer-motion';
-import { Eye, Lightbulb, ScanLine } from 'lucide-react';
-import { deskScholarImages, deskScholarImageRatios, deskScholarImageSrcSets } from '../../data/assets';
-import { ProductImage } from '../common/ProductImage';
-import { Section } from '../common/Section';
+import React, { useEffect, useRef, useState } from 'react';
+import { Section } from '@/components/common/Section';
+import { deskScholarImages } from '../../data/assets';
 
 const steps = [
   {
-    step: 'Step 1',
-    icon: Eye,
+    step: '01',
     title: 'See the desk',
-    description:
-      'DeskScholar captures books, worksheets, handwriting, diagrams, and spoken questions without asking students to retype everything.',
+    description: 'DeskScholar captures books, worksheets, handwriting, diagrams, and spoken questions without asking students to retype everything.',
   },
   {
-    step: 'Step 2',
-    icon: ScanLine,
+    step: '02',
     title: 'Understand the question',
-    description:
-      'It combines visual context, the student’s question, and curriculum material to understand what the learner needs.',
+    description: 'It combines visual context, the student\'s question, and curriculum material to understand what the learner needs.',
   },
   {
-    step: 'Step 3',
-    icon: Lightbulb,
+    step: '03',
     title: 'Teach step by step',
-    description:
-      'It projects hints, explanations, diagrams, and guided solutions directly onto the workspace.',
+    description: 'It projects hints, explanations, diagrams, and guided solutions directly onto the workspace.',
   },
 ];
 
-export function HowItWorks() {
-  return (
-    <Section
-      id="how-it-works"
-      anchor
-      tone="white"
-      labelledBy="how-heading"
-      heading={{
-        label: 'How it works',
-        title: <span id="how-heading">One learning loop, designed for real desk work.</span>,
-      }}
-    >
-      <div className="relative">
-        {/* Connecting line (desktop) */}
-        <div
-          className="absolute left-0 right-0 top-8 hidden h-px bg-line md:block"
-          aria-hidden="true"
-        />
-        <ol className="grid gap-8 md:grid-cols-3 md:gap-6">
-          {steps.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.li
-                key={item.step}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
-                className="relative flex flex-col items-center text-center md:px-4"
-              >
-                <span className="relative z-10 inline-flex h-16 w-16 items-center justify-center rounded-full border border-line bg-ivory shadow-soft">
-                  <Icon className="h-6 w-6 text-brand-dark" aria-hidden="true" />
-                </span>
-                <p className="eyebrow mt-4 text-aqua-dark">{item.step}</p>
-                <h3 className="mt-1.5 font-display text-h3 text-ink">{item.title}</h3>
-                <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-muted">{item.description}</p>
-              </motion.li>
-            );
-          })}
-        </ol>
-      </div>
+export const HowItWorks: React.FC = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const stepsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-      <ProductImage
-        className="mt-12 md:mt-14"
-        src={deskScholarImages.studentUse}
-        srcSet={deskScholarImageSrcSets.studentUse}
-        sizes="(min-width: 1280px) 1216px, calc(100vw - 40px)"
-        alt="A student using DeskScholar to understand a fraction problem projected onto a worksheet."
-        ratio={deskScholarImageRatios.studentUse}
-        objectPosition="center"
-        caption="The full loop in one frame — the student's hands stay on the worksheet while guidance is projected beside the problem."
-      />
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute('data-index'));
+            setActiveStep(index);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -60% 0px' }
+    );
+
+    stepsRef.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Calculate the height of the active rule based on activeStep
+  // In a real scenario, this might need dynamic calculation, but for 3 steps, we can use percentages.
+  const getRuleHeight = () => {
+    if (activeStep === 0) return '0%';
+    if (activeStep === 1) return '50%';
+    return '100%';
+  };
+
+  return (
+    <Section id="how-it-works" tone="dark">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24">
+          <div className="md:col-span-5 flex relative">
+            <div className="absolute left-[11px] top-4 bottom-8 w-[2px] bg-[rgba(255,255,255,0.07)]" />
+            <div
+              className="absolute left-[11px] top-4 w-[2px] bg-beam transition-all duration-[420ms] ease-out origin-top"
+              style={{ height: getRuleHeight() }}
+            />
+            
+            <div className="flex flex-col gap-16 relative z-10 w-full">
+              {steps.map((step, index) => {
+                const isActive = index <= activeStep;
+                return (
+                  <div
+                    key={step.step}
+                    data-index={index}
+                    ref={(el) => (stepsRef.current[index] = el)}
+                    className="flex gap-8 group"
+                  >
+                    <div className="pt-1 flex-shrink-0">
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors duration-[420ms] ease-out bg-ink-900 ${isActive ? 'border-beam' : 'border-[rgba(255,255,255,0.07)]'}`}>
+                        <div className={`w-2 h-2 rounded-full transition-colors duration-[420ms] ease-out ${isActive ? 'bg-beam' : 'bg-transparent'}`} />
+                      </div>
+                    </div>
+                    <div className={`transition-opacity duration-[420ms] ease-out ${isActive ? 'opacity-100' : 'opacity-40'}`}>
+                      <div className="text-sm font-sans text-text-lo mb-2">{step.step}</div>
+                      <h3 className="font-display text-h3 text-text-hi mb-3">{step.title}</h3>
+                      <p className="font-sans text-sm text-text-lo max-w-[68ch]">{step.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="md:col-span-7">
+            <div className="sticky top-24 rounded-[10px] overflow-hidden border border-[rgba(255,255,255,0.07)] bg-ink-800">
+              <img
+                src={deskScholarImages.studentUse}
+                alt="Student using DeskScholar"
+                className="w-full h-auto object-cover"
+              />
+              <div className="p-4 bg-ink-800 border-t border-[rgba(255,255,255,0.07)]">
+                <p className="font-sans text-sm text-text-lo text-center">
+                  The full loop in one frame — the student's hands stay on the worksheet while guidance is projected beside the problem.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Section>
   );
-}
+};

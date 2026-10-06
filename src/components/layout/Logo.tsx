@@ -4,17 +4,13 @@ interface LogoProps {
   className?: string;
   /** Icon sizing — defaults fit the header: 38px mobile → 44–48px desktop. */
   iconClass?: string;
-  /** 'light' = on light surfaces (header/drawer/loader), 'dark' = on midnight footer. */
-  tone?: 'light' | 'dark';
 }
 
 /**
  * DeskScholar brand lockup: transparent logo icon + "DeskScholar" wordmark,
- * on one line, vertically centred. Used by the desktop header, mobile drawer
- * and footer. Each usage wraps this component in a Link with
- * aria-label="DeskScholar home".
+ * on one line, vertically centred. Always on dark background.
  */
-export function Logo({ className, iconClass, tone = 'light' }: LogoProps) {
+export function Logo({ className, iconClass }: LogoProps) {
   return (
     <span className={cn('inline-flex items-center gap-2.5 whitespace-nowrap', className)}>
       <img
@@ -33,12 +29,9 @@ export function Logo({ className, iconClass, tone = 'light' }: LogoProps) {
         )}
       />
       <span
-        className={cn(
-          'font-display text-lg font-bold leading-none tracking-tight',
-          tone === 'dark' ? 'text-white' : 'text-ink',
-        )}
+        className="font-display text-lg font-bold leading-none tracking-tight text-text-hi"
       >
-        Desk<span className={tone === 'dark' ? 'text-brand-light' : 'text-brand'}>Scholar</span>
+        Desk<span className="text-beam">Scholar</span>
       </span>
     </span>
   );

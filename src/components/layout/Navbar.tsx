@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
+import { cn } from '../../utils/cn';
 import { navLinks } from '../../data/navigation';
 import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
-import { cn } from '../../utils/cn';
 import { Logo } from './Logo';
 import { MobileNavigation } from './MobileNavigation';
 
@@ -13,101 +13,88 @@ export function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname, location.hash]);
-
-  const isActive = (to: string) => {
-    if (to.includes('#')) {
-      return location.pathname === '/' && to === `/${location.hash}`;
-    }
-    return location.pathname === to && !location.hash;
-  };
 
   return (
     <>
       <header
         className={cn(
-          'sticky top-0 z-50 border-b transition-all duration-300',
+          'sticky inset-x-0 top-0 z-40 flex h-16 lg:h-[72px] items-center transition-all duration-fast ease-out',
           scrolled
-            ? 'border-line/80 bg-ivory/95 shadow-soft backdrop-blur'
-            : 'border-transparent bg-transparent',
+            ? 'bg-[#11151C]/95 backdrop-blur border-b border-[var(--hairline-dark)] shadow-[var(--shadow-header)]'
+            : 'bg-transparent'
         )}
       >
-        <nav
-          aria-label="Main"
-          className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-[72px] lg:px-8"
-        >
-          <Link to="/" aria-label="DeskScholar home" className="inline-flex min-h-11 shrink-0 items-center">
+        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 lg:px-[120px]">
+          <Link to="/" aria-label="DeskScholar home" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beam rounded-control">
             <Logo />
           </Link>
-
-          <ul className="hidden items-center gap-0.5 xl:flex">
+          
+          <nav aria-label="Main" className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
-              const active = isActive(link.to);
+              const isActive = location.pathname + location.hash === link.to;
               return (
-                <li key={link.label}>
-                  <Link
-                    to={link.to}
-                    aria-current={active ? 'page' : undefined}
-                    className={cn(
-                      'relative inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3.5 text-[13.5px] font-semibold transition-colors xl:px-4 xl:text-sm',
-                      active ? 'text-brand-dark' : 'text-ink hover:text-brand-dark',
-                    )}
-                  >
-                    {link.label}
-                    {active && (
-                      <span
-                        className="absolute inset-x-3.5 bottom-1.5 h-0.5 rounded-full bg-brand"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Link>
-                </li>
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={cn(
+                    'relative text-sm font-medium text-text-hi transition-colors duration-micro hover:text-beam focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beam rounded-control',
+                  )}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span className="absolute -bottom-1.5 left-0 h-[2px] w-full bg-beam rounded-control" />
+                  )}
+                </Link>
               );
             })}
-          </ul>
-
-          <div className="hidden shrink-0 items-center gap-2 xl:flex">
+          </nav>
+          
+          <div className="hidden lg:flex items-center gap-4">
             <CloudflareVideoModal>
               {({ open }) => (
                 <button
                   type="button"
                   onClick={open}
-                  className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full px-4 text-sm font-semibold text-ink transition-colors hover:bg-brand-light/60 hover:text-brand-dark"
+                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-control px-4 py-2 text-sm font-semibold text-text-hi transition-colors hover:bg-[rgba(255,255,255,0.07)] hover:text-beam"
                 >
-                  <Play className="h-4 w-4 text-brand-dark" aria-hidden="true" />
+                  <Play className="h-4 w-4 text-beam" aria-hidden="true" />
                   Watch Demo
                 </button>
               )}
             </CloudflareVideoModal>
             <Link
               to="/contact"
-              className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full bg-brand px-5 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-brand-dark"
+              className="inline-flex items-center justify-center rounded-control bg-beam px-4 py-2 text-sm font-semibold text-ink-900 transition-colors duration-micro hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beam focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
             >
               Join Early Access
             </Link>
           </div>
-
+          
           <button
             type="button"
+            data-testid="mobile-nav-open"
+            className="lg:hidden flex items-center justify-center p-2 min-h-11 min-w-11 text-text-hi hover:text-beam transition-colors duration-micro focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beam rounded-control"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             aria-expanded={mobileOpen}
-            data-testid="mobile-nav-open"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink transition hover:bg-brand-light xl:hidden"
           >
-            <Menu className="h-6 w-6" aria-hidden="true" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
           </button>
-        </nav>
+        </div>
       </header>
-      <MobileNavigation open={mobileOpen} onClose={() => setMobileOpen(false)} />
+
+      <MobileNavigation isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
   );
 }

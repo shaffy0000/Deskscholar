@@ -5,77 +5,97 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Core palette
-        midnight: '#081321', // dark section backgrounds
-        'deep-navy': '#102036', // cards inside dark sections
-        'dark-line': '#1C2C44', // borders inside dark sections
-        ivory: '#FAF7F2', // main page background (warm paper white)
-        white: '#FFFFFF', // cards
-        ink: '#111827', // headings
-        muted: '#5B6B80', // slate body text; AA on ivory (#64748B measured 4.49:1)
-        line: '#E6E0D6', // borders (warm grey)
-        // Brand (violet)
+        /* ── Dark surfaces ─────────────────────────────────── */
+        'ink-900': 'var(--ink-900)',
+        'ink-800': 'var(--ink-800)',
+        'ink-700': 'var(--ink-700)',
+
+        /* ── Light surfaces ────────────────────────────────── */
+        paper:   'var(--paper)',
+        'paper-2': 'var(--paper-2)',
+
+        /* ── Text on dark ──────────────────────────────────── */
+        'text-hi': 'var(--text-hi)',
+        'text-lo': 'var(--text-lo)',
+
+        /* ── Text on light ─────────────────────────────────── */
+        'ink-hi': 'var(--ink-hi)',
+        'ink-lo': 'var(--ink-lo)',
+
+        /* ── The one accent ────────────────────────────────── */
+        beam:     'var(--beam)',
+        'beam-dim': 'var(--beam-dim)',
+
+        /* ── State colours ─────────────────────────────────── */
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        danger:  'var(--danger)',
+
+        /* ── Legacy Aliases (Auto-converts old pages to Dark Theme) ── */
+        midnight: 'var(--ink-900)',
+        'deep-navy': 'var(--ink-800)',
+        'dark-line': 'rgba(255, 255, 255, 0.07)',
+        ivory: 'var(--ink-900)', // main background maps to dark
+        ink: 'var(--text-hi)', // dark text maps to light text
+        muted: 'var(--text-lo)',
+        line: 'rgba(255, 255, 255, 0.07)',
         brand: {
-          DEFAULT: '#625BF6',
-          dark: '#4F46D8',
-          light: '#EEECFF',
+          DEFAULT: 'var(--beam)',
+          dark: 'var(--beam)',
+          light: 'var(--beam-dim)',
         },
-        // Warm tertiary accent (apricot) — learning moments & hint surfaces
         sun: {
-          DEFAULT: '#E08A3C',
-          dark: '#8A5119', // AA (5.2:1) on sun-light and ivory
-          light: '#FBEBD9',
+          DEFAULT: 'var(--beam)',
+          dark: 'var(--beam)',
+          light: 'var(--beam-dim)',
         },
-        // Technical accent (aqua) — offline/local/scanning/privacy only
         aqua: {
-          DEFAULT: '#22C3CF',
-          dark: '#0F6B75', // AA on aqua-light (#127C86 measured 4.49:1)
-          light: '#E4F8FA',
+          DEFAULT: 'var(--beam)',
+          dark: 'var(--beam)',
+          light: 'var(--beam-dim)',
         },
-        // State colors
-        success: '#059669',
-        warning: '#D97706',
-        danger: '#DC2626',
       },
       fontFamily: {
         display: ['Sora', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
       fontSize: {
-        display: ['clamp(2.1rem, 1.55rem + 2.4vw, 3.4rem)', { lineHeight: '1.08', letterSpacing: '-0.025em' }],
-        h1: ['clamp(1.85rem, 1.45rem + 1.8vw, 2.8rem)', { lineHeight: '1.12', letterSpacing: '-0.02em' }],
-        h2: ['clamp(1.55rem, 1.25rem + 1.4vw, 2.35rem)', { lineHeight: '1.18', letterSpacing: '-0.015em' }],
-        h3: ['clamp(1.1rem, 1.02rem + 0.4vw, 1.35rem)', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
-        lead: ['clamp(1rem, 0.96rem + 0.25vw, 1.15rem)', { lineHeight: '1.65' }],
+        /* §3.3 — Fluid type scale, clamped */
+        display: ['var(--type-display)', { lineHeight: 'var(--lh-display)', letterSpacing: 'var(--ls-display)' }],
+        h1:      ['var(--type-h1)', { lineHeight: 'var(--lh-h1)', letterSpacing: 'var(--ls-h1)' }],
+        h2:      ['var(--type-h2)', { lineHeight: 'var(--lh-h2)', letterSpacing: 'var(--ls-h2)' }],
+        h3:      ['var(--type-h3)', { lineHeight: 'var(--lh-h3)', letterSpacing: 'var(--ls-h3)' }],
+        'body-lg': ['var(--type-body-lg)', { lineHeight: 'var(--lh-body-lg)' }],
+        body:    ['var(--type-body)', { lineHeight: 'var(--lh-body)' }],
+        sm:      ['var(--type-sm)', { lineHeight: 'var(--lh-sm)' }],
+        micro:   ['var(--type-micro)', { lineHeight: '1.5' }],
       },
       borderRadius: {
-        card: '18px',
-        panel: '24px',
-        hero: '30px',
+        control: 'var(--radius-control)',
+        card:    'var(--radius-card)',
+        none:    'var(--radius-none)',
       },
       boxShadow: {
-        soft: '0 1px 2px rgba(17, 24, 39, 0.04), 0 8px 24px -14px rgba(17, 24, 39, 0.12)',
-        card: '0 2px 4px rgba(17, 24, 39, 0.04), 0 14px 32px -14px rgba(17, 24, 39, 0.16)',
+        header: 'var(--shadow-header)',
       },
       maxWidth: {
-        content: '68ch',
-        prose: '78ch',
+        content: 'var(--content-max)',
+        wide:    'var(--wide-max)',
+        measure: 'var(--measure)',
       },
-      keyframes: {
-        'pulse-dot': {
-          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.5', transform: 'scale(0.85)' },
-        },
-        'scan-line': {
-          '0%': { transform: 'translateY(0%)', opacity: '0' },
-          '12%': { opacity: '1' },
-          '88%': { opacity: '1' },
-          '100%': { transform: 'translateY(100%)', opacity: '0' },
-        },
+      spacing: {
+        'section':   'var(--section-pad)',
+        'section-m': 'var(--section-pad-m)',
       },
-      animation: {
-        'pulse-dot': 'pulse-dot 2.6s ease-in-out infinite',
-        'scan-line': 'scan-line 3.4s ease-in-out infinite',
+      transitionTimingFunction: {
+        'out': 'var(--ease-out)',
+        'io':  'var(--ease-io)',
+      },
+      transitionDuration: {
+        'micro': 'var(--t-micro)',
+        'fast':  'var(--t-fast)',
+        'base':  'var(--t-base)',
+        'slow':  'var(--t-slow)',
       },
     },
   },

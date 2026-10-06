@@ -1,46 +1,88 @@
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 
 interface SectionHeadingProps {
-  label?: string;
   title: ReactNode;
+  label?: string;
   description?: ReactNode;
   align?: 'left' | 'center';
+  tone?: 'dark' | 'light';
   dark?: boolean;
-  className?: string;
   as?: 'h1' | 'h2' | 'h3';
+  className?: string;
 }
 
-/** One shared heading treatment so every section shares the same rhythm. */
 export function SectionHeading({
-  label,
   title,
+  label: _label,
   description,
-  align = 'center',
-  dark = false,
+  align = 'left',
+  tone,
+  dark,
+  as: Component = 'h2',
   className,
-  as: Heading = 'h2',
 }: SectionHeadingProps) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Resolve dark vs light — support both 'tone' and legacy 'dark' prop
+  const isDark = tone === 'dark' || dark === true;
+  const shouldReduceMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
+    <div
+      ref={ref}
       className={cn(
-        'max-w-content',
-        align === 'center' ? 'mx-auto text-center' : 'text-left',
+        'flex flex-col gap-4 max-w-[68ch]',
+        align === 'center' ? 'mx-auto items-center text-center' : 'items-start text-left',
+        !shouldReduceMotion && !inView
+          ? 'opacity-0 translate-y-[14px]'
+          : 'opacity-100 translate-y-0',
+        !shouldReduceMotion &&
+          'transition-all duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
         className,
       )}
     >
-      {label && (
-        <p className={cn('eyebrow mb-3 sm:mb-4', dark ? 'text-brand-light' : 'text-brand-dark')}>{label}</p>
-      )}
-      <Heading className={cn('text-h2', dark ? 'text-white' : 'text-ink')}>{title}</Heading>
+      <Component
+        className={cn(
+          'font-display text-h2 font-bold leading-tight',
+          isDark ? 'text-text-hi' : 'text-ink-hi',
+        )}
+      >
+        {title}
+      </Component>
+
       {description && (
-        <p className={cn('mt-4 sm:mt-5 text-lead', dark ? 'text-slate-300' : 'text-muted')}>{description}</p>
+        <p
+          className={cn(
+            'text-body-lg leading-relaxed',
+            isDark ? 'text-text-lo' : 'text-ink-lo',
+          )}
+        >
+          {description}
+        </p>
       )}
-    </motion.div>
+    </div>
   );
 }

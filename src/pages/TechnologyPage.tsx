@@ -17,6 +17,7 @@ import {
   Thermometer,
   Volume2,
 } from 'lucide-react';
+import { InteractiveDemo } from '../components/sections/InteractiveDemo';
 import { AccessibleAccordion } from '../components/common/AccessibleAccordion';
 import { ProductImage } from '../components/common/ProductImage';
 import { PageHeader } from '../components/common/PageHeader';
@@ -136,6 +137,9 @@ export default function TechnologyPage() {
           </div>
         </div>
       </Section>
+
+      {/* Scripted interactive simulation — preserved feature, lives with the technology story. */}
+      <InteractiveDemo />
 
       {/* Local vs cloud */}
       <Section

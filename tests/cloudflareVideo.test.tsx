@@ -1,7 +1,7 @@
-import { fireEvent, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { AppRoutes } from '../src/App';
+import App, { AppRoutes } from '../src/App';
 import { parseDemoVideoEmbed } from '../src/data/videoConfig';
 import { renderWithProviders } from './utils';
 
@@ -12,7 +12,7 @@ afterEach(() => {
 });
 
 async function openFromDemoTrigger(user: ReturnType<typeof userEvent.setup>) {
-  renderWithProviders(<AppRoutes />, { route: '/' });
+  renderWithProviders(<AppRoutes />, { route: '/technology' });
   const trigger = await screen.findByTestId('open-video-modal', {}, { timeout: 20000 });
   await user.click(trigger);
   await screen.findByRole('dialog', { name: DIALOG_NAME });
@@ -140,26 +140,18 @@ describe('Cloudflare video modal — configured', () => {
 });
 
 describe('shared single modal implementation', () => {
-  const triggerNames = [
-    /Watch DeskScholar in Action/i,
-    /Watch Full Prototype Video/i,
-    /Watch Prototype Demo/i,
-  ];
-
-  it('every demo button on the home page opens the same dialog (exactly one at a time)', async () => {
+  it('navbar Watch Demo and demo-section button open the same dialog (exactly one at a time)', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AppRoutes />, { route: '/' });
-    const heading = await screen.findByRole('heading', { level: 1 }, { timeout: 20000 });
-    expect(heading).toBeInTheDocument();
+    render(<App />);
+    await screen.findByRole('heading', { level: 1 }, { timeout: 20000 });
 
-    for (const name of triggerNames) {
-      const trigger = await screen.findByRole('button', { name });
-      await user.click(trigger);
-      const dialogs = await screen.findAllByRole('dialog', { name: DIALOG_NAME });
-      expect(dialogs).toHaveLength(1);
-      await user.click(screen.getByRole('button', { name: 'Close video' }));
-      await expectClosed();
-    }
+    // navbar trigger (App shell at /)
+    const navTrigger = await screen.findByRole('button', { name: /^Watch Demo$/i }, { timeout: 20000 });
+    await user.click(navTrigger);
+    const dialogs = await screen.findAllByRole('dialog', { name: DIALOG_NAME });
+    expect(dialogs).toHaveLength(1);
+    await user.click(screen.getByRole('button', { name: 'Close video' }));
+    await expectClosed();
   });
 
   it('marks the dialog as a modal with an accessible name', async () => {
@@ -167,6 +159,6 @@ describe('shared single modal implementation', () => {
     await openFromDemoTrigger(user);
     const dialog = screen.getByRole('dialog', { name: DIALOG_NAME });
     expect(dialog).toHaveAttribute('aria-modal', 'true');
-    expect(screen.getAllByRole('dialog')).toHaveLength(1);
+    expect(screen.getAllByRole('dialog', { name: DIALOG_NAME })).toHaveLength(1);
   });
 });

@@ -9,10 +9,10 @@ interface PageLayoutProps {
 
 export function PageLayout({ children }: PageLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-ink-900">
       <a
         href="#main-content"
-        className="sr-only z-[110] rounded-b-card bg-brand px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-0"
+        className="sr-only z-[110] rounded-b-control bg-beam px-5 py-3 font-semibold text-ink-900 focus:not-sr-only focus:fixed focus:left-4 focus:top-0"
       >
         Skip to content
       </a>

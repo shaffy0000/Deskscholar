@@ -1,61 +1,41 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import { Play } from 'lucide-react';
-import { Button } from '../common/Button';
-import { Container } from '../common/Container';
-import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
+import React from 'react';
+import { Section } from '@/components/common/Section';
+import { Link } from 'react-router-dom';
 
-export function FinalCTA() {
-  const reduced = useReducedMotion();
-
+export const FinalCTA: React.FC = () => {
   return (
-    <section className="dark-section relative overflow-hidden bg-midnight py-16 md:py-20 xl:py-24" aria-labelledby="cta-heading">
-      <motion.div
-        className="projection-grid pointer-events-none absolute inset-0 opacity-30"
-        aria-hidden="true"
-        animate={reduced ? undefined : { backgroundPosition: ['0px 0px', '48px 48px'] }}
-        transition={reduced ? undefined : { duration: 16, repeat: Infinity, ease: 'linear' }}
-      />
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 h-56 w-[32rem] -translate-x-1/2 rounded-full bg-brand/15 blur-3xl"
-        aria-hidden="true"
-      />
-      <Container className="relative text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-          className="mx-auto max-w-3xl"
-        >
-          <p className="eyebrow text-brand-light">Join the journey</p>
-          {/* The one allowed violet→aqua gradient accent, limited to the major CTA. */}
-          <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-brand to-aqua" aria-hidden="true" />
-          <h2 id="cta-heading" className="mt-4 font-display text-h2 text-white">
-            The future of learning doesn’t need another screen.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lead text-slate-300 sm:mt-5">
-            Follow DeskScholar as we build an offline-first AI tutor for real desks, real classrooms, and
-            real students.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg" variant="dark" to="/contact">
-              Join Early Access
-            </Button>
-            <CloudflareVideoModal>
-              {({ open }) => (
-                <button
-                  type="button"
-                  onClick={open}
-                  className="inline-flex min-h-12 items-center gap-2 whitespace-nowrap rounded-full border border-dark-line bg-deep-navy px-6 text-sm font-semibold text-white transition-colors hover:border-brand-light/40 hover:text-brand-light sm:px-7"
-                >
-                  <Play className="h-4 w-4 text-aqua" aria-hidden="true" />
-                  Watch Prototype Demo
-                </button>
-              )}
-            </CloudflareVideoModal>
-          </div>
-        </motion.div>
-      </Container>
-    </section>
+    <Section
+      id="final-cta"
+      tone="dark"
+    >
+      <div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center py-12 md:py-24">
+        <h2 className="font-display text-[44px] md:text-[60px] leading-tight text-text-hi mb-6">
+          The future of learning doesn't need another screen.
+        </h2>
+        <p className="text-[18px] text-text-lo mb-10 max-w-2xl">
+          Follow DeskScholar as we build an offline-first AI tutor for real desks, real classrooms, and real students. Three editions — one idea.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+          <Link 
+            to="/contact" 
+            className="bg-beam text-ink-900 font-semibold px-8 py-4 rounded-[4px] hover:bg-opacity-90 transition-colors duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus:ring-2 focus:ring-beam focus:ring-offset-2 focus:ring-offset-ink-900"
+          >
+            Join Early Access
+          </Link>
+          <Link 
+            to="/editions" 
+            className="bg-transparent text-text-hi font-semibold px-8 py-4 rounded-[4px] border border-[rgba(255,255,255,0.07)] hover:bg-[rgba(255,255,255,0.05)] transition-colors duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus:ring-2 focus:ring-beam focus:ring-offset-2 focus:ring-offset-ink-900"
+          >
+            Explore Editions
+          </Link>
+        </div>
+        <p className="text-[12.5px] text-text-lo uppercase tracking-wider hidden">
+          {/* Prevent letterspaced-capitals eyebrows as per rules */}
+        </p>
+        <p className="text-[12.5px] text-text-lo">
+          Currently in prototype development.
+        </p>
+      </div>
+    </Section>
   );
-}
+};

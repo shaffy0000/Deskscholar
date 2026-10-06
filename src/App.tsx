@@ -8,6 +8,7 @@ import { ScrollToTop } from './components/common/ScrollToTop';
 import { PageLayout } from './components/layout/PageLayout';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
+const EditionsPage = lazy(() => import('./pages/EditionsPage'));
 const TechnologyPage = lazy(() => import('./pages/TechnologyPage'));
 const SchoolsPage = lazy(() => import('./pages/SchoolsPage'));
 const JourneyPage = lazy(() => import('./pages/JourneyPage'));
@@ -16,6 +17,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const SpecimenPage = lazy(() => import('./pages/SpecimenPage'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +31,7 @@ export function AppRoutes() {
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/editions" element={<EditionsPage />} />
         <Route path="/technology" element={<TechnologyPage />} />
         <Route path="/schools" element={<SchoolsPage />} />
         <Route path="/journey" element={<JourneyPage />} />
@@ -36,6 +39,7 @@ export function AppRoutes() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/specimen" element={<SpecimenPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>

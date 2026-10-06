@@ -3,24 +3,20 @@ export interface NavLink {
   to: string;
 }
 
-/** Primary navigation links (hash links point at home-page sections). */
 export const navLinks: NavLink[] = [
-  { label: 'Home', to: '/' },
-  { label: 'How It Works', to: '/#how-it-works' },
-  { label: 'Technology', to: '/technology' },
-  { label: 'For Schools', to: '/schools' },
-  { label: 'Our Journey', to: '/journey' },
-  { label: 'Team', to: '/team' },
+  { label: 'Product', to: '/' },
+  { label: 'How it works', to: '/#how-it-works' },
+  { label: 'Editions', to: '/editions' },
   { label: 'FAQ', to: '/#faq' },
 ];
 
-export const footerLinkGroups: Array<{ title: string; links: NavLink[] }> = [
+export const footerLinkGroups = [
   {
     title: 'Product',
     links: [
       { label: 'Home', to: '/' },
-      { label: 'How It Works', to: '/#how-it-works' },
-      { label: 'Interactive Demo', to: '/#demo' },
+      { label: 'How it works', to: '/#how-it-works' },
+      { label: 'Editions', to: '/editions' },
       { label: 'Technology', to: '/technology' },
     ],
   },

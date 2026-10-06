@@ -1,73 +1,73 @@
-import { motion } from 'framer-motion';
-import { CloudOff, SmartphoneNfc, Zap } from 'lucide-react';
-import { Section } from '../common/Section';
+import React, { useEffect, useRef } from 'react';
+import { Section } from '@/components/common/Section';
 
 const problems = [
   {
     number: '01',
-    icon: Zap,
     title: 'Answers without understanding',
-    description:
-      'Generic AI tools can generate answers quickly, but they do not always teach the reasoning needed for the next problem.',
+    description: 'Generic AI tools can generate answers quickly, but they do not always teach the reasoning needed for the next problem.',
   },
   {
     number: '02',
-    icon: SmartphoneNfc,
     title: 'The study-to-scroll trap',
-    description:
-      'Opening a phone for one question can turn into notifications, social media, and lost concentration.',
+    description: 'Opening a phone for one question can turn into notifications, social media, and lost concentration.',
   },
   {
     number: '03',
-    icon: CloudOff,
     title: 'Learning stops when Wi-Fi stops',
-    description:
-      'Cloud-only learning tools can become unreliable when connectivity is slow, expensive, or unavailable.',
+    description: 'Cloud-only learning tools can become unreliable when connectivity is slow, expensive, or unavailable.',
   },
 ];
 
-export function ProblemSection() {
+export const ProblemSection: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-[14px]');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const elements = containerRef.current?.querySelectorAll('.animate-on-scroll');
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <Section
-      tone="white"
-      labelledBy="problem-heading"
-      heading={{
-        label: 'The learning problem',
-        title: (
-          <span id="problem-heading">
-            Students don’t need another screen. They need a better way to understand.
-          </span>
-        ),
-        description:
-          'Most digital learning tools move students away from their books and into another app, another tab, and another stream of distractions.',
-      }}
-    >
-      <ul className="grid gap-4 md:grid-cols-3 md:gap-5">
-        {problems.map((problem, index) => {
-          const Icon = problem.icon;
-          return (
-            <motion.li
-              key={problem.number}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.07, ease: 'easeOut' }}
-              className="rounded-panel border border-line bg-ivory/60 p-6 transition-colors duration-300 hover:border-brand/40"
-            >
-              <div className="flex items-center justify-between">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-card bg-brand-light text-brand-dark">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span className="font-display text-xl font-bold text-line" aria-hidden="true">
-                  {problem.number}
-                </span>
+    <Section id="problem-section" tone="light">
+      <div ref={containerRef} className="max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
+        <h2 className="animate-on-scroll transition-all duration-[420ms] ease-out opacity-0 translate-y-[14px] font-display text-h2 md:text-h1 text-ink-hi mb-16 md:mb-24 max-w-[68ch]">
+          Students don't need another screen. They need a better way to understand.
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {problems.map((problem, index) => {
+            const isFirst = index === 0;
+            return (
+              <div
+                key={problem.number}
+                className={`animate-on-scroll transition-all duration-[420ms] ease-out opacity-0 translate-y-[14px] rounded-[10px] border border-[rgba(0,0,0,0.08)] bg-paper p-8 flex flex-col gap-4 ${
+                  isFirst ? 'lg:col-span-2' : 'lg:col-span-1'
+                }`}
+                style={{ transitionDelay: `${index * 60}ms` }}
+              >
+                <div className="text-sm font-sans text-ink-lo mb-4">{problem.number}</div>
+                <h3 className="font-display text-h3 text-ink-hi">{problem.title}</h3>
+                <p className="font-sans text-sm text-ink-lo max-w-[68ch]">{problem.description}</p>
               </div>
-              <h3 className="mt-5 font-display text-h3 text-ink">{problem.title}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-muted">{problem.description}</p>
-            </motion.li>
-          );
-        })}
-      </ul>
+            );
+          })}
+        </div>
+      </div>
     </Section>
   );
-}
+};

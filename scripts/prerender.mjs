@@ -52,6 +52,7 @@ function chunkFilesFor(srcKey) {
 
 const PAGE_MODULES = {
   home: 'src/pages/HomePage.tsx',
+  editions: 'src/pages/EditionsPage.tsx',
   technology: 'src/pages/TechnologyPage.tsx',
   schools: 'src/pages/SchoolsPage.tsx',
   journey: 'src/pages/JourneyPage.tsx',

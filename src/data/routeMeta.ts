@@ -15,9 +15,15 @@ export interface RouteMeta {
 export const routeMeta = {
   home: {
     path: '/',
-    title: 'DeskScholar | Offline-First AI Learning Companion',
+    title: 'DeskScholar | Offline-First AI Learning Companion — Three Editions',
     description:
-      'DeskScholar is an offline-first AI learning companion being designed for voice, worksheet understanding and projected guidance on real study desks.',
+      'DeskScholar is an offline-first AI learning companion in three editions — Connect, Hybrid and Independent — designed for voice, worksheet understanding and projected guidance on real study desks.',
+  },
+  editions: {
+    path: '/editions',
+    title: 'Editions — DeskScholar Connect, Hybrid & Independent',
+    description:
+      'Compare three DeskScholar editions: Connect for schools with reliable Wi-Fi, Hybrid for households wanting privacy, and Independent for homes with unreliable internet or no data relationship.',
   },
   technology: {
     path: '/technology',
@@ -60,6 +66,12 @@ export const routeMeta = {
     title: 'Terms of Use — DeskScholar',
     description:
       'Prototype-stage terms of use for the DeskScholar website: informational content, no product guarantees, acceptable use, intellectual property, and limitation of liability.',
+  },
+  specimen: {
+    path: '/specimen',
+    title: 'Design Specimen (Internal) — DeskScholar',
+    description: 'Internal design token and component specimen. Not for publication.',
+    noindex: true,
   },
   notFound: {
     path: '/404',
