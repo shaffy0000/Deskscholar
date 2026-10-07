@@ -1,73 +1,74 @@
-import React, { useEffect, useRef } from 'react';
-import { Section } from '@/components/common/Section';
+import { deskScholarImages, deskScholarImageSrcSets } from '../../data/assets';
+import '../../styles/sections.css';
 
-const problems = [
-  {
-    number: '01',
-    title: 'Answers without understanding',
-    description: 'Generic AI tools can generate answers quickly, but they do not always teach the reasoning needed for the next problem.',
-  },
-  {
-    number: '02',
-    title: 'The study-to-scroll trap',
-    description: 'Opening a phone for one question can turn into notifications, social media, and lost concentration.',
-  },
-  {
-    number: '03',
-    title: 'Learning stops when Wi-Fi stops',
-    description: 'Cloud-only learning tools can become unreliable when connectivity is slow, expensive, or unavailable.',
-  },
-];
-
-export const ProblemSection: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            entry.target.classList.remove('opacity-0', 'translate-y-[14px]');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    const elements = containerRef.current?.querySelectorAll('.animate-on-scroll');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
+/**
+ * Image-led editorial section — replaces the old heading + three generic cards.
+ * Desktop: large approved concept scene on one side; headline, short explanation
+ * and three rule-separated observations on the other. Mobile: headline → image →
+ * explanation → observations. Content is fully readable without any animation.
+ */
+export function ProblemSection() {
   return (
-    <Section id="problem-section" tone="light">
-      <div ref={containerRef} className="max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
-        <h2 className="animate-on-scroll transition-all duration-[420ms] ease-out opacity-0 translate-y-[14px] font-display text-h2 md:text-h1 text-ink-hi mb-16 md:mb-24 max-w-[68ch]">
-          Students don't need another screen. They need a better way to understand.
-        </h2>
+    <section className="pb" id="problem-section" aria-labelledby="problem-heading">
+      <div className="pb-inner">
+        <div className="pb-grid">
+          <h2 className="pb-h2" id="problem-heading">
+            Students don&rsquo;t need another screen.
+            <br />
+            They need a better way to understand.
+          </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {problems.map((problem, index) => {
-            const isFirst = index === 0;
-            return (
-              <div
-                key={problem.number}
-                className={`animate-on-scroll transition-all duration-[420ms] ease-out opacity-0 translate-y-[14px] rounded-[10px] border border-[rgba(0,0,0,0.08)] bg-paper p-8 flex flex-col gap-4 ${
-                  isFirst ? 'lg:col-span-2' : 'lg:col-span-1'
-                }`}
-                style={{ transitionDelay: `${index * 60}ms` }}
-              >
-                <div className="text-sm font-sans text-ink-lo mb-4">{problem.number}</div>
-                <h3 className="font-display text-h3 text-ink-hi">{problem.title}</h3>
-                <p className="font-sans text-sm text-ink-lo max-w-[68ch]">{problem.description}</p>
-              </div>
-            );
-          })}
+          <figure className="pb-media">
+            <div className="pb-frame">
+              <span className="pb-tag">Concept image</span>
+              <img
+                src={deskScholarImages.projectionCloseup}
+                srcSet={deskScholarImageSrcSets.projectionCloseup}
+                sizes="(min-width: 1024px) 54vw, calc(100vw - 40px)"
+                alt="The DeskScholar unit at a study desk projecting fraction guidance onto an open mathematics worksheet."
+                loading="lazy"
+                decoding="async"
+                width={2000}
+                height={1244}
+              />
+            </div>
+            <figcaption className="pb-caption">
+              Concept scenario — guidance projected onto the worksheet the student is already reading.
+            </figcaption>
+          </figure>
+
+          <p className="pb-explain">
+            A generic chatbot hands back an answer. A phone turns one question into a feed.
+            DeskScholar is planned to keep the student on the page: reading the real worksheet,
+            hearing the real question, and projecting the next step where the pen already is.
+          </p>
+
+          <ul className="pb-points">
+            <li>
+              <h3>The method, not just the answer</h3>
+              <p>
+                Guidance is planned to arrive step by step — hints and reasoning first — so the
+                next problem can be solved without help.
+              </p>
+            </li>
+            <li>
+              <h3>Eyes on the physical page</h3>
+              <p>
+                The work stays on paper. No feed, no notifications, and no second screen between
+                the question and the understanding.
+              </p>
+            </li>
+            <li>
+              <h3>An edition that fits the connection</h3>
+              <p>
+                Offline capability differs by edition: Independent learns with no internet at all,
+                Hybrid reads and checks offline but needs a connection for new explanations, and
+                Connect requires steady internet.
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
-    </Section>
+    </section>
   );
-};
+}

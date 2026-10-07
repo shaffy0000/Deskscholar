@@ -96,11 +96,11 @@ export function ProductImage({
             <span className="relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-dark-line bg-deep-navy">
               <ImageIcon className="h-5 w-5 text-brand" aria-hidden="true" />
             </span>
-            <p className="relative mt-1 font-display text-sm font-semibold text-white">
+            <p className="relative mt-1 font-display text-sm font-semibold text-text-hi">
               {fallbackLabel ?? alt}
             </p>
             {fallbackDimensions && (
-              <p className="relative text-xs text-slate-400">Recommended: {fallbackDimensions}</p>
+              <p className="relative text-xs text-text-lo">Recommended: {fallbackDimensions}</p>
             )}
           </div>
         )}

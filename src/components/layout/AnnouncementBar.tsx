@@ -10,17 +10,17 @@ export function AnnouncementBar() {
           aria-hidden="true"
         />
         <span className="text-text-lo">
-          <span className="sm:hidden">DeskScholar is in development — early access is open.</span>
+          <span className="sm:hidden">DeskScholar is in prototype development.</span>
           <span className="hidden sm:inline">
-            DeskScholar is currently in development — early access registrations are now open.
+            DeskScholar is in prototype development — join the waitlist to follow the build.
           </span>
         </span>
         <Link
-          to="/journey"
+          to="/contact"
           className="inline-flex min-h-[28px] shrink-0 items-center gap-1 font-semibold text-beam underline-offset-4 transition-colors duration-micro ease-io hover:underline"
         >
-          <span className="hidden sm:inline">Follow the journey</span>
-          <span className="sm:hidden">Journey</span>
+          <span className="hidden sm:inline">Join the waitlist</span>
+          <span className="sm:hidden">Waitlist</span>
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </div>

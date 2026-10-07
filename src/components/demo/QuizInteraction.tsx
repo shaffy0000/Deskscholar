@@ -15,10 +15,10 @@ export function QuizInteraction({ active }: QuizInteractionProps) {
     <div className="w-full max-w-md" data-testid="quiz-interaction">
       <div className="rounded-panel border border-dark-line bg-deep-navy p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
-          <p className="font-display text-xs font-semibold uppercase tracking-widest text-brand-light">Revision quiz</p>
-          <p className="text-xs font-semibold text-slate-400">Question 1 of 3</p>
+          <p className="font-display text-xs font-semibold uppercase tracking-widest text-[var(--beam)]">Revision quiz</p>
+          <p className="text-xs font-semibold text-text-lo">Question 1 of 3</p>
         </div>
-        <h4 className="mt-3 font-display text-lg font-semibold text-white">{quizQuestion}</h4>
+        <h4 className="mt-3 font-display text-lg font-semibold text-text-hi">{quizQuestion}</h4>
         <div className="mt-4 grid gap-2 sm:grid-cols-2" role="group" aria-label="Quiz answer options">
           {quizOptions.map((option) => {
             const isSelected = selected === option.id;
@@ -34,12 +34,12 @@ export function QuizInteraction({ active }: QuizInteractionProps) {
                   'min-h-11 rounded-card border px-4 py-3 text-left text-sm font-semibold transition-colors',
                   'disabled:cursor-not-allowed disabled:opacity-50',
                   state === 'correct'
-                    ? 'border-success bg-success/20 text-white'
+                    ? 'border-success/40 bg-success/10 text-success'
                     : state === 'incorrect'
-                      ? 'border-danger bg-danger/15 text-white'
+                      ? 'border-danger/40 bg-danger/10 text-danger'
                       : state === 'dimmed'
-                        ? 'border-dark-line bg-midnight text-slate-400'
-                        : 'border-dark-line bg-midnight text-white hover:border-brand hover:text-brand-light',
+                        ? 'border-dark-line bg-midnight text-text-lo'
+                        : 'border-dark-line bg-midnight text-text-hi hover:border-brand hover:text-[var(--beam)]',
                 ].join(' ')}
               >
                 {option.label}

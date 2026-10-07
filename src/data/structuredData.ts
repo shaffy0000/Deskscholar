@@ -1,9 +1,9 @@
-import { homeFaqs } from './faq.ts';
+import { faqs } from './faq.ts';
 
 /**
  * JSON-LD blocks, generated from visible page content only.
- * Used by the client (HomePage) and by scripts/prerender.mjs so the
- * initial server HTML already contains valid structured data.
+ * Used by the client and by scripts/prerender.mjs so the initial server HTML
+ * already contains valid structured data.
  * No ratings, pricing, availability or launch claims — none exist.
  */
 export function buildStructuredData(siteUrl: string) {
@@ -37,10 +37,16 @@ export function buildStructuredData(siteUrl: string) {
       url: `${siteUrl}/`,
       inLanguage: 'en',
     },
+  ];
+}
+
+/** FAQPage schema — published on the dedicated /faq route, matching its visible content. */
+export function buildFaqStructuredData() {
+  return [
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: homeFaqs.map((faq) => ({
+      mainEntity: faqs.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
         acceptedAnswer: { '@type': 'Answer', text: faq.answer },

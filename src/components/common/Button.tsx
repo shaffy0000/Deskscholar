@@ -37,7 +37,7 @@ export function Button({
     size === 'md' ? 'h-10 px-4 text-sm' : 'h-12 px-6 text-body',
     resolved === 'primary'
       ? 'bg-beam text-ink-900 hover:brightness-110'
-      : 'bg-transparent border border-[rgba(255,255,255,0.07)] text-text-hi hover:border-[rgba(255,255,255,0.15)]',
+      : 'bg-transparent border border-[var(--hairline-dark)] text-text-hi hover:border-[var(--hairline-strong)]',
     disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
     className,
   );

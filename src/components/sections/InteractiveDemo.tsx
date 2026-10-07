@@ -120,7 +120,7 @@ export function InteractiveDemo() {
               status={scenario.status}
               toolbar={
                 scenario.id === 'quiz' ? (
-                  <span className="rounded-full border border-dark-line bg-deep-navy px-3 py-1 text-xs font-semibold text-slate-300">
+                  <span className="rounded-full border border-dark-line bg-deep-navy px-3 py-1 text-xs font-semibold text-text-hi">
                     Question 1 of 3
                   </span>
                 ) : undefined
@@ -148,7 +148,7 @@ export function InteractiveDemo() {
                 type="button"
                 onClick={open}
                 data-testid="open-video-modal"
-                className="inline-flex min-h-12 items-center gap-2.5 rounded-full bg-midnight px-6 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-deep-navy sm:px-7"
+                className="inline-flex min-h-12 items-center gap-2.5 rounded-full bg-[var(--ink-deep)] px-6 text-sm font-semibold text-white shadow-[var(--shadow-card)] transition-colors hover:bg-[#0F1F1C] sm:px-7"
               >
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand">
                   <Play className="ml-0.5 h-4 w-4 text-white" aria-hidden="true" />

@@ -57,7 +57,7 @@ export function AccessibleAccordion({ items, dark = false, ariaLabel = 'Frequent
                 onKeyDown={(event) => onKeyDown(event, index)}
                 className={cn(
                   'flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-display text-[15px] font-semibold transition-colors sm:px-6 sm:text-base',
-                  dark ? 'text-white hover:text-brand-light' : 'text-ink hover:text-brand-dark',
+                  dark ? 'text-white hover:text-[var(--beam)]' : 'text-ink hover:text-brand-dark',
                 )}
               >
                 {item.question}
@@ -66,7 +66,7 @@ export function AccessibleAccordion({ items, dark = false, ariaLabel = 'Frequent
                   className={cn(
                     'h-5 w-5 shrink-0 transition-transform duration-200',
                     open && 'rotate-180',
-                    dark ? 'text-brand-light' : 'text-brand-dark',
+                    dark ? 'text-[var(--beam)]' : 'text-brand-dark',
                   )}
                 />
               </button>
@@ -83,7 +83,7 @@ export function AccessibleAccordion({ items, dark = false, ariaLabel = 'Frequent
                   transition={{ duration: 0.25, ease: 'easeOut' }}
                   className="overflow-hidden"
                 >
-                  <p className={cn('px-5 pb-5 text-sm leading-relaxed sm:px-6 sm:text-base', dark ? 'text-slate-300' : 'text-muted')}>
+                  <p className={cn('px-5 pb-5 text-sm leading-relaxed sm:px-6 sm:text-base', dark ? 'text-text-hi' : 'text-muted')}>
                     {item.answer}
                   </p>
                 </motion.div>

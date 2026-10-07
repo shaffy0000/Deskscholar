@@ -1,11 +1,8 @@
 import { Hero } from '../components/sections/Hero';
 import { ProblemSection } from '../components/sections/ProblemSection';
-import { HowItWorks } from '../components/sections/HowItWorks';
-import { FeaturesGrid } from '../components/sections/FeaturesGrid';
-import { ComparisonSection } from '../components/sections/ComparisonSection';
+import { InteractiveWalkthrough } from '../components/sections/InteractiveWalkthrough';
 import { EditionsSection } from '../components/sections/EditionsSection';
 import { AudienceSection } from '../components/sections/AudienceSection';
-import { FAQSection } from '../components/sections/FAQSection';
 import { FinalCTA } from '../components/sections/FinalCTA';
 import { Seo } from '../components/common/Seo';
 import { Helmet } from 'react-helmet-async';
@@ -13,18 +10,15 @@ import { buildStructuredData } from '../data/structuredData';
 import { SITE_URL } from '../data/site';
 
 /**
- * Home page — section order per the brief:
- * 1. Hero (full-bleed image)
- * 2. The learning problem (light, statement + cards)
- * 3. How it works (dark, step rail + image)
- * 4. Capabilities (light, bento grid)
- * 5. Why a device (dark, comparison table)
- * 6. Three editions, one idea (dark, connectivity selector) — NEW
- * 7. Who it is for (light, audience cards)
- * 8. FAQ (dark, native details/summary)
- * 9. Final CTA (dark, statement block)
- *
- * No two consecutive sections share a layout ✓
+ * Home page — concise and visual:
+ * 1. Product hero
+ * 2. Image-led learning-problem section
+ * 3. Planned learning demonstration (#planned-experience)
+ * 4. Three-edition image-led spotlight (#editions-preview)
+ * 5. Compact intended-audience content
+ * 6. One development-waitlist CTA
+ * The detailed comparison lives on /editions; FAQs live on /faq.
+ * No prices are published anywhere.
  */
 export default function HomePage() {
   return (
@@ -39,12 +33,9 @@ export default function HomePage() {
       </Helmet>
       <Hero />
       <ProblemSection />
-      <HowItWorks />
-      <FeaturesGrid />
-      <ComparisonSection />
+      <InteractiveWalkthrough />
       <EditionsSection />
       <AudienceSection />
-      <FAQSection />
       <FinalCTA />
     </>
   );

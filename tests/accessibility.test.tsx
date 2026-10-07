@@ -7,7 +7,7 @@ import { renderWithProviders } from './utils';
 describe('FAQ native disclosures', () => {
   it('expands and collapses via click with visible focus on summary', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AppRoutes />, { route: '/' });
+    renderWithProviders(<AppRoutes />, { route: '/faq' });
 
     const summary = (
       await screen.findByText(/Does it work without the internet\?/i, {}, { timeout: 20000 })

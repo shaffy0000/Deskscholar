@@ -29,7 +29,7 @@ export const routeMeta = {
     path: '/technology',
     title: 'Technology — DeskScholar',
     description:
-      'Explore the offline-first architecture behind DeskScholar: local speech recognition, local OCR, on-device tutoring, optional cloud reasoning, privacy principles, and prototype hardware.',
+      'How DeskScholar reads the page, understands the question and projects guidance — and how the pipeline differs across the Connect, Hybrid and Independent editions.',
   },
   schools: {
     path: '/schools',
@@ -41,7 +41,7 @@ export const routeMeta = {
     path: '/journey',
     title: 'Our Journey — DeskScholar',
     description:
-      'DeskScholar is a product-focused final-year engineering project. Follow the development timeline, prototype gallery, and planned evaluation areas.',
+      'How DeskScholar grew from a final-year engineering project into an early-stage learning product. Follow the development timeline, prototype gallery, and planned evaluation areas.',
   },
   team: {
     path: '/team',
@@ -54,6 +54,12 @@ export const routeMeta = {
     title: 'Contact — DeskScholar',
     description:
       'Join DeskScholar early access, express interest in prototype testing, or contact the team about education, research, hardware, product, and investment collaboration.',
+  },
+  faq: {
+    path: '/faq',
+    title: 'FAQ — DeskScholar',
+    description:
+      'Answers about the three planned DeskScholar editions: offline capability, privacy, subscriptions, languages, prototype status, school testing and availability.',
   },
   privacy: {
     path: '/privacy',
@@ -71,6 +77,12 @@ export const routeMeta = {
     path: '/specimen',
     title: 'Design Specimen (Internal) — DeskScholar',
     description: 'Internal design token and component specimen. Not for publication.',
+    noindex: true,
+  },
+  proposal: {
+    path: '/proposal',
+    title: 'Redesign Proposal v1 (Internal) — DeskScholar',
+    description: 'Internal redesign proposal — desktop hero, mobile hero, tokens and one representative section. Not for publication.',
     noindex: true,
   },
   notFound: {

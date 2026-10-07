@@ -1,41 +1,39 @@
-import React from 'react';
-import { Section } from '@/components/common/Section';
 import { Link } from 'react-router-dom';
+import { Section } from '@/components/common/Section';
 
-export const FinalCTA: React.FC = () => {
+/**
+ * The single development-waitlist CTA closing the home page.
+ * Compact — no stacked paddings, no oversized headline.
+ */
+export function FinalCTA() {
   return (
-    <Section
-      id="final-cta"
-      tone="dark"
-    >
-      <div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center py-12 md:py-24">
-        <h2 className="font-display text-[44px] md:text-[60px] leading-tight text-text-hi mb-6">
-          The future of learning doesn't need another screen.
+    <Section id="final-cta" tone="light" bordered>
+      <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+        <h2 className="font-display text-h2 font-bold text-ink-hi">
+          The future of learning doesn&rsquo;t need another screen.
         </h2>
-        <p className="text-[18px] text-text-lo mb-10 max-w-2xl">
-          Follow DeskScholar as we build an offline-first AI tutor for real desks, real classrooms, and real students. Three editions — one idea.
+        <p className="mt-[var(--gap-head-intro)] max-w-xl text-body-lg leading-relaxed text-ink-lo">
+          Follow DeskScholar as we build an offline-first AI tutor for real desks, real classrooms,
+          and real students. Three editions — one idea.
         </p>
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
-          <Link 
-            to="/contact" 
-            className="bg-beam text-ink-900 font-semibold px-8 py-4 rounded-[4px] hover:bg-opacity-90 transition-colors duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus:ring-2 focus:ring-beam focus:ring-offset-2 focus:ring-offset-ink-900"
+        <div className="mt-[var(--gap-intro-body)] flex flex-col items-center gap-4 sm:flex-row">
+          <Link
+            to="/contact"
+            className="inline-flex h-12 items-center justify-center rounded-control bg-beam px-7 text-[15px] font-semibold text-white transition-colors duration-micro ease-io hover:bg-[var(--beam-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beam"
           >
-            Join Early Access
+            Join the waitlist
           </Link>
-          <Link 
-            to="/editions" 
-            className="bg-transparent text-text-hi font-semibold px-8 py-4 rounded-[4px] border border-[rgba(255,255,255,0.07)] hover:bg-[rgba(255,255,255,0.05)] transition-colors duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus:ring-2 focus:ring-beam focus:ring-offset-2 focus:ring-offset-ink-900"
+          <Link
+            to="/editions"
+            className="inline-flex h-12 items-center justify-center rounded-control border border-[rgba(0,0,0,0.14)] px-7 text-[15px] font-semibold text-ink-hi transition-colors duration-micro ease-io hover:border-beam hover:text-beam focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beam"
           >
-            Explore Editions
+            Explore editions
           </Link>
         </div>
-        <p className="text-[12.5px] text-text-lo uppercase tracking-wider hidden">
-          {/* Prevent letterspaced-capitals eyebrows as per rules */}
-        </p>
-        <p className="text-[12.5px] text-text-lo">
+        <p className="mt-[var(--gap-related)] text-[12.5px] text-ink-lo">
           Currently in prototype development.
         </p>
       </div>
     </Section>
   );
-};
+}

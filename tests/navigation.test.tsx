@@ -58,7 +58,7 @@ describe('mobile navigation', () => {
     render(<App />);
     await screen.findByTestId('mobile-nav-open', {}, { timeout: LAZY_TIMEOUT });
     expect(screen.getByRole('navigation', { name: 'Main' })).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: 'Join Early Access' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: 'Join the waitlist' }).length).toBeGreaterThan(0);
   });
 
   it('keeps the closed drawer out of the tab order (inert)', async () => {

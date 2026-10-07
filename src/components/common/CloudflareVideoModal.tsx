@@ -49,7 +49,7 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
       <Modal open={open} onClose={close} labelledBy={titleId} panelClassName="max-w-[1100px]">
         <div className="mx-auto flex w-full max-w-[1100px] flex-col overflow-hidden rounded-panel border border-dark-line bg-midnight shadow-2xl">
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
-            <h2 id={titleId} className="font-display text-sm font-semibold text-white sm:text-base">
+            <h2 id={titleId} className="font-display text-sm font-semibold text-text-hi sm:text-base">
               DeskScholar prototype demonstration
             </h2>
             <div className="flex items-center gap-3">
@@ -60,7 +60,7 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
                 type="button"
                 onClick={close}
                 aria-label="Close video"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-slate-300 transition hover:bg-deep-navy hover:text-white"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-text-hi transition hover:bg-deep-navy hover:text-white"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -102,7 +102,7 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
                       }`}
                     >
                       <Play
-                        className={`ml-1 h-7 w-7 ${embed.ready ? 'text-white' : 'text-slate-500'}`}
+                        className={`ml-1 h-7 w-7 ${embed.ready ? 'text-white' : 'text-text-lo'}`}
                         aria-hidden="true"
                       />
                     </span>
@@ -111,7 +111,7 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
                     <div className="pointer-events-none absolute inset-x-3 bottom-3 flex justify-center">
                       <p
                         role="status"
-                        className="rounded-full border border-dark-line bg-midnight/90 px-4 py-2 text-center text-xs font-medium text-slate-200 sm:text-sm"
+                        className="rounded-full border border-dark-line bg-midnight/90 px-4 py-2 text-center text-xs font-medium text-text-hi sm:text-sm"
                       >
                         Prototype video is being prepared. Please check back shortly.
                       </p>

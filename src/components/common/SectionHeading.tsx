@@ -54,7 +54,7 @@ export function SectionHeading({
     <div
       ref={ref}
       className={cn(
-        'flex flex-col gap-4 max-w-[68ch]',
+        'flex flex-col gap-[var(--gap-head-intro)] max-w-[68ch]',
         align === 'center' ? 'mx-auto items-center text-center' : 'items-start text-left',
         !shouldReduceMotion && !inView
           ? 'opacity-0 translate-y-[14px]'

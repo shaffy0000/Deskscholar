@@ -264,11 +264,11 @@ export default function JourneyPage() {
           />
         </div>
 
-        <div className="mt-14 rounded-hero bg-midnight p-8 text-center dark-section md:mt-16 md:p-12">
-          <h2 className="font-display text-h3 text-white">
+        <div className="mt-14 rounded-hero border border-[var(--hairline-dark)] bg-[var(--surface-2)] p-8 text-center md:mt-16 md:p-12">
+          <h2 className="font-display text-h3 text-text-hi">
             Interested in research, education, hardware, or product collaboration?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-300">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-text-hi">
             We welcome conversations with educators, researchers, hardware engineers, product designers,
             and early-stage supporters.
           </p>

@@ -10,7 +10,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { routeMeta, INDEXABLE_ROUTES } from '../src/data/routeMeta.ts';
-import { buildStructuredData } from '../src/data/structuredData.ts';
+import { buildStructuredData, buildFaqStructuredData } from '../src/data/structuredData.ts';
 
 const SITE_URL = (process.env.VITE_SITE_URL || '').trim() || 'https://www.deskscholar.com';
 const PLACEHOLDER = SITE_URL.includes('example.com');
@@ -58,6 +58,7 @@ const PAGE_MODULES = {
   journey: 'src/pages/JourneyPage.tsx',
   team: 'src/pages/TeamPage.tsx',
   contact: 'src/pages/ContactPage.tsx',
+  faq: 'src/pages/FaqPage.tsx',
   privacy: 'src/pages/PrivacyPage.tsx',
   terms: 'src/pages/TermsPage.tsx',
 };
@@ -106,15 +107,13 @@ function headMeta(meta) {
   return tags;
 }
 
-function renderPage(meta, withJsonLd, pageKey) {
-  const jsonLd = withJsonLd
-    ? buildStructuredData(SITE_URL)
-        .map(
-          (s) =>
-            `<script type="application/ld+json" data-rh="true">${JSON.stringify(s).replace(/</g, '\\u003c')}</script>`,
-        )
-        .join('\n    ')
-    : '';
+function renderPage(meta, jsonLdBlocks, pageKey) {
+  const jsonLd = (jsonLdBlocks || [])
+    .map(
+      (s) =>
+        `<script type="application/ld+json" data-rh="true">${JSON.stringify(s).replace(/</g, '\\u003c')}</script>`,
+    )
+    .join('\n    ');
   const preloads = pageKey ? routePreloads(pageKey) : '';
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(meta.title)}</title>`)
@@ -129,7 +128,9 @@ for (const [key, meta] of Object.entries(routeMeta)) {
   if (meta.noindex) continue;
   const outDir = meta.path === '/' ? dist : join(dist, meta.path.replace(/^\//, ''));
   mkdirSync(outDir, { recursive: true });
-  writeFileSync(join(outDir, 'index.html'), renderPage(meta, key === 'home', PAGE_MODULES[key]));
+  const jsonLd =
+    key === 'home' ? buildStructuredData(SITE_URL) : key === 'faq' ? buildFaqStructuredData() : null;
+  writeFileSync(join(outDir, 'index.html'), renderPage(meta, jsonLd, PAGE_MODULES[key]));
   count++;
 }
 

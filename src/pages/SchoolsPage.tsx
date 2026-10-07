@@ -190,7 +190,7 @@ export default function SchoolsPage() {
               )}
             >
               <ShieldCheck className="mt-0.5 h-[18px] w-[18px] shrink-0 text-aqua" aria-hidden="true" />
-              <span className="text-sm leading-relaxed text-slate-200">{principle}</span>
+              <span className="text-sm leading-relaxed text-text-hi">{principle}</span>
             </motion.li>
           ))}
         </ul>
@@ -198,7 +198,7 @@ export default function SchoolsPage() {
 
       {/* Pilot interest form */}
       <Section id="pilot-interest" anchor ariaLabel="School pilot interest">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-hero bg-midnight shadow-2xl dark-section">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-hero border border-[var(--hairline-dark)] bg-[var(--surface-2)] shadow-[var(--shadow-card)]">
           <div className="grid lg:grid-cols-[1fr_1.2fr]">
             <div className="relative p-8 sm:p-10">
               <div className="projection-grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
@@ -206,16 +206,16 @@ export default function SchoolsPage() {
                 <StatusBadge tone="dark" dot pulse>
                   Pilot interest
                 </StatusBadge>
-                <h2 id="pilot-heading" className="mt-5 font-display text-h3 text-white">
+                <h2 id="pilot-heading" className="mt-5 font-display text-h3 text-text-hi">
                   Interested in future prototype testing?
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                <p className="mt-4 text-sm leading-relaxed text-text-hi">
                   DeskScholar has not been deployed in any school yet. This form registers interest only —
                   the team will reach out when pilot testing begins.
                 </p>
                 <ul className="mt-6 space-y-3">
                   {['Classrooms', 'Libraries', 'Labs', 'Shared study spaces'].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-slate-200">
+                    <li key={item} className="flex items-center gap-3 text-sm text-text-hi">
                       <SlidersHorizontal className="h-4 w-4 shrink-0 text-aqua" aria-hidden="true" />
                       {item}
                     </li>

@@ -4,8 +4,8 @@
   "description": "Offline-first AI learning companion prototype.",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#081321",
-  "background_color": "#FAF7F2",
+  "theme_color": "#176B5B",
+  "background_color": "#F7F6F2",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

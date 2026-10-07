@@ -4,12 +4,16 @@ export interface FaqItem {
   answer: string;
 }
 
-export const homeFaqs: FaqItem[] = [
+/**
+ * General FAQs — published on the dedicated /faq route.
+ * No monetary figures anywhere; subscription facts are stated briefly.
+ */
+export const faqs: FaqItem[] = [
   {
     id: 'what-is',
     question: 'What is DeskScholar?',
     answer:
-      'DeskScholar is an offline-first AI learning companion designed for physical desk-based study. It is being built to see books, worksheets, and handwriting through a desk-facing camera, understand spoken questions, and project step-by-step guidance directly onto the workspace. It is currently a product-focused prototype in development.',
+      'DeskScholar is an offline-first AI learning companion designed for physical desk-based study. It is being built to see books, worksheets, and handwriting through a desk-facing camera, understand spoken questions, and project step-by-step guidance directly onto the workspace. It is currently a product-focused prototype in development by an early-stage team.',
   },
   {
     id: 'offline',
@@ -33,19 +37,19 @@ export const homeFaqs: FaqItem[] = [
     id: 'finished',
     question: 'Is it a finished product?',
     answer:
-      'Not yet. DeskScholar is currently in prototype development as a product-focused final-year engineering project. Capabilities described on this website are planned or in progress, and final specifications may change during testing.',
+      'Not yet. DeskScholar is in prototype development by an early-stage EdTech hardware team. Capabilities described on this website are planned or in progress, and final specifications may change during testing.',
   },
   {
     id: 'subscription',
     question: 'Will it require a subscription?',
     answer:
-      'Two editions plan a monthly subscription because they depend on servers that cost money to run every month. DeskScholar Connect plans around PKR 2,500 per month, and DeskScholar Hybrid plans around PKR 1,000 per month. DeskScholar Independent plans no required subscription because it depends on nothing — an optional companion plan at around PKR 500 per month is planned for curriculum packs and the parent dashboard. All figures are planned and indicative for a product still in development.',
+      'DeskScholar Connect and DeskScholar Hybrid are planned to require a subscription because they depend on servers that cost money to run. DeskScholar Independent is planned to need no required subscription because everything happens on the device. Figures are not published while the product is still in development.',
   },
   {
     id: 'which-edition',
     question: 'Which edition should I choose?',
     answer:
-      'Start with connectivity. If your internet is unreliable or absent, Independent is the clear choice — it works with no connection at all. If privacy matters most and you have a connection most evenings, Hybrid keeps images on the device and sends only text. If you are equipping a school or tuition centre with reliable Wi-Fi and want the strongest answers on unusual questions, Connect is built for that. Budget is the third consideration: Independent carries no required subscription, Hybrid plans around PKR 1,000 per month, and Connect plans around PKR 2,500 per month. All pricing is planned and indicative.',
+      'Start with connectivity. If your internet is unreliable or absent, Independent is the clear choice — it works with no connection at all. If image privacy matters most and you have a connection most evenings, Hybrid keeps images on the device and sends only text. If you are equipping a school or tuition centre with reliable Wi-Fi and want the strongest answers on unusual questions, Connect is built for that.',
   },
   {
     id: 'data',
@@ -78,43 +82,43 @@ export const technologyFaqs: FaqItem[] = [
     id: 'local-models',
     question: 'Which AI models run locally?',
     answer:
-      'The architecture targets compact on-device models for speech recognition, text-to-speech, OCR, and everyday tutoring, sized to run on the built-in compute module. Specific models are still being evaluated during prototype testing.',
+      'The architecture targets compact on-device models for speech recognition, text-to-speech, OCR, and everyday tutoring on Hybrid and Independent, sized to run on the built-in compute module. Specific models are still being evaluated during prototype testing.',
   },
   {
     id: 'offline-mode',
     question: 'What exactly works in offline mode?',
     answer:
-      'The planned offline core covers wake-word detection, speech recognition, worksheet OCR, everyday step-by-step tutoring, curriculum-grounded retrieval from stored materials, voice output, and projection. Only complex multi-step reasoning is designed to optionally use the cloud.',
+      'It depends on the edition. Independent is designed to run the full learning loop on the device with no network. Hybrid is planned to keep reading the page, checking working and reading stored material aloud offline, but cannot compose new explanations without a connection. Connect requires a steady connection for all learning features.',
   },
   {
     id: 'ocr',
     question: 'How does worksheet and handwriting recognition work?',
     answer:
-      'The desk-facing camera captures the page, and local OCR is designed to read printed questions, diagrams, and handwritten solutions. Recognition runs on the device so student work does not need to leave the desk for everyday use.',
+      'The desk-facing camera captures the page, and OCR is designed to read printed questions, diagrams, and handwritten solutions. On Hybrid and Independent, recognition runs on the device; on Connect, the captured page is understood on our servers.',
   },
   {
     id: 'voice',
     question: 'Is voice processing done on the device?',
     answer:
-      'Yes — local speech recognition and local text-to-speech are core design goals, so spoken questions and spoken explanations are planned to be processed and generated on the device itself.',
+      'Local speech recognition and local text-to-speech are core design goals for Hybrid and Independent, so spoken questions and spoken explanations are planned to be processed and generated on the device itself. Connect plans the same desk-side voice experience with understanding handled on our servers.',
   },
   {
     id: 'escalation',
     question: 'When does a question go to the cloud?',
     answer:
-      'Only when local confidence is low for a difficult question, and only within the planned parent-approved privacy mode. The device indicates clearly when optional cloud reasoning is being used, and voice and projection stay local.',
+      'It depends on the edition. On Connect, questions are composed on our servers by design, and the device clearly depends on that connection. On Hybrid, only the text extracted from the page is sent when a new explanation is needed — never images. On Independent, nothing is ever sent anywhere.',
   },
   {
     id: 'updates',
     question: 'How will the device receive updates?',
     answer:
-      'Software and model updates are planned to be optional and delivered over the network when available. Core offline capability is a design requirement, so updates should never be mandatory for everyday learning.',
+      'Software and model updates are planned to be optional and delivered over the network when available. Core offline capability on Hybrid and Independent is a design requirement, so updates should never be mandatory for everyday learning.',
   },
   {
     id: 'privacy',
     question: 'How is student privacy protected?',
     answer:
-      'Local processing where practical, minimal data transfer, clear cloud indicators, a planned parent-controlled privacy mode, and no mandatory account for basic offline use. No hidden cloud processing is claimed anywhere in the design.',
+      'Local processing where practical, minimal data transfer, clear indicators of where work is processed, a planned parent-controlled privacy mode, and no mandatory account for Independent. No hidden cloud processing is claimed anywhere in the design.',
   },
   {
     id: 'prototype-hardware',

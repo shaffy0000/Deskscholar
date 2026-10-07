@@ -3,31 +3,65 @@ export interface NavLink {
   to: string;
 }
 
+export interface ProductMenuEntry extends NavLink {
+  description: string;
+}
+
+/** Top navigation (Product is a disclosure panel in the Navbar). FAQ links to the dedicated /faq route. */
 export const navLinks: NavLink[] = [
-  { label: 'Product', to: '/' },
-  { label: 'How it works', to: '/#how-it-works' },
   { label: 'Editions', to: '/editions' },
-  { label: 'FAQ', to: '/#faq' },
+  { label: 'Our story', to: '/journey' },
+  { label: 'FAQ', to: '/faq' },
 ];
 
-export const footerLinkGroups = [
+/** Entries inside the Product disclosure panel — experience pages only, not a nav duplicate. */
+export const productMenu: ProductMenuEntry[] = [
+  {
+    label: 'Planned experience',
+    description: 'See the planned learning loop, step by step.',
+    to: '/#planned-experience',
+  },
+  {
+    label: 'Technology',
+    description: 'How reading, understanding and projection are planned to work.',
+    to: '/technology',
+  },
+  {
+    label: 'For Schools',
+    description: 'Pilot interest for classrooms and tuition centres.',
+    to: '/schools',
+  },
+];
+
+export const footerLinkGroups: Array<{ title: string; links: NavLink[] }> = [
   {
     title: 'Product',
     links: [
-      { label: 'Home', to: '/' },
-      { label: 'How it works', to: '/#how-it-works' },
+      { label: 'Overview', to: '/' },
+      { label: 'Planned experience', to: '/#planned-experience' },
       { label: 'Editions', to: '/editions' },
       { label: 'Technology', to: '/technology' },
+      { label: 'For Schools', to: '/schools' },
     ],
   },
   {
-    title: 'Community',
+    title: 'Company',
     links: [
-      { label: 'For Schools', to: '/schools' },
-      { label: 'Our Journey', to: '/journey' },
-      { label: 'About & Team', to: '/team' },
-      { label: 'FAQ', to: '/#faq' },
-      { label: 'Contact', to: '/contact' },
+      { label: 'Our story', to: '/journey' },
+      { label: 'Team', to: '/team' },
+      { label: 'FAQ', to: '/faq' },
     ],
   },
 ];
+
+/**
+ * Social destinations recovered from the project's committed history
+ * (footer commits 0fcfcd9 / 24ccc74) and structuredData sameAs — verified, not invented.
+ */
+export const socialLinks: Array<{ label: string; href: string }> = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/desk-scholar/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/desk.scholar/' },
+  { label: 'YouTube', href: 'https://www.youtube.com/channel/UCp5X3aAfk8fM2NGXqf9YOpg' },
+];
+
+export const CONTACT_EMAIL = 'info@deskscholar.com';

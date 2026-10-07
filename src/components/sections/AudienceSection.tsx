@@ -1,38 +1,63 @@
-import React from 'react';
-import { Section } from '@/components/common/Section';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { Section } from '@/components/common/Section';
 
+/**
+ * Compact intended-audience content — three rule-separated columns, not boxed cards.
+ */
 const audiences = [
-  { title: 'For Students', description: 'Understand difficult concepts through hints, explanations, and projected visual guidance.', cta: { label: 'Student Experience', to: '/#how-it-works' } },
-  { title: 'For Parents', description: 'Planned learning insights and privacy controls without making core learning cloud-dependent.', cta: { label: 'Follow Development', to: '/journey' } },
-  { title: 'For Schools', description: 'An offline-capable learning device vision for classrooms, libraries, and shared study spaces.', cta: { label: 'For Schools', to: '/schools' } },
+  {
+    title: 'For students',
+    description:
+      'Hints, explanations and projected visual guidance on the worksheet you are already working on.',
+    cta: { label: 'See the planned experience', to: '/#planned-experience' },
+  },
+  {
+    title: 'For parents',
+    description:
+      'Planned learning insights and privacy controls — with editions that never send the page out of the room.',
+    cta: { label: 'Follow development', to: '/journey' },
+  },
+  {
+    title: 'For schools',
+    description:
+      'An offline-capable learning device vision for classrooms, libraries and shared study spaces.',
+    cta: { label: 'For Schools', to: '/schools' },
+  },
 ];
 
-export const AudienceSection: React.FC = () => {
+export function AudienceSection() {
   return (
     <Section
       id="audience"
-      tone="light"
-      className="light-section bg-paper"
-      heading={{
-        title: 'Who it is for',
-        align: 'center'
-      }}
+      tone="dark"
+      bordered
+      heading={{ title: 'Who it is for' }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-0 md:grid-cols-3">
         {audiences.map((audience, i) => (
-          <div key={i} className="bg-paper-2 border border-[rgba(0,0,0,0.08)] rounded-[10px] p-8 flex flex-col items-start">
-            <h3 className="font-display text-[22px] leading-tight text-ink-hi mb-3">{audience.title}</h3>
-            <p className="text-sm text-ink-lo mb-6 flex-grow">{audience.description}</p>
-            <Link 
+          <div
+            key={audience.title}
+            className={`flex flex-col items-start py-5 md:px-7 md:py-1 ${
+              i > 0 ? 'border-t border-[var(--hairline-dark)] md:border-t-0 md:border-l' : ''
+            }`}
+          >
+            <h3 className="font-display text-[18px] leading-tight text-text-hi">
+              {audience.title}
+            </h3>
+            <p className="mt-2 max-w-[38ch] text-sm leading-relaxed text-text-lo">
+              {audience.description}
+            </p>
+            <Link
               to={audience.cta.to}
-              className="text-sm font-medium text-ink-hi hover:text-beam transition-colors duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] px-4 py-2 border border-[rgba(0,0,0,0.08)] rounded-[4px] hover:border-beam focus:outline-none focus:ring-2 focus:ring-beam focus:border-transparent"
+              className="mt-4 inline-flex min-h-9 items-center gap-1.5 rounded-control text-sm font-semibold text-beam transition-colors duration-micro ease-io hover:text-[var(--beam-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beam"
             >
               {audience.cta.label}
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
           </div>
         ))}
       </div>
     </Section>
   );
-};
+}

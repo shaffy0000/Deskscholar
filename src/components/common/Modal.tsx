@@ -86,7 +86,7 @@ export function Modal({ open, onClose, labelledBy, children, panelClassName = ''
           data-testid="modal-root"
         >
           <motion.div
-            className="absolute inset-0 bg-midnight/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-[rgba(23,33,31,0.55)] backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

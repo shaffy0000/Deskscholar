@@ -1,247 +1,85 @@
-import { ArrowRight } from 'lucide-react';
-import { editions, comparisonRows } from '../data/editions';
-import { deskScholarImages, deskScholarImageSrcSets } from '../data/assets';
-import { Button } from '../components/common/Button';
-import { Container } from '../components/common/Container';
-import { Section } from '../components/common/Section';
+import { Link } from 'react-router-dom';
+import { PageHeader } from '../components/common/PageHeader';
+import { SectionHeading } from '../components/common/SectionHeading';
+import { ComparisonExplorer } from '../components/editions/ComparisonExplorer';
+import { EditionBlock } from '../components/editions/EditionBlock';
 import { Seo } from '../components/common/Seo';
+import { deskScholarImages, deskScholarImageSrcSets } from '../data/assets';
+import { editions } from '../data/editions';
+import '../styles/editions.css';
 
-const editionImages: Record<string, { src: string; srcSet?: string; alt: string }> = {
+const editionImages = {
   connect: {
     src: deskScholarImages.classroom,
     srcSet: deskScholarImageSrcSets.classroom,
-    alt: 'DeskScholar in a classroom setting.',
+    alt: 'Students and a teacher working together around a DeskScholar unit in a planned classroom setting.',
+    ratio: '2000 / 1116',
+    caption: 'Concept scenario — a connected classroom or tuition centre with reliable Wi-Fi.',
   },
   hybrid: {
-    src: deskScholarImages.projectionCloseup,
-    srcSet: deskScholarImageSrcSets.projectionCloseup,
-    alt: 'DeskScholar projecting guidance onto a worksheet.',
-  },
-  independent: {
     src: deskScholarImages.studentUse,
     srcSet: deskScholarImageSrcSets.studentUse,
-    alt: 'A student using DeskScholar independently.',
+    alt: 'A student at a home desk using DeskScholar with a worksheet and projected guidance.',
+    ratio: '2000 / 1116',
+    caption: 'Concept scenario — a connected household; the page stays on the desk.',
   },
-};
+  independent: {
+    src: deskScholarImages.hero,
+    srcSet: deskScholarImageSrcSets.hero,
+    alt: 'The DeskScholar unit on a study desk in normal room lighting.',
+    ratio: '1407 / 768',
+    caption: 'Concept render — entirely local learning, readable in normal room lighting.',
+  },
+} as const;
 
 export default function EditionsPage() {
   return (
     <>
       <Seo route="editions" />
 
-      {/* Page header */}
-      <section className="bg-ink-900 pb-12 pt-28 lg:pt-36">
-        <Container>
-          <h1 className="max-w-3xl font-display text-display font-bold tracking-tight text-text-hi">
-            Three editions, one idea.
-          </h1>
-          <p className="mt-5 max-w-2xl text-body-lg text-text-lo">
-            Every DeskScholar edition sees the desk, hears the student, and
-            projects guidance. They differ only in where the thinking happens.
-          </p>
-        </Container>
-      </section>
+      <PageHeader
+        label="Editions"
+        title="Three editions, one idea."
+        description="The same desk unit, three planned ways of thinking: on our servers, split between the desk and our servers, or entirely on the desk. All editions are in prototype development — specifications may change."
+      />
 
-      {/* Edition sections — alternating layout */}
-      {editions.map((edition, index) => {
-        const img = editionImages[edition.slug];
-        const isEven = index % 2 === 0;
-        return (
-          <Section
+      <main>
+        {editions.map((edition, index) => (
+          <EditionBlock
             key={edition.slug}
-            tone={index === 1 ? 'light' : 'dark'}
-            bordered
-          >
-            <div
-              className={`grid items-center gap-10 lg:grid-cols-12 lg:gap-16 ${
-                isEven ? '' : 'lg:[direction:rtl] lg:[&>*]:![direction:ltr]'
-              }`}
-            >
-              {/* Text side */}
-              <div className="lg:col-span-5">
-                <h2
-                  className={`font-display text-h2 font-bold ${
-                    index === 1 ? 'text-ink-hi' : 'text-text-hi'
-                  }`}
-                >
-                  {edition.name}
-                </h2>
-                <p
-                  className={`mt-4 text-body-lg leading-relaxed ${
-                    index === 1 ? 'text-ink-lo' : 'text-text-lo'
-                  }`}
-                >
-                  {edition.description}
-                </p>
+            edition={edition}
+            index={index}
+            image={editionImages[edition.slug]}
+          />
+        ))}
 
-                {/* Three facts */}
-                <ul className="mt-8 space-y-3">
-                  {edition.facts.map((fact) => (
-                    <li
-                      key={fact}
-                      className={`flex items-start gap-3 text-sm ${
-                        index === 1 ? 'text-ink-hi' : 'text-text-hi'
-                      }`}
-                    >
-                      <span
-                        className="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-beam"
-                        aria-hidden="true"
-                      />
-                      {fact}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Subscription line */}
-                <div
-                  className="mt-8 rounded-card border p-4"
-                  style={{
-                    borderColor:
-                      index === 1
-                        ? 'var(--hairline-light)'
-                        : 'var(--hairline-dark)',
-                  }}
-                >
-                  <p
-                    className={`text-sm font-medium ${
-                      index === 1 ? 'text-ink-hi' : 'text-text-hi'
-                    }`}
-                  >
-                    {edition.subscription}
-                  </p>
-                  <p
-                    className={`mt-1 text-micro ${
-                      index === 1 ? 'text-ink-lo' : 'text-text-lo'
-                    }`}
-                  >
-                    {edition.subscriptionQualifier}
-                  </p>
-                </div>
-              </div>
-
-              {/* Image side */}
-              <div className="lg:col-span-7">
-                <img
-                  src={img.src}
-                  srcSet={img.srcSet}
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  alt={img.alt}
-                  width={2000}
-                  height={1116}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full rounded-card object-cover"
-                />
-              </div>
-            </div>
-          </Section>
-        );
-      })}
-
-      {/* Pricing explanation */}
-      <Section tone="dark" bordered>
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-body-lg text-text-lo">
-            The editions that depend on our servers carry a monthly cost because
-            those servers cost us money every month. The edition that depends on
-            nothing carries none.
-          </p>
-          <p className="mt-3 text-micro text-text-lo">
-            Planned pricing for a product still in development. Not an offer.
-          </p>
-        </div>
-      </Section>
-
-      {/* Comparison table */}
-      <Section
-        tone="dark"
-        bordered
-        heading={{
-          title: 'Honest comparison',
-          description:
-            'Seven things that matter, in plain language. No ticks and crosses.',
-          align: 'center',
-        }}
-      >
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <caption className="sr-only">
-              Comparison of DeskScholar Connect, Hybrid and Independent editions
-            </caption>
-            <thead>
-              <tr
-                className="border-b"
-                style={{ borderColor: 'var(--hairline-dark)' }}
-              >
-                <th
-                  scope="col"
-                  className="sticky left-0 bg-ink-900 py-4 pr-4 text-micro font-medium text-text-lo lg:w-56"
-                >
-                  &nbsp;
-                </th>
-                {editions.map((ed) => (
-                  <th
-                    key={ed.slug}
-                    scope="col"
-                    className="px-4 py-4 font-display text-sm font-semibold text-text-hi"
-                  >
-                    {ed.name.replace('DeskScholar ', '')}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row) => (
-                <tr
-                  key={row.label}
-                  className="border-b"
-                  style={{ borderColor: 'var(--hairline-dark)' }}
-                >
-                  <td className="sticky left-0 bg-ink-900 py-4 pr-4 text-sm font-medium text-text-hi lg:w-56">
-                    {row.label}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-text-lo">
-                    {row.connect}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-text-lo">
-                    {row.hybrid}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-text-lo">
-                    {row.independent}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Section>
-
-      {/* CTA */}
-      <Section tone="dark" bordered>
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-h2 font-bold text-text-hi">
-            Not sure which edition fits?
-          </h2>
-          <p className="mt-4 text-body-lg text-text-lo">
-            Start with the connectivity question. If your internet is
-            unreliable, Independent is the clear choice. If privacy matters most,
-            Hybrid keeps images on the device. If you need the strongest answers
-            in a school with Wi-Fi, Connect is built for that.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg" to="/contact">
-              Join Early Access
-            </Button>
-            <Button size="lg" variant="quiet" to="/#faq">
-              Read the FAQ
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Button>
+        {/* "Choose what matters" comparison explorer — all three editions together */}
+        <section className="ed-cmp" aria-labelledby="editions-compare-heading">
+          <div className="ed-cmp-inner">
+            <SectionHeading
+              align="left"
+              title={<span id="editions-compare-heading">Choose what matters.</span>}
+              description="Pick the question you actually care about — every category answers for all three editions side by side, in plain language."
+              className="max-w-[62ch]"
+            />
+            <ComparisonExplorer />
           </div>
-          <p className="mt-6 text-micro text-text-lo">
-            Currently in prototype development. Final specifications may change.
-          </p>
-        </div>
-      </Section>
+        </section>
+
+        {/* Waitlist CTA */}
+        <section aria-labelledby="editions-cta" className="ed-cta">
+          <div className="ed-cta-inner">
+            <h2 id="editions-cta">Not sure which edition fits?</h2>
+            <p>
+              Connectivity first, privacy second. Join the development waitlist and we will help you
+              think it through as the prototype matures.
+            </p>
+            <Link to="/contact" className="ed-cta-btn">
+              Join the waitlist
+            </Link>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

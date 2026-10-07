@@ -38,31 +38,31 @@ export function FractionVisual({ stage }: FractionVisualProps) {
         data-testid="fraction-visual"
         data-stage={Math.min(stage, 4)}
       >
-        <circle cx="100" cy="100" r="80" fill="#102036" stroke="#625BF6" strokeWidth="2.5" />
+        <circle cx="100" cy="100" r="80" fill="#FFFFFF" stroke="#176B5B" strokeWidth="2.5" />
         {[0, 1, 2, 3].map((i) => (
           <path
             key={i}
             d={slicePath(i)}
-            fill={i < highlighted ? '#625BF6' : 'transparent'}
-            stroke={divided ? '#EEECFF' : 'transparent'}
+            fill={i < highlighted ? '#176B5B' : 'transparent'}
+            stroke={divided ? '#FFFFFF' : 'transparent'}
             strokeWidth={divided ? 2.5 : 0}
             className="transition-all duration-700"
             style={{ transitionDelay: `${i * 90}ms` }}
           />
         ))}
-        <circle cx="100" cy="100" r="80" fill="none" stroke="#625BF6" strokeWidth="2.5" />
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#176B5B" strokeWidth="2.5" />
       </svg>
       <div className="text-center" aria-hidden="false">
         {stage >= 4 ? (
-          <p className="font-display text-xl font-bold text-brand-light" data-testid="fraction-compare">
+          <p className="font-display text-xl font-bold text-[var(--beam)]" data-testid="fraction-compare">
             2/4 = 1/2
           </p>
         ) : stage >= 2 ? (
-          <p className="font-display text-xl font-bold text-brand-light" data-testid="fraction-value">
+          <p className="font-display text-xl font-bold text-[var(--beam)]" data-testid="fraction-value">
             {highlighted === 1 ? '1/4' : '2/4'}
           </p>
         ) : null}
-        <p className={cn('mt-1 text-xs text-slate-400')}>{STAGE_LABELS[Math.min(stage, 4)]}</p>
+        <p className={cn('mt-1 text-xs text-text-lo')}>{STAGE_LABELS[Math.min(stage, 4)]}</p>
       </div>
     </figure>
   );

@@ -64,16 +64,16 @@ export function Section({
       aria-label={ariaLabel}
       className={cn(
         compact
-          ? 'py-10 md:py-12'
-          : 'py-[72px] lg:py-[120px]',
+          ? 'py-8 md:py-10'
+          : 'py-[var(--section-pad-m)] md:py-[var(--section-pad-t)] lg:py-[var(--section-pad)]',
         isDark
           ? 'bg-ink-900 text-text-hi'
           : 'bg-paper text-ink-hi light-section',
         bordered &&
           (isDark
-            ? 'border-t border-[rgba(255,255,255,0.07)]'
+            ? 'border-t border-[var(--hairline-dark)]'
             : 'border-t border-[rgba(0,0,0,0.08)]'),
-        anchor && 'scroll-mt-20',
+        anchor && 'scroll-mt-[calc(var(--header-h-lg)+16px)]',
         className,
       )}
     >
@@ -85,7 +85,7 @@ export function Section({
             description={heading.description}
             align={heading.align}
             as={heading.as}
-            className="mb-12 lg:mb-16"
+            className="mb-[var(--gap-intro-body)]"
           />
         )}
         {heading ? (

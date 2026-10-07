@@ -38,7 +38,7 @@ export function DemoStage({ scenario, beatIndex, finished, translateLang, onTran
       />
 
       <div className="relative flex items-center justify-between gap-3">
-        <p className="eyebrow text-slate-400">Simulated desk</p>
+        <p className="eyebrow text-text-lo">Simulated desk</p>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-aqua/35 bg-aqua/10 px-2.5 py-1 text-[11px] font-semibold text-aqua">
           <span className={cn('h-1.5 w-1.5 rounded-full bg-aqua', !reduced && 'animate-pulse-dot')} aria-hidden="true" />
           <WifiOff className="h-3 w-3" aria-hidden="true" />
@@ -63,7 +63,7 @@ export function DemoStage({ scenario, beatIndex, finished, translateLang, onTran
                   'min-h-9 flex-1 justify-center rounded-full px-2 text-[11px] font-semibold transition-colors sm:flex-none sm:px-3.5 sm:text-xs',
                   translateLang === option.id
                     ? 'bg-brand text-white shadow-soft'
-                    : 'text-slate-300 hover:text-white',
+                    : 'text-text-hi hover:text-white',
                 )}
               >
                 {option.label}
@@ -83,7 +83,7 @@ export function DemoStage({ scenario, beatIndex, finished, translateLang, onTran
 
       <div className="relative flex items-center justify-center gap-2 border-t border-dark-line pt-3.5">
         <MonitorSmartphone className="h-3.5 w-3.5 text-brand" aria-hidden="true" />
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-text-lo">
           Simulated interaction — fully scripted, runs offline in your browser.
         </p>
       </div>
@@ -100,7 +100,7 @@ function TranslateVisual({ stage }: { stage: number }) {
         role="img"
         aria-label="Photosynthesis diagram: sunlight, water and carbon dioxide produce glucose and oxygen"
       >
-        <circle cx="42" cy="30" r="16" fill="#22C3CF" />
+        <circle cx="42" cy="30" r="16" fill="#E2905A" />
         {stage >= 1 &&
           [0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
             <line
@@ -109,19 +109,19 @@ function TranslateVisual({ stage }: { stage: number }) {
               y1={30 + 20 * Math.sin((angle * Math.PI) / 180)}
               x2={42 + 27 * Math.cos((angle * Math.PI) / 180)}
               y2={30 + 27 * Math.sin((angle * Math.PI) / 180)}
-              stroke="#22C3CF"
+              stroke="#E2905A"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
           ))}
-        <path d="M120 100 q6 -34 34 -40 q-4 32 -34 40z" fill="#127C86" />
-        <path d="M120 100 q-8 -30 -32 -36 q2 28 32 36z" fill="#22C3CF" />
-        <line x1="120" y1="100" x2="120" y2="64" stroke="#127C86" strokeWidth="3" strokeLinecap="round" />
+        <path d="M120 100 q6 -34 34 -40 q-4 32 -34 40z" fill="#176B5B" />
+        <path d="M120 100 q-8 -30 -32 -36 q2 28 32 36z" fill="#176B5B" />
+        <line x1="120" y1="100" x2="120" y2="64" stroke="#176B5B" strokeWidth="3" strokeLinecap="round" />
         {stage >= 2 && (
           <>
-            <circle cx="185" cy="88" r="4" fill="#625BF6" />
-            <circle cx="197" cy="80" r="5" fill="#625BF6" opacity="0.8" />
-            <circle cx="208" cy="70" r="4" fill="#625BF6" opacity="0.6" />
+            <circle cx="185" cy="88" r="4" fill="#176B5B" />
+            <circle cx="197" cy="80" r="5" fill="#176B5B" opacity="0.8" />
+            <circle cx="208" cy="70" r="4" fill="#176B5B" opacity="0.6" />
           </>
         )}
       </svg>
@@ -130,8 +130,8 @@ function TranslateVisual({ stage }: { stage: number }) {
         className={cn(
           'rounded-card border px-4 py-2.5 font-display text-sm font-semibold transition-all duration-500',
           stage >= 3
-            ? 'border-brand/40 bg-brand/10 text-brand-light'
-            : 'border-dark-line bg-deep-navy text-slate-400',
+            ? 'border-brand/40 bg-brand/10 text-[var(--beam)]'
+            : 'border-dark-line bg-deep-navy text-text-lo',
         )}
         data-testid="translate-formula"
       >
@@ -159,8 +159,8 @@ function CloudVisual({ stage, reduced }: { stage: number; reduced: boolean }) {
               <MonitorSmartphone className={cn('h-5 w-5', answered ? 'text-aqua' : 'text-brand')} aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <p className="font-display text-sm font-semibold text-white">DeskScholar device</p>
-              <p className="truncate text-xs text-slate-400">Voice · Tutor · Projection</p>
+              <p className="font-display text-sm font-semibold text-text-hi">DeskScholar device</p>
+              <p className="truncate text-xs text-text-lo">Voice · Tutor · Projection</p>
             </div>
           </div>
           <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-aqua/35 bg-aqua/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-aqua">
@@ -185,11 +185,11 @@ function CloudVisual({ stage, reduced }: { stage: number; reduced: boolean }) {
         >
           <div className="flex min-w-0 items-center gap-3">
             <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/15">
-              <Cloud className={cn('h-5 w-5', escalated ? 'text-brand' : 'text-slate-500')} aria-hidden="true" />
+              <Cloud className={cn('h-5 w-5', escalated ? 'text-brand' : 'text-text-lo')} aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <p className="font-display text-sm font-semibold text-white">Optional cloud reasoning</p>
-              <p className="truncate text-xs text-slate-400">
+              <p className="font-display text-sm font-semibold text-text-hi">Optional cloud reasoning</p>
+              <p className="truncate text-xs text-text-lo">
                 {escalated ? 'Enhanced explanation in progress…' : 'Only for difficult questions'}
               </p>
             </div>
@@ -204,7 +204,7 @@ function CloudVisual({ stage, reduced }: { stage: number; reduced: boolean }) {
           )}
         </div>
       </div>
-      <p className="flex items-center gap-1.5 text-center text-xs leading-relaxed text-slate-400">
+      <p className="flex items-center gap-1.5 text-center text-xs leading-relaxed text-text-lo">
         <Wifi className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
         Parent-approved escalation · speech and projection stay on device
       </p>

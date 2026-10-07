@@ -11,7 +11,7 @@ async function renderRoute(route: string) {
 describe('routes', () => {
   it('renders the home page', async () => {
     const heading = await renderRoute('/');
-    expect(heading).toHaveTextContent(/Your AI tutor/i);
+    expect(heading).toHaveTextContent(/A tutor for your desk/i);
   });
 
   it('renders the technology page', async () => {

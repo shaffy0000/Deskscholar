@@ -31,7 +31,7 @@ export function StatusBadge({
       className={cn(
         'inline-flex items-center gap-2 rounded-control border px-2.5 py-1 text-micro font-medium',
         isDark
-          ? 'border-[rgba(255,255,255,0.07)] text-text-lo'
+          ? 'border-[var(--hairline-dark)] text-text-lo'
           : 'border-[rgba(0,0,0,0.08)] text-ink-lo',
         className,
       )}

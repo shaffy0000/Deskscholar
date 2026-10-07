@@ -23,7 +23,7 @@ interface ProjectionPanelProps {
 
 const toneClasses: Record<DemoStatusItem['tone'], string> = {
   aqua: 'border-aqua/35 bg-aqua/10 text-aqua',
-  violet: 'border-brand/35 bg-brand/10 text-brand-light',
+  violet: 'border-brand/35 bg-brand/10 text-[var(--beam)]',
   sun: 'border-sun/40 bg-sun/10 text-[#F0A55E]',
 };
 
@@ -51,7 +51,7 @@ export function ProjectionPanel({ prompt, beats, beatIndex, skipped, finished, s
       />
 
       <div className="relative flex items-center justify-between gap-3">
-        <p className="eyebrow flex items-center gap-2 text-brand-light">
+        <p className="eyebrow flex items-center gap-2 text-[var(--beam)]">
           <Projector className="h-3.5 w-3.5" aria-hidden="true" />
           Desk projection
         </p>
@@ -60,10 +60,10 @@ export function ProjectionPanel({ prompt, beats, beatIndex, skipped, finished, s
 
       <div className="relative mt-4 flex items-start gap-3">
         <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/20">
-          <Mic className="h-4 w-4 text-brand-light" aria-hidden="true" />
+          <Mic className="h-4 w-4 text-[var(--beam)]" aria-hidden="true" />
         </span>
         <p
-          className="rounded-card rounded-tl-sm border border-dark-line bg-deep-navy px-4 py-2.5 text-sm text-slate-200"
+          className="rounded-card rounded-tl-sm border border-dark-line bg-deep-navy px-4 py-2.5 text-sm text-text-hi"
           data-testid="student-prompt"
         >
           “{prompt}”
@@ -81,7 +81,7 @@ export function ProjectionPanel({ prompt, beats, beatIndex, skipped, finished, s
                 ) : (
                   <Check className="h-3.5 w-3.5 shrink-0 text-aqua" aria-hidden="true" />
                 )}
-                <span className={cn(isCurrent ? 'text-slate-200' : 'text-slate-400')}>{step.text}</span>
+                <span className={cn(isCurrent ? 'text-text-hi' : 'text-text-lo')}>{step.text}</span>
               </li>
             );
           })}
@@ -99,7 +99,7 @@ export function ProjectionPanel({ prompt, beats, beatIndex, skipped, finished, s
               return (
                 <p
                   key={`${line.text}-${index}`}
-                  className={cn('text-sm leading-relaxed text-white sm:text-[15px]', index > 0 && 'mt-2')}
+                  className={cn('text-sm leading-relaxed text-text-hi sm:text-[15px]', index > 0 && 'mt-2')}
                 >
                   {isLast && !skipped ? <TypeLine text={line.text} instant={false} /> : line.text}
                 </p>
@@ -108,7 +108,7 @@ export function ProjectionPanel({ prompt, beats, beatIndex, skipped, finished, s
           </div>
         )}
         {responses.length === 0 && finished && (
-          <p className="text-sm text-slate-400">Waiting for your answer…</p>
+          <p className="text-sm text-text-lo">Waiting for your answer…</p>
         )}
       </div>
 

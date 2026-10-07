@@ -183,11 +183,11 @@ export default function TeamPage() {
 
       {/* 7. Final CTA — no image */}
       <Section ariaLabel="Collaboration call to action">
-        <div className="rounded-hero bg-midnight p-8 text-center dark-section md:p-12">
-          <h2 className="font-display text-h2 text-white">
+        <div className="rounded-hero border border-[var(--hairline-dark)] bg-[var(--surface-2)] p-8 text-center md:p-12">
+          <h2 className="font-display text-h2 text-text-hi">
             Interested in collaborating with the DeskScholar team?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-text-hi sm:text-base">
             We welcome conversations about education, research, hardware, product, and early-stage support.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -198,7 +198,7 @@ export default function TeamPage() {
             <Button
               size="lg"
               to="/journey"
-              className="border border-dark-line bg-deep-navy text-white hover:bg-deep-navy hover:text-brand-light focus-visible:ring-aqua focus-visible:ring-offset-midnight"
+              className="border border-[var(--hairline-dark)] bg-white text-text-hi hover:border-[var(--beam)] hover:text-[var(--beam)] focus-visible:ring-[var(--beam)] focus-visible:ring-offset-[var(--ink-900)]"
             >
               Follow Our Journey
             </Button>

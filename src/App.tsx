@@ -14,10 +14,12 @@ const SchoolsPage = lazy(() => import('./pages/SchoolsPage'));
 const JourneyPage = lazy(() => import('./pages/JourneyPage'));
 const TeamPage = lazy(() => import('./pages/TeamPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+const FaqPage = lazy(() => import('./pages/FaqPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const SpecimenPage = lazy(() => import('./pages/SpecimenPage'));
+const ProposalPage = lazy(() => import('./pages/ProposalPage'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,9 +39,11 @@ export function AppRoutes() {
         <Route path="/journey" element={<JourneyPage />} />
         <Route path="/team" element={<TeamPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FaqPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/specimen" element={<SpecimenPage />} />
+        <Route path="/proposal" element={<ProposalPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>

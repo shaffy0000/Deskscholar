@@ -30,10 +30,29 @@ import { cn } from '../utils/cn';
 
 const pipelineSteps = [
   { icon: Mic, label: 'Student speaks' },
-  { icon: Radio, label: 'Local speech recognition' },
-  { icon: BrainCircuit, label: 'Local learning model' },
-  { icon: Volume2, label: 'Local voice' },
+  { icon: Radio, label: 'Speech recognition' },
+  { icon: BrainCircuit, label: 'Understanding the question' },
+  { icon: Volume2, label: 'Spoken explanation' },
   { icon: Projector, label: 'Desk projection' },
+];
+
+/** Where the thinking happens — one honest row per edition. */
+const editionPipeline = [
+  {
+    name: 'DeskScholar Connect',
+    where: 'Composed on our servers',
+    detail: 'Camera images are sent to be understood; a steady internet connection is required for all learning features.',
+  },
+  {
+    name: 'DeskScholar Hybrid',
+    where: 'Desk + our servers',
+    detail: 'Reading the page and hearing the student happen on the device; new explanations are composed with server help. Only extracted text is sent — images stay in the room.',
+  },
+  {
+    name: 'DeskScholar Independent',
+    where: 'Entirely on the device',
+    detail: 'The full learning loop runs inside the unit. Nothing is sent anywhere; no internet or account is needed.',
+  },
 ];
 
 const localCapabilities = [
@@ -46,18 +65,18 @@ const localCapabilities = [
 ];
 
 const cloudCapabilities = [
-  { title: 'Complex multi-step reasoning', description: 'Difficult questions beyond local confidence, with clear indicators.' },
+  { title: 'Complex multi-step reasoning', description: 'The largest server-side models — strongest on Connect, and where Hybrid goes for new explanations.' },
   { title: 'Current information', description: 'Topics that need up-to-date knowledge not stored locally.' },
   { title: 'Advanced technical explanations', description: 'Deeper subject-matter reasoning when approved.' },
 ];
 
 const privacyPrinciples = [
-  'Local processing wherever practical',
-  'Clear indicators when optional cloud reasoning is used',
+  'Local processing wherever the edition allows',
+  'Clear indication of where work is understood',
   'Parent-controlled privacy mode (planned)',
-  'Minimal data transfer for escalated questions only',
+  'Minimal data transfer — Hybrid sends extracted text only, never images',
   'No hidden cloud-processing claims',
-  'No mandatory account planned for basic offline use',
+  'No account or internet needed on Independent',
 ];
 
 const hardwareLabels = [
@@ -79,23 +98,23 @@ export default function TechnologyPage() {
       <PageHeader
         label="Technology"
         title="AI that stays close to the learner."
-        description="DeskScholar is being designed around an offline-first architecture where everyday learning can happen locally and optional cloud reasoning is reserved for difficult questions."
+        description="How DeskScholar sees the desk, hears the question and projects guidance — and how that pipeline differs across the three planned editions."
       />
 
-      {/* Learning pipeline */}
+      {/* Learning pipeline — edition-aware */}
       <Section
         labelledBy="pipeline-heading"
         heading={{
           label: 'Learning pipeline',
           title: <span id="pipeline-heading">From a spoken question to a projected lesson.</span>,
           description:
-            'The default path never leaves the device. The optional branch is only taken for difficult questions and is clearly indicated.',
+            'The loop is the same on every edition. What changes is where the thinking happens — and each edition is honest about it.',
         }}
       >
         <div className="mx-auto max-w-5xl rounded-panel border border-line bg-white p-6 shadow-soft sm:p-8">
           <p className="eyebrow flex items-center gap-2 text-aqua-dark">
             <span className="inline-block h-2 w-2 rounded-full bg-aqua-dark" aria-hidden="true" />
-            Default path — fully local
+            The learning loop — same on every edition
           </p>
           <ol className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0">
             {pipelineSteps.map((step, index) => {
@@ -123,17 +142,19 @@ export default function TechnologyPage() {
           <div className="mt-6 rounded-card border border-brand/30 bg-brand-light/30 p-5">
             <p className="eyebrow flex items-center gap-2 text-brand-dark">
               <Cloud className="h-3.5 w-3.5" aria-hidden="true" />
-              Optional branch — difficult questions
+              Where the thinking happens — by edition
             </p>
-            <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm text-ink">
-              <span className="font-semibold">Difficult question?</span>
-              <ArrowRight className="h-3.5 w-3.5 text-brand-dark" aria-hidden="true" />
-              <span>Parent-approved cloud reasoning</span>
-              <ArrowRight className="h-3.5 w-3.5 text-brand-dark" aria-hidden="true" />
-              <span>Text response returned</span>
-              <ArrowRight className="h-3.5 w-3.5 text-brand-dark" aria-hidden="true" />
-              <span>Local voice and projection</span>
-            </p>
+            <ul className="mt-3 grid gap-3">
+              {editionPipeline.map((edition) => (
+                <li key={edition.name} className="grid gap-1 sm:grid-cols-[minmax(0,220px)_minmax(0,1fr)] sm:gap-4">
+                  <p className="text-sm font-semibold text-ink">
+                    {edition.name}
+                    <span className="block text-[12.5px] font-normal text-brand-dark">{edition.where}</span>
+                  </p>
+                  <p className="text-[13px] leading-relaxed text-muted">{edition.detail}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </Section>
@@ -141,19 +162,21 @@ export default function TechnologyPage() {
       {/* Scripted interactive simulation — preserved feature, lives with the technology story. */}
       <InteractiveDemo />
 
-      {/* Local vs cloud */}
+      {/* Local vs server-assisted */}
       <Section
         tone="white"
         labelledBy="capabilities-heading"
         heading={{
           label: 'Planned capabilities',
-          title: <span id="capabilities-heading">Local by default, cloud by choice.</span>,
+          title: <span id="capabilities-heading">What runs on the desk, and what runs on servers.</span>,
+          description:
+            'Independent keeps everything on the device. Hybrid keeps reading and hearing local and uses servers for new explanations. Connect leans on servers the most — and says so.',
         }}
       >
         <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
           <div className="rounded-panel border border-aqua/40 bg-aqua-light/40 p-6 sm:p-8">
             <StatusBadge tone="aqua" dot>
-              Planned local capabilities
+              Planned on-device capabilities
             </StatusBadge>
             <ul className="mt-6 grid gap-x-5 gap-y-5 sm:grid-cols-2">
               {localCapabilities.map((capability) => {
@@ -171,10 +194,14 @@ export default function TechnologyPage() {
                 );
               })}
             </ul>
+            <p className="mt-6 rounded-card border border-line bg-white p-4 text-[13px] leading-relaxed text-muted">
+              On Hybrid and Independent these run on the desk unit. On Connect, seeing and hearing happen
+              at the desk while understanding is composed on our servers.
+            </p>
           </div>
           <div className="rounded-panel border border-line bg-ivory p-6 sm:p-8">
             <StatusBadge tone="violet" dot>
-              Optional cloud capabilities
+              Server-assisted capabilities (Connect &amp; Hybrid)
             </StatusBadge>
             <ul className="mt-6 space-y-5">
               {cloudCapabilities.map((capability) => (
@@ -190,8 +217,8 @@ export default function TechnologyPage() {
               ))}
             </ul>
             <p className="mt-6 rounded-card border border-line bg-white p-4 text-[13px] leading-relaxed text-muted">
-              Cloud escalation is reserved for difficult questions, is designed to require approval, and is
-              always indicated on the device.
+              Connect composes on our servers by design. Hybrid sends only the text extracted from the
+              page when a new explanation is needed — never images. Independent never connects.
             </p>
           </div>
         </div>
@@ -218,7 +245,7 @@ export default function TechnologyPage() {
               className="flex items-start gap-3 rounded-card border border-dark-line bg-deep-navy px-5 py-4"
             >
               <ShieldCheck className="mt-0.5 h-[18px] w-[18px] shrink-0 text-aqua" aria-hidden="true" />
-              <span className="text-sm leading-relaxed text-slate-200">{principle}</span>
+              <span className="text-sm leading-relaxed text-text-hi">{principle}</span>
             </motion.li>
           ))}
         </ul>

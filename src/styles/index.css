@@ -7,28 +7,41 @@
    No hard-coded hex, spacing, radius or duration in components.
    ──────────────────────────────────────────────────────────── */
 :root {
-  /* ── Colour ──────────────────────────────────────────────── */
-  --ink-900: #0A0D12;
-  --ink-800: #11151C;
-  --ink-700: #1A202A;
-  --paper:   #FAFAF8;
-  --paper-2: #EFEEEA;
-  --text-hi: #F4F6F9;
-  --text-lo: #98A2B3;
-  --ink-hi:  #0F1319;
-  --ink-lo:  #5A6472;
-  --beam:    #E89B3C;
-  --beam-dim: rgba(232, 155, 60, 0.14);
+  /* ── Colour — light "Paper & Pine" identity (source of truth) ── */
+  --ink-900: #F7F6F2;   /* main page background (warm light) */
+  --ink-800: #FFFFFF;   /* white surface */
+  --ink-700: #D9DDD5;   /* borders & hairlines */
+  --surface-2: #EEEEE8; /* subtle secondary surface */
+  --paper:   #EEEEE8;   /* secondary surface alias */
+  --paper-2: #E5E5DD;   /* deeper inset */
+  --text-hi: #17211F;   /* primary text */
+  --text-lo: #59645F;   /* secondary text */
+  --ink-hi:  #17211F;   /* primary text on secondary surface */
+  --ink-lo:  #59645F;   /* secondary text on secondary surface */
+  --ink-deep: #172B28;  /* dark interactive surface (selected states, footer accents) */
+  --beam:    #176B5B;   /* primary accent — pine green */
+  --beam-hover: #125347;
+  --beam-dim: rgba(23, 107, 91, 0.10);
+  --accent-soft: #E5EEE8; /* soft accent surface */
+  --apricot: #E2905A;   /* restrained warmth — learning visuals only */
+  --apricot-dim: rgba(226, 144, 90, 0.14);
+  --aqua-ink: #176B5B;  /* accent text on light surfaces */
 
   /* State colours (semantic) */
   --success: #059669;
   --warning: #D97706;
   --danger:  #DC2626;
 
-  /* ── Elevation ──────────────────────────────────────────── */
-  --hairline-dark:  rgba(255, 255, 255, 0.07);
-  --hairline-light: rgba(0, 0, 0, 0.08);
-  --shadow-header:  0 1px 0 rgba(0, 0, 0, 0.4);
+  /* ── Elevation & depth ──────────────────────────────────── */
+  --hairline-dark:  rgba(23, 33, 31, 0.10);
+  --hairline-light: rgba(23, 33, 31, 0.10);
+  --hairline-strong: rgba(23, 33, 31, 0.16);
+  --shadow-header:  0 1px 2px rgba(23, 33, 31, 0.05), 0 10px 24px -14px rgba(23, 33, 31, 0.14);
+  --shadow-plate:   0 28px 56px -28px rgba(23, 33, 31, 0.28), 0 10px 24px -14px rgba(23, 33, 31, 0.14);
+  --shadow-float:   0 18px 36px -18px rgba(23, 33, 31, 0.22);
+  --shadow-ground:  0 36px 56px -30px rgba(23, 33, 31, 0.35);
+  --shadow-card:    0 1px 2px rgba(23, 33, 31, 0.05), 0 12px 28px -18px rgba(23, 33, 31, 0.18);
+  --glow-aqua:      none;
 
   /* ── Radius ─────────────────────────────────────────────── */
   --radius-control: 4px;
@@ -45,14 +58,24 @@
 
   /* ── Space ──────────────────────────────────────────────── */
   --space-unit:     4px;
-  --section-pad:    120px;
-  --section-pad-m:  72px;
+  /* Compact section rhythm — one system, no stacked spacing utilities. */
+  --section-pad:    64px;   /* desktop section padding (56–72px band)   */
+  --section-pad-t:  52px;   /* tablet section padding                   */
+  --section-pad-m:  36px;   /* mobile section padding (32–44px band)    */
+  --gap-head-intro: 14px;   /* heading → introduction (12–16px)         */
+  --gap-intro-body: 28px;   /* introduction → main content (24–32px)    */
+  --gap-related:    20px;   /* related content gaps (16–24px)           */
   --content-max:    1200px;
   --wide-max:       1440px;
   --measure:        68ch;
 
+  /* ── Header ─────────────────────────────────────────────── */
+  --header-h:       60px;   /* mobile header height (60–64px band)  */
+  --header-h-lg:    72px;   /* desktop header height                */
+  --anchor-offset:  calc(var(--header-h-lg) + 16px); /* sticky-safe anchor scroll offset */
+
   /* ---- Typography (single source; tailwind.config maps to these) ---- */
-  --font-display: 'Sora', 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Sora', 'Manrope', system-ui, -apple-system, sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --type-display: clamp(3.75rem, 3rem + 3.33vw, 4.5rem);
@@ -72,6 +95,13 @@
 
 /* Self-hosted variable fonts (latin subset) — no third-party requests. */
 @font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-var-latin.woff2') format('woff2');
+}
+@font-face {
   font-family: 'Sora';
   font-style: normal;
   font-weight: 100 800;
@@ -89,7 +119,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    /* Sticky header never covers anchor targets. */
+    scroll-padding-top: calc(var(--header-h) + 12px);
+  }
+  @media (min-width: 920px) {
+    html {
+      scroll-padding-top: calc(var(--header-h-lg) + 12px);
+    }
   }
 
   body {
@@ -101,7 +137,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Sora', 'Manrope', system-ui, -apple-system, sans-serif;
+    font-family: 'Space Grotesk', 'Sora', system-ui, -apple-system, sans-serif;
     font-weight: 700;
     color: var(--text-hi);
     text-wrap: balance;
@@ -147,11 +183,16 @@
   .select-field {
     -webkit-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2398A2B3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2359645F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.9rem center;
     padding-right: 2.5rem;
   }
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.985); }
+  to { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -165,9 +206,4 @@
     transition-duration: 80ms !important;
   }
 }
-@layer utilities {
-  /* Override legacy light cards to dark */
-  .bg-white {
-    background-color: var(--ink-800) !important;
-  }
-}
+

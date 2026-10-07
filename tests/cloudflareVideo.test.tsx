@@ -140,13 +140,13 @@ describe('Cloudflare video modal — configured', () => {
 });
 
 describe('shared single modal implementation', () => {
-  it('navbar Watch Demo and demo-section button open the same dialog (exactly one at a time)', async () => {
+  it('home Watch concept demo and demo-section button open the same dialog (exactly one at a time)', async () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByRole('heading', { level: 1 }, { timeout: 20000 });
 
-    // navbar trigger (App shell at /)
-    const navTrigger = await screen.findByRole('button', { name: /^Watch Demo$/i }, { timeout: 20000 });
+    // home-page trigger: walkthrough 'Watch concept demo'
+    const navTrigger = await screen.findByRole('button', { name: /Watch concept demo/i }, { timeout: 20000 });
     await user.click(navTrigger);
     const dialogs = await screen.findAllByRole('dialog', { name: DIALOG_NAME });
     expect(dialogs).toHaveLength(1);

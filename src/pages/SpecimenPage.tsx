@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '../components/common/Button';
-import { ConnectivitySelector } from '../components/sections/ConnectivitySelector';
+import { EditionSpotlight } from '../components/sections/EditionSpotlight';
 import { Seo } from '../components/common/Seo';
 import { comparisonRows } from '../data/editions';
 import '../styles/specimen.css';
@@ -276,12 +276,12 @@ export default function SpecimenPage() {
 
         {/* Edition selector */}
         <section className="sp-section" aria-labelledby="sp-selector">
-          <h2 id="sp-selector" className="sp-h">Edition selector (live component)</h2>
+          <h2 id="sp-selector" className="sp-h">Edition spotlight (live component)</h2>
           <p className="sp-sub">
-            The real <code>ConnectivitySelector</code> from the homepage — radiogroup semantics, arrow-key
-            operable, sliding boundary, reduced-motion aware.
+            The real <code>EditionSpotlight</code> from the homepage — radiogroup semantics, arrow-key
+            operable, crossfading concept visuals, reduced-motion aware.
           </p>
-          <ConnectivitySelector />
+          <EditionSpotlight />
         </section>
 
         {/* Table + disclosure */}
@@ -315,7 +315,7 @@ export default function SpecimenPage() {
               Which edition should I choose?
               <span className="sp-chev" aria-hidden="true">+</span>
             </summary>
-            <p>Connectivity first, privacy second, budget third — the full answer lives in the homepage FAQ.</p>
+            <p>Connectivity first, privacy second — the full answer lives on the /faq page.</p>
           </details>
         </section>
 

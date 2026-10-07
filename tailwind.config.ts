@@ -25,6 +25,10 @@ export default {
         /* ── The one accent ────────────────────────────────── */
         beam:     'var(--beam)',
         'beam-dim': 'var(--beam-dim)',
+        'beam-hover': 'var(--beam-hover)',
+        'surface-2': 'var(--surface-2)',
+        'ink-deep': 'var(--ink-deep)',
+        'accent-soft': 'var(--accent-soft)',
 
         /* ── State colours ─────────────────────────────────── */
         success: 'var(--success)',
@@ -34,29 +38,29 @@ export default {
         /* ── Legacy Aliases (Auto-converts old pages to Dark Theme) ── */
         midnight: 'var(--ink-900)',
         'deep-navy': 'var(--ink-800)',
-        'dark-line': 'rgba(255, 255, 255, 0.07)',
+        'dark-line': 'var(--hairline-dark)',
         ivory: 'var(--ink-900)', // main background maps to dark
         ink: 'var(--text-hi)', // dark text maps to light text
         muted: 'var(--text-lo)',
-        line: 'rgba(255, 255, 255, 0.07)',
+        line: 'var(--hairline-dark)',
         brand: {
           DEFAULT: 'var(--beam)',
-          dark: 'var(--beam)',
+          dark: 'var(--beam-hover)',
           light: 'var(--beam-dim)',
         },
         sun: {
           DEFAULT: 'var(--beam)',
-          dark: 'var(--beam)',
+          dark: 'var(--beam-hover)',
           light: 'var(--beam-dim)',
         },
         aqua: {
           DEFAULT: 'var(--beam)',
-          dark: 'var(--beam)',
+          dark: 'var(--beam-hover)',
           light: 'var(--beam-dim)',
         },
       },
       fontFamily: {
-        display: ['Sora', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Space Grotesk', 'Sora', 'system-ui', '-apple-system', 'sans-serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
       fontSize: {

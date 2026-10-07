@@ -1,0 +1,323 @@
+/* ============================================================
+   REDESIGN PROPOSAL v1 — proposal-scoped styles.
+   All values reference the central tokens in index.css.
+   Container queries make the hero/how sections respond to their
+   OWN width, so the mobile-hero frame renders true mobile layout
+   on a desktop screen.
+   ============================================================ */
+
+/* Candidate heading face (Option A). Global --font-display switches only after approval. */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-var-latin.woff2') format('woff2');
+}
+
+.pp-font-proposal { font-family: 'Space Grotesk', var(--font-display); }
+.pp-font-current { font-family: var(--font-display); }
+
+/* ---------- proposal page shell ---------- */
+.pp-note {
+  border: 1px solid var(--ink-700);
+  border-left: 3px solid var(--beam);
+  border-radius: var(--radius-control);
+  background: var(--ink-800);
+  padding: 16px 20px;
+  color: var(--text-lo);
+  font-size: var(--type-sm);
+  max-width: 74ch;
+}
+.pp-note strong { color: var(--text-hi); }
+
+.pp-frame-label {
+  font-size: var(--type-micro);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-lo);
+  margin: 0 0 12px;
+}
+
+/* 390px device frame — the hero inside responds to THIS width */
+.pp-device {
+  width: 390px;
+  max-width: 100%;
+  border: 1px solid var(--ink-700);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ink-900);
+}
+.pp-device-scroll { overflow-x: auto; padding-bottom: 8px; }
+
+/* ============================================================
+   HERO — asymmetric, product-led, no full-bleed crop
+   ============================================================ */
+.pp-hero {
+  container-type: inline-size;
+  border-bottom: 1px solid var(--ink-700);
+  background: var(--ink-900);
+}
+.pp-hero-inner {
+  max-width: var(--wide-max);
+  margin-inline: auto;
+  padding: clamp(40px, 6cqw, 88px) clamp(20px, 4cqw, 48px);
+}
+.pp-hero-grid {
+  display: grid;
+  gap: 32px;
+  grid-template-areas:
+    'copy'
+    'media'
+    'actions';
+  align-items: start;
+}
+@container (min-width: 900px) {
+  .pp-hero-grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    grid-template-areas:
+      'copy media'
+      'actions media';
+    gap: 40px clamp(48px, 5cqw, 80px);
+  }
+}
+
+.pp-hero-copy { grid-area: copy; }
+.pp-hero-media { grid-area: media; margin: 0; }
+.pp-hero-actions { grid-area: actions; }
+
+.pp-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-lo);
+  margin: 0 0 20px;
+}
+.pp-eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--beam);
+  flex: none;
+}
+
+.pp-h1 {
+  font-family: 'Space Grotesk', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6cqw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--text-hi);
+  margin: 0;
+  text-wrap: balance;
+  overflow-wrap: break-word; /* never mid-word except pathological cases */
+}
+.pp-h1 .pp-line { display: block; }
+.pp-h1 .pp-dot { color: var(--beam); }
+
+.pp-sub {
+  margin: 20px 0 0;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.6cqw + 0.6rem, 1.15rem);
+  line-height: 1.6;
+  color: var(--text-lo);
+}
+
+.pp-actions-row { display: flex; flex-direction: column; gap: 12px; }
+@container (min-width: 560px) {
+  .pp-actions-row { flex-direction: row; flex-wrap: wrap; align-items: center; }
+}
+
+.pp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: var(--radius-control);
+  font-size: var(--type-body);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--t-micro) var(--ease-io), border-color var(--t-micro) var(--ease-io), color var(--t-micro) var(--ease-io);
+}
+.pp-btn:focus-visible { outline: 2px solid var(--beam); outline-offset: 2px; }
+.pp-btn-primary { background: var(--beam); color: var(--ink-900); border: 1px solid var(--beam); }
+.pp-btn-primary:hover { background: #f0a955; border-color: #f0a955; }
+.pp-btn-quiet { background: transparent; color: var(--text-hi); border: 1px solid var(--ink-700); }
+.pp-btn-quiet:hover { border-color: var(--beam); color: var(--beam); }
+
+.pp-status {
+  margin: 20px 0 0;
+  font-size: var(--type-sm);
+  color: var(--text-lo);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.pp-status::before { content: '—'; color: var(--beam); }
+
+.pp-hero-figure {
+  border: 1px solid var(--ink-700);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--ink-800);
+}
+.pp-hero-figure img { display: block; width: 100%; height: auto; aspect-ratio: 1407 / 768; object-fit: cover; object-position: center; }
+.pp-hero-figure figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--ink-700);
+  padding: 12px 16px;
+  font-size: var(--type-micro);
+  color: var(--text-lo);
+}
+.pp-hero-figure figcaption .pp-tag { color: var(--beam); white-space: nowrap; }
+
+/* ============================================================
+   HOW IT WORKS — editorial rail + paper worksheet plate
+   ============================================================ */
+.pp-how {
+  container-type: inline-size;
+  border-bottom: 1px solid var(--ink-700);
+  background: var(--ink-900);
+}
+.pp-how-inner {
+  max-width: var(--wide-max);
+  margin-inline: auto;
+  padding: clamp(56px, 7cqw, 110px) clamp(20px, 4cqw, 48px);
+}
+.pp-how-head { max-width: 62ch; }
+.pp-how-h2 {
+  font-family: 'Space Grotesk', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4.4cqw, 2.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text-hi);
+  margin: 0;
+  text-wrap: balance;
+}
+.pp-how-lede { margin: 14px 0 0; color: var(--text-lo); font-size: var(--type-body-lg); line-height: 1.6; }
+
+.pp-how-grid { display: grid; gap: 48px; margin-top: clamp(40px, 5cqw, 64px); }
+@container (min-width: 900px) {
+  .pp-how-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(48px, 5cqw, 80px); align-items: start; }
+}
+
+/* rail */
+.pp-steps { list-style: none; margin: 0; padding: 0; position: relative; }
+.pp-steps::before {
+  content: '';
+  position: absolute;
+  left: 15px; top: 10px; bottom: 10px;
+  width: 1px;
+  background: var(--ink-700);
+}
+.pp-steps-fill {
+  position: absolute;
+  left: 15px; top: 10px; bottom: 10px;
+  width: 1px;
+  background: var(--beam);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 900ms var(--ease-out);
+}
+.pp-steps.in .pp-steps-fill { transform: scaleY(1); }
+.pp-step { position: relative; display: grid; grid-template-columns: 32px 1fr; gap: 18px; padding-block: 18px; }
+.pp-step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--ink-700);
+  background: var(--ink-900);
+  color: var(--beam);
+  display: grid; place-items: center;
+  font-family: 'Space Grotesk', var(--font-display);
+  font-size: var(--type-sm);
+  font-weight: 700;
+  transition: border-color var(--t-base) var(--ease-out);
+}
+.pp-steps.in .pp-step-num { border-color: color-mix(in srgb, var(--beam) 55%, var(--ink-700)); }
+.pp-step h3 {
+  margin: 4px 0 6px;
+  font-family: 'Space Grotesk', var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing: -0.01em;
+}
+.pp-step p { margin: 0; color: var(--text-lo); font-size: var(--type-sm); line-height: 1.65; max-width: 46ch; }
+
+/* paper worksheet plate — the one light surface, explaining the worksheet */
+.pp-plate {
+  background: var(--paper);
+  color: var(--ink-hi);
+  border-radius: var(--radius-card);
+  padding: clamp(20px, 3cqw, 32px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.pp-plate-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px solid rgba(15, 19, 25, 0.12);
+  padding-bottom: 12px;
+}
+.pp-plate-kicker {
+  font-size: var(--type-micro);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--ink-lo);
+  font-weight: 600;
+}
+.pp-plate-chip {
+  font-size: var(--type-micro);
+  color: var(--ink-lo);
+  border: 1px solid rgba(15, 19, 25, 0.18);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.pp-plate-q {
+  margin: 18px 0 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink-hi);
+}
+.pp-plate-body { display: flex; align-items: center; gap: clamp(16px, 3cqw, 32px); flex-wrap: wrap; margin-top: 14px; }
+.pp-plate-eq {
+  font-family: 'Space Grotesk', var(--font-display);
+  font-size: clamp(1.4rem, 3cqw, 1.9rem);
+  font-weight: 700;
+  color: var(--ink-hi);
+  letter-spacing: -0.01em;
+}
+.pp-plate-eq .pp-eq-beam { color: #b06f1d; } /* beam-darkened for AA on paper */
+.pp-plate-caption {
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(15, 19, 25, 0.12);
+  font-size: var(--type-micro);
+  color: var(--ink-lo);
+  line-height: 1.6;
+}
+
+/* one-time reveal (shared pattern) */
+.pp-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out);
+}
+.pp-reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-reveal { opacity: 1; transform: none; transition: none; }
+  .pp-steps-fill { transition: none; }
+}
