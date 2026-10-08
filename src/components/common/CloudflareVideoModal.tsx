@@ -55,10 +55,9 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
 
   const src = embed.ready ? embed.playerSrc : null;
 
-  // Attach the source only after an intentional play press. Safari plays HLS
-  // natively; everywhere else hls.js is imported on demand.
+  // Eagerly attach the source as soon as the modal opens so it can buffer.
   useEffect(() => {
-    if (!open || !starting || !src) return;
+    if (!open || !src) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -67,7 +66,6 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
 
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = src;
-      void video.play().catch(() => undefined);
       return;
     }
 
@@ -81,23 +79,16 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
           instance.on(Hls.Events.ERROR, (_event, data) => {
             if (data.fatal && !destroyed) {
               setFailed(true);
-              setStarting(false);
             }
           });
           instance.loadSource(src);
           instance.attachMedia(video);
-          instance.on(Hls.Events.MANIFEST_PARSED, () => {
-            if (!destroyed) void video.play().catch(() => undefined);
-          });
         } else {
-          // Last resort (e.g. test environments): hand the manifest to the element.
           video.src = src;
-          void video.play().catch(() => undefined);
         }
       } catch {
         if (!destroyed) {
           setFailed(true);
-          setStarting(false);
         }
       }
     })();
@@ -106,14 +97,23 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
       destroyed = true;
       hls?.destroy();
     };
-  }, [open, starting, src]);
+  }, [open, src]);
 
   // Keep the element's playback rate in sync with the selected speed.
   useEffect(() => {
     if (videoRef.current) videoRef.current.playbackRate = rate;
-  }, [rate, starting]);
+  }, [rate]);
 
-  const playerVisible = open && starting && embed.ready && !failed;
+  const handlePlayClick = () => {
+    if (!embed.ready) return;
+    setStarting(true);
+    // Play synchronously during the user click event to satisfy browser autoplay policies!
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // If it still fails, the native controls are visible for them to click.
+      });
+    }
+  };
 
   return (
     <>
@@ -141,61 +141,66 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
 
           <div className="px-3 pb-3 sm:px-4 sm:pb-4">
             <div className="relative aspect-video w-full" style={playerFrameStyle} data-testid="video-player-area">
-              {playerVisible && src ? (
+              {/* Always render the video element if valid, so HLS can attach immediately */}
+              {embed.ready && !failed && (
                 <>
                   <video
                     ref={videoRef}
                     data-testid="demo-video"
-                    controls
-                    autoPlay
+                    controls={starting} // Only show controls once started
                     playsInline
                     preload="auto"
                     poster={POSTER_SRC}
                     title="DeskScholar prototype demonstration"
                     className="h-full w-full rounded-card bg-[#0B1412]"
                   />
-                  {/* Fast-forward speeds */}
-                  <div
-                    role="group"
-                    aria-label="Playback speed"
-                    data-testid="playback-speeds"
-                    className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-[rgba(11,20,18,0.72)] p-1 backdrop-blur-[2px] sm:right-3 sm:top-3"
-                  >
-                    {PLAYBACK_RATES.map((value) => (
-                      <button
-                        key={value}
-                        type="button"
-                        data-testid={`speed-${value}`}
-                        aria-pressed={rate === value}
-                        onClick={() => setRate(value)}
-                        className={`min-h-[30px] rounded-full px-2.5 text-[12px] font-semibold transition-colors duration-[var(--t-micro)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--beam)] ${
-                          rate === value
-                            ? 'bg-[var(--beam)] text-white'
-                            : 'text-[#E7EAE6] hover:bg-[rgba(255,255,255,0.14)]'
-                        }`}
-                      >
-                        {value}x
-                      </button>
-                    ))}
-                  </div>
+                  {/* Fast-forward speeds - only show when starting */}
+                  {starting && (
+                    <div
+                      role="group"
+                      aria-label="Playback speed"
+                      data-testid="playback-speeds"
+                      className="absolute right-2 top-2 z-10 flex items-center gap-1 rounded-full bg-[rgba(11,20,18,0.72)] p-1 backdrop-blur-[2px] sm:right-3 sm:top-3"
+                    >
+                      {PLAYBACK_RATES.map((value) => (
+                        <button
+                          key={value}
+                          type="button"
+                          data-testid={`speed-${value}`}
+                          aria-pressed={rate === value}
+                          onClick={() => setRate(value)}
+                          className={`min-h-[30px] rounded-full px-2.5 text-[12px] font-semibold transition-colors duration-[var(--t-micro)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--beam)] ${
+                            rate === value
+                              ? 'bg-[var(--beam)] text-white'
+                              : 'text-[#E7EAE6] hover:bg-[rgba(255,255,255,0.14)]'
+                          }`}
+                        >
+                          {value}x
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </>
-              ) : (
-                <>
+              )}
+
+              {/* Overlay with Poster and Big Play Button */}
+              {!starting && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center rounded-card bg-[#0B1412] overflow-hidden">
                   <img
                     src={POSTER_SRC}
                     alt=""
                     aria-hidden="true"
-                    className="h-full w-full rounded-card object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                     data-testid="video-poster"
                   />
                   <button
                     type="button"
-                    onClick={() => embed.ready && setStarting(true)}
+                    onClick={handlePlayClick}
                     aria-disabled={!embed.ready}
                     disabled={!embed.ready}
                     aria-label="Play the DeskScholar prototype demonstration"
                     data-testid="video-play"
-                    className="absolute inset-0 flex items-center justify-center rounded-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-aqua"
+                    className="absolute inset-0 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-aqua"
                   >
                     <span
                       className={`flex h-16 w-16 items-center justify-center rounded-full shadow-soft transition ${
@@ -208,6 +213,7 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
                       />
                     </span>
                   </button>
+                  
                   {!embed.ready && (
                     <div className="pointer-events-none absolute inset-x-3 bottom-3 flex justify-center">
                       <p
@@ -228,7 +234,7 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
                       </p>
                     </div>
                   )}
-                </>
+                </div>
               )}
             </div>
           </div>
