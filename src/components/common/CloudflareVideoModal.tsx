@@ -147,8 +147,9 @@ export function CloudflareVideoModal({ children }: CloudflareVideoModalProps) {
                     ref={videoRef}
                     data-testid="demo-video"
                     controls
+                    autoPlay
                     playsInline
-                    preload="none"
+                    preload="auto"
                     poster={POSTER_SRC}
                     title="DeskScholar prototype demonstration"
                     className="h-full w-full rounded-card bg-[#0B1412]"
