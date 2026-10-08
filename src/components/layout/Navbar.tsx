@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Play } from 'lucide-react';
 import { navLinks, productMenu } from '../../data/navigation';
 import { cn } from '../../utils/cn';
+import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
 import { Logo } from './Logo';
 import { MobileNavigation } from './MobileNavigation';
 
@@ -146,6 +147,21 @@ export function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Demo video — same shared modal as the walkthrough trigger */}
+            <CloudflareVideoModal>
+              {({ open }) => (
+                <button
+                  type="button"
+                  onClick={open}
+                  data-testid="nav-demo-video"
+                  className="-mb-px flex h-[var(--header-h-lg)] items-center gap-1.5 rounded-[var(--radius-control)] border-b-2 border-transparent px-0.5 text-[14.5px] font-medium text-[var(--text-hi)] transition-colors duration-[var(--t-micro)] hover:text-[var(--beam)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--beam)]"
+                >
+                  <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+                  Watch demo
+                </button>
+              )}
+            </CloudflareVideoModal>
           </div>
 
           {/* Group 3 — one compact action + mobile menu control */}

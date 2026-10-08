@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Play } from 'lucide-react';
 import { navLinks, productMenu } from '../../data/navigation';
 import { cn } from '../../utils/cn';
+import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
 import { Logo } from './Logo';
 
 interface MobileNavigationProps {
@@ -40,6 +41,8 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
     if (!isOpen) return;
     const onKey = (event: globalThis.KeyboardEvent) => {
       if (event.key === 'Escape') {
+        // Let an open modal (e.g. the demo video) handle Escape first.
+        if (document.querySelector('[data-testid="modal-root"]')) return;
         onClose();
         return;
       }
@@ -162,6 +165,19 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
         </nav>
 
         <div className="shrink-0 border-t border-[var(--hairline-dark)] p-4">
+          <CloudflareVideoModal>
+            {({ open }) => (
+              <button
+                type="button"
+                data-testid="mobile-nav-demo-video"
+                onClick={open}
+                className="mb-2 flex h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--hairline-strong)] px-4 text-[15px] font-semibold text-[var(--text-hi)] transition-colors duration-[var(--t-micro)] hover:border-[var(--beam)] hover:text-[var(--beam)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--beam)]"
+              >
+                <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                Watch demo video
+              </button>
+            )}
+          </CloudflareVideoModal>
           <Link
             to="/contact"
             onClick={onClose}
