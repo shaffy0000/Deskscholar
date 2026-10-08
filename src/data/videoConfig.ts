@@ -64,11 +64,11 @@ export function parseDemoVideoEmbed(raw: string | undefined): DemoVideoEmbed {
     return { ready: true, playerSrc: manifestFor('https://videodelivery.net', segments[0]), reason: 'ok' };
   }
 
-  // https://<sub>.cloudflarestream.com/<uid>/iframe → same origin manifest
+  // https://<sub>.cloudflarestream.com/<uid>/iframe or /watch → same origin manifest
   if (
     CUSTOMER_STREAM_HOST.test(url.hostname) &&
     segments.length === 2 &&
-    segments[1] === 'iframe' &&
+    (segments[1] === 'iframe' || segments[1] === 'watch') &&
     UID_PATTERN.test(segments[0])
   ) {
     return { ready: true, playerSrc: manifestFor(url.origin, segments[0]), reason: 'ok' };
