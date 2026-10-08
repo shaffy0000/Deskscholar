@@ -101,7 +101,8 @@ export function parseDemoVideoEmbed(raw: string | undefined): DemoVideoEmbed {
 
 /** Read live (tests and Vercel builds can change env before render). */
 export function getDemoVideoEmbed(): DemoVideoEmbed {
-  return parseDemoVideoEmbed(import.meta.env.VITE_DEMO_VIDEO_EMBED_URL as string | undefined);
+  const envUrl = import.meta.env.MODE === 'test' ? (import.meta.env.VITE_DEMO_VIDEO_EMBED_URL as string | undefined) : undefined;
+  return parseDemoVideoEmbed(envUrl);
 }
 
 let warned = false;
