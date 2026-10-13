@@ -104,7 +104,7 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
       >
         <div className="flex h-[var(--header-h)] shrink-0 items-center justify-between border-b border-[var(--hairline-dark)] px-5">
           <Link to="/" onClick={onClose} aria-label="DeskScholar home" className="rounded-[var(--radius-control)]">
-            <Logo mark={false} />
+            <Logo />
           </Link>
           <button
             type="button"

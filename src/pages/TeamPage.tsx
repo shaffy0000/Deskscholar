@@ -1,10 +1,25 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, GraduationCap, Languages, ShieldCheck, WifiOff } from 'lucide-react';
-import { Button } from '../components/common/Button';
+import { Link } from 'react-router-dom';
+import {
+  ArrowRight,
+  BookOpen,
+  Building2,
+  Code2,
+  Cpu,
+  FlaskConical,
+  GraduationCap,
+  Languages,
+  MapPin,
+  Mic,
+  Projector,
+  ScanText,
+  ShieldCheck,
+  Users,
+  WifiOff,
+  BrainCircuit,
+} from 'lucide-react';
 import { PageHeader } from '../components/common/PageHeader';
 import { Section } from '../components/common/Section';
 import { Seo } from '../components/common/Seo';
-import { StatusBadge } from '../components/common/StatusBadge';
 import {
   academicContext,
   memberContributionLine,
@@ -13,7 +28,7 @@ import {
   workAreas,
   workAreasNote,
 } from '../data/team';
-import { cn } from '../utils/cn';
+import '../styles/team.css';
 
 const valueIcons: Record<string, typeof BookOpen> = {
   'learning-first': BookOpen,
@@ -21,13 +36,29 @@ const valueIcons: Record<string, typeof BookOpen> = {
   'bilingual-inclusion': Languages,
   'responsible-ai': ShieldCheck,
 };
+const valueTones = ['sun', 'pine', 'lilac', 'peach'] as const;
+
+/** Icons for the collective work areas, matched by position in data/team.ts. */
+const workAreaIcons = [BrainCircuit, Cpu, ScanText, Mic, Projector, Code2, FlaskConical];
+
+const memberTones = ['pine', 'sun', 'peach', 'lilac'] as const;
+
+function initials(name: string) {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+}
 
 const academicItems = [
-  { label: 'University', value: academicContext.university },
-  { label: 'Campus', value: academicContext.campus },
-  { label: 'Degree', value: academicContext.degree },
-  { label: 'Project type', value: academicContext.projectType },
-  { label: 'Team size', value: academicContext.teamSize },
+  { icon: Building2, label: 'University', value: academicContext.university },
+  { icon: MapPin, label: 'Campus', value: academicContext.campus },
+  { icon: GraduationCap, label: 'Degree', value: academicContext.degree },
+  { icon: FlaskConical, label: 'Project type', value: academicContext.projectType },
+  { icon: Users, label: 'Team size', value: academicContext.teamSize },
 ];
 
 const originFacts = [
@@ -42,166 +73,158 @@ export default function TeamPage() {
     <>
       <Seo route="team" />
 
-      {/* 1. Hero — text only, no image, no empty visual column */}
       <PageHeader
         label="About DeskScholar"
         title="Meet the team building DeskScholar."
-        description="We are a four-member Computer Engineering team developing DeskScholar as a product-focused final-year project. Our work explores offline AI, voice interaction, worksheet understanding and projected step-by-step learning."
-      >
-        <StatusBadge tone="dark" dot pulse>
-          Four-member final-year project team
-        </StatusBadge>
-      </PageHeader>
+        description="We are a four-member Computer Engineering team developing DeskScholar as a product-focused final-year project — exploring offline AI, voice, worksheet understanding and projected step-by-step learning."
+        visual={
+          <div className="tm-hero" aria-hidden="true">
+            <div className="tm-stack">
+              {teamMembers.map((m, i) => (
+                <span key={m.name} className="tm-bubble" data-tone={memberTones[i % 4]}>
+                  {initials(m.name)}
+                </span>
+              ))}
+            </div>
+            <p className="tm-hero-line">
+              <GraduationCap className="h-4 w-4" />
+              {academicContext.degree} · {academicContext.university.split(' ')[0]}
+            </p>
+          </div>
+        }
+      />
 
-      {/* 2. Team members — four text cards */}
+      {/* Team members */}
       <Section ariaLabel="Team members">
-        <ul className="grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-          {teamMembers.map((member, index) => (
-            <motion.li
-              key={member.name}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: (index % 4) * 0.06, ease: 'easeOut' }}
-              className="flex h-full flex-col rounded-panel border border-line bg-white p-6 shadow-soft"
-            >
-              <h2 className="font-display text-lg font-bold leading-snug text-ink">{member.name}</h2>
-              <p className="mt-2 text-sm font-semibold text-brand-dark">{member.label}</p>
-              <p className="mt-3 text-[13px] leading-relaxed text-muted">{memberContributionLine}</p>
-            </motion.li>
+        <ul className="tm-grid">
+          {teamMembers.map((member, i) => (
+            <li key={member.name} className="tm-card rise" data-tone={memberTones[i % 4]}>
+              <div className="tm-card-top" aria-hidden="true">
+                <span className="tm-avatar">{initials(member.name)}</span>
+              </div>
+              <div className="tm-card-body">
+                <h2 className="tm-name">{member.name}</h2>
+                <p className="tm-role">{member.label}</p>
+                <p className="tm-line">{memberContributionLine}</p>
+                <p className="tm-tag">
+                  <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
+                  {academicContext.degree}
+                </p>
+              </div>
+            </li>
           ))}
         </ul>
       </Section>
 
-      {/* 3. Project origin */}
-      <Section tone="white" labelledBy="origin-heading" ariaLabel="Project origin">
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-14">
-          <h2 id="origin-heading" className="font-display text-h2 text-ink">
-            From a final-year project to a product vision.
-          </h2>
-          <div className="max-w-prose">
-            <p className="text-[15px] leading-relaxed text-muted">
+      {/* Project origin + academic context */}
+      <Section tone="white" labelledBy="origin-heading">
+        <div className="tm-origin">
+          <div>
+            <p className="sec-eyebrow">Project origin</p>
+            <h2 id="origin-heading" className="tm-h2">
+              From a final-year project to a product vision.
+            </h2>
+            <p className="tm-lede">
               DeskScholar began as an educational AI concept and evolved into an offline-first desk
               learning companion. The team is exploring how local AI, voice, vision and physical
               projection can make learning more focused, accessible and understandable.
             </p>
-            <ul className="mt-5 space-y-2.5">
+            <ul className="tm-facts">
               {originFacts.map((fact) => (
-                <li key={fact} className="flex items-start gap-3 text-sm text-ink">
-                  <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
-                  {fact}
-                </li>
+                <li key={fact}>{fact}</li>
               ))}
             </ul>
+          </div>
+
+          <div className="tm-idcard" aria-labelledby="academic-heading">
+            <div className="tm-idcard-head">
+              <span className="tile" aria-hidden="true">
+                <GraduationCap className="h-5 w-5" />
+              </span>
+              <h2 id="academic-heading">Academic context</h2>
+            </div>
+            <dl>
+              {academicItems.map(({ icon: Icon, label, value }) => (
+                <div key={label} className="tm-id-row">
+                  <dt>
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                    {label}
+                  </dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </Section>
 
-      {/* 4. Academic context — text grid, no logo */}
-      <Section labelledBy="academic-heading">
-        <div className="mx-auto max-w-4xl">
-          <h2 id="academic-heading" className="text-center font-display text-h2 text-ink">
-            Academic context
-          </h2>
-          <ul className="mx-auto mt-10 flex list-none max-w-4xl flex-wrap justify-center gap-3">
-            {academicItems.map((item) => (
-              <li
-                key={item.label}
-                className="w-full sm:w-[calc(50%-0.375rem)] lg:w-[calc(33.333%-0.5rem)]"
-              >
-                <div className="flex h-full items-start gap-3 rounded-card border border-line bg-white px-5 py-4 shadow-soft">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-dark">
-                    <GraduationCap className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted">{item.label}</p>
-                    <p className="mt-0.5 text-sm font-semibold text-ink">{item.value}</p>
-                  </div>
-                </div>
+      {/* Collective work areas */}
+      <Section
+        labelledBy="work-areas-heading"
+        heading={{
+          label: 'What we work on',
+          title: <span id="work-areas-heading">Collective work areas</span>,
+          description: workAreasNote,
+          align: 'center',
+        }}
+      >
+        <ul className="tm-areas">
+          {workAreas.map((area, i) => {
+            const Icon = workAreaIcons[i] ?? FlaskConical;
+            return (
+              <li key={area} className="lift">
+                <span className="tile" data-tone={valueTones[i % 4]} aria-hidden="true">
+                  <Icon className="h-5 w-5" />
+                </span>
+                {area}
               </li>
-            ))}
-          </ul>
-        </div>
+            );
+          })}
+        </ul>
       </Section>
 
-      {/* 5. Collective work areas */}
-      <Section tone="white" labelledBy="work-areas-heading">
-        <div className="mx-auto max-w-4xl">
-          <h2 id="work-areas-heading" className="text-center font-display text-h2 text-ink">
-            Collective work areas
-          </h2>
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-            {workAreas.map((area, index) => (
-              <li
-                key={area}
-                className={cn(
-                  'flex items-center gap-3 rounded-card border border-line bg-ivory px-5 py-4',
-                  // Odd final item: centred in the incomplete row at exactly one column's width.
-                  index === workAreas.length - 1 &&
-                    workAreas.length % 2 === 1 &&
-                    'sm:col-span-2 sm:w-[calc(50%-0.375rem)] sm:justify-self-center',
-                )}
-              >
-                <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-aqua-dark" aria-hidden="true" />
-                <span className="text-sm font-semibold text-ink">{area}</span>
+      {/* Values */}
+      <Section
+        tone="midnight"
+        labelledBy="values-heading"
+        heading={{
+          label: 'What we believe',
+          title: <span id="values-heading">Mission and values</span>,
+          align: 'center',
+        }}
+      >
+        <ul className="tm-values">
+          {teamValues.map((value) => {
+            const Icon = valueIcons[value.id] ?? BookOpen;
+            return (
+              <li key={value.id} className="rise">
+                <span className="tile" aria-hidden="true">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3>{value.title}</h3>
+                <p>{value.description}</p>
               </li>
-            ))}
-          </ul>
-          <p className="mt-6 text-center text-[13px] leading-relaxed text-muted">{workAreasNote}</p>
-        </div>
+            );
+          })}
+        </ul>
       </Section>
 
-      {/* 6. Values — icons and typography only */}
-      <Section labelledBy="values-heading">
-        <div className="mx-auto max-w-5xl">
-          <h2 id="values-heading" className="text-center font-display text-h2 text-ink">
-            Mission and values
-          </h2>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-            {teamValues.map((value, index) => {
-              const Icon = valueIcons[value.id] ?? BookOpen;
-              return (
-                <motion.li
-                  key={value.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: (index % 4) * 0.06, ease: 'easeOut' }}
-                  className="flex h-full flex-col rounded-panel border border-line bg-white p-6 shadow-soft"
-                >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-card bg-brand-light text-brand-dark">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <h3 className="mt-4 font-display text-[15px] font-bold text-ink sm:text-base">{value.title}</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-muted sm:text-sm">{value.description}</p>
-                </motion.li>
-              );
-            })}
-          </ul>
-        </div>
-      </Section>
-
-      {/* 7. Final CTA — no image */}
+      {/* CTA */}
       <Section ariaLabel="Collaboration call to action">
-        <div className="rounded-hero border border-[var(--hairline-dark)] bg-[var(--surface-2)] p-8 text-center md:p-12">
-          <h2 className="font-display text-h2 text-text-hi">
-            Interested in collaborating with the DeskScholar team?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-text-hi sm:text-base">
-            We welcome conversations about education, research, hardware, product, and early-stage support.
+        <div className="pcta">
+          <h2>Interested in collaborating with the DeskScholar team?</h2>
+          <p>
+            We welcome conversations about education, research, hardware, product, and early-stage
+            support.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg" variant="dark" to="/contact">
+          <div className="pcta-actions">
+            <Link to="/contact" className="pcta-primary">
               Contact the Team
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Button>
-            <Button
-              size="lg"
-              to="/journey"
-              className="border border-[var(--hairline-dark)] bg-white text-text-hi hover:border-[var(--beam)] hover:text-[var(--beam)] focus-visible:ring-[var(--beam)] focus-visible:ring-offset-[var(--ink-900)]"
-            >
+            </Link>
+            <Link to="/journey" className="pcta-secondary">
               Follow Our Journey
-            </Button>
+            </Link>
           </div>
         </div>
       </Section>

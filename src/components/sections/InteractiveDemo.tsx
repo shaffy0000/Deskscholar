@@ -6,8 +6,7 @@ import {
   type DemoModeId,
   type TranslateLang,
 } from '../../data/demoScenarios';
-import { deskScholarImages, deskScholarImageRatios, deskScholarImageSrcSets } from '../../data/assets';
-import { ProductImage } from '../common/ProductImage';
+import { deskScholarImages, deskScholarImageSrcSets } from '../../data/assets';
 import { Section } from '../common/Section';
 import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
 import { DemoControls } from '../demo/DemoControls';
@@ -129,35 +128,43 @@ export function InteractiveDemo() {
           </div>
         </div>
 
-        <div className="mx-auto mt-12 max-w-3xl">
-        <ProductImage
-          src={deskScholarImages.projectionCloseup}
-          srcSet={deskScholarImageSrcSets.projectionCloseup}
-          sizes="(min-width: 832px) 768px, calc(100vw - 40px)"
-          alt="DeskScholar projecting visual fraction guidance onto a mathematics worksheet."
-          ratio={deskScholarImageRatios.projectionCloseup}
-          objectPosition="center"
-          caption="Projected fraction guidance on a real worksheet — the scripted simulation above mirrors this desk-projection experience."
-        />
-      </div>
-
-      <div className="mt-10 flex flex-col items-center gap-3">
-          <CloudflareVideoModal>
-            {({ open }) => (
-              <button
-                type="button"
-                onClick={open}
-                data-testid="open-video-modal"
-                className="inline-flex min-h-12 items-center gap-2.5 rounded-full bg-[var(--ink-deep)] px-6 text-sm font-semibold text-white shadow-[var(--shadow-card)] transition-colors hover:bg-[#0F1F1C] sm:px-7"
-              >
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand">
-                  <Play className="ml-0.5 h-4 w-4 text-white" aria-hidden="true" />
-                </span>
-                Watch Full Prototype Video
-              </button>
-            )}
-          </CloudflareVideoModal>
-          <p className="text-xs text-muted">Prototype footage will appear here once recorded.</p>
+        <div className="mt-12 grid overflow-hidden rounded-[28px] [background:var(--pine-grad)] text-white shadow-[0_40px_80px_-40px_rgba(15,63,55,0.8)] lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="relative min-h-[240px]">
+            <img
+              src={deskScholarImages.projectionCloseup}
+              srcSet={deskScholarImageSrcSets.projectionCloseup}
+              sizes="(min-width: 1024px) 640px, calc(100vw - 40px)"
+              alt="DeskScholar projecting visual fraction guidance onto a mathematics worksheet."
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col items-start justify-center gap-4 p-7 sm:p-10">
+            <p className="sec-eyebrow !text-[#F2B544]">From simulation to the real desk</p>
+            <h3 className="font-display text-[clamp(1.5rem,1.1rem+1.4vw,2.1rem)] font-bold leading-tight text-white">
+              The same guidance, projected onto real paper.
+            </h3>
+            <p className="text-[15px] leading-relaxed text-white/80">
+              The scripted demo above mirrors what the desk unit is planned to do: read the worksheet,
+              find the slip, and light up the next step right beside the student&rsquo;s own working.
+            </p>
+            <CloudflareVideoModal>
+              {({ open }) => (
+                <button
+                  type="button"
+                  onClick={open}
+                  data-testid="open-video-modal"
+                  className="mt-2 inline-flex min-h-[52px] items-center gap-3 rounded-full bg-[#F2B544] pl-2 pr-6 text-[15px] font-bold text-[#2E2005] shadow-[0_12px_28px_-12px_rgba(242,181,68,0.8)] transition-transform hover:-translate-y-0.5"
+                >
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white">
+                    <Play className="ml-0.5 h-4 w-4 text-[#176B5B]" fill="currentColor" aria-hidden="true" />
+                  </span>
+                  Watch the concept video
+                </button>
+              )}
+            </CloudflareVideoModal>
+          </div>
         </div>
     </Section>
   );

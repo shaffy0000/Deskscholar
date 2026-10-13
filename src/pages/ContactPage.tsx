@@ -1,4 +1,5 @@
-import { Mail, MapPin, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { AccessibleTabs } from '../components/common/AccessibleTabs';
 import { PageHeader } from '../components/common/PageHeader';
 import { Section } from '../components/common/Section';
@@ -11,18 +12,18 @@ export default function ContactPage() {
     <>
       <Seo route="contact" />
       <PageHeader
-        label="Contact"
-        title="Help shape the future of DeskScholar."
-        description="Join early access, express interest in future prototype testing, or contact the team about education, research, hardware, product, and investment collaboration."
+        label="Waitlist & contact"
+        title="Save your spot at the desk."
+        description="Join the waitlist for prototype updates and testing invitations — or reach the team about schools, research, hardware or partnerships."
       />
 
-      <Section narrow ariaLabel="Early access and contact forms">
-        <div className="rounded-hero border border-line bg-white p-6 shadow-card sm:p-10">
+      <Section narrow ariaLabel="Waitlist and contact forms">
+        <div className="rounded-[28px] border border-[var(--hairline-dark)] bg-white p-6 shadow-[var(--shadow-lift)] sm:p-10">
           <AccessibleTabs
             items={[
               {
                 id: 'early-access',
-                label: 'Join Early Access',
+                label: 'Join the waitlist',
                 content: (
                   <div className="pt-8">
                     <EarlyAccessForm />
@@ -42,26 +43,17 @@ export default function ContactPage() {
           />
         </div>
 
-        <ul className="mt-6 grid gap-4 sm:grid-cols-3">
-          <li className="flex items-start gap-3 rounded-card border border-line bg-white p-4 shadow-soft">
-            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-dark" aria-hidden="true" />
-            <p className="text-[13px] leading-relaxed text-muted">
-              Form submissions may be forwarded to the project team by email.
-            </p>
-          </li>
-          <li className="flex items-start gap-3 rounded-card border border-line bg-white p-4 shadow-soft">
-            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-aqua-dark" aria-hidden="true" />
-            <p className="text-[13px] leading-relaxed text-muted">
-              This website does not store submissions in a dedicated application database.
-            </p>
-          </li>
-          <li className="flex items-start gap-3 rounded-card border border-line bg-white p-4 shadow-soft">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-dark" aria-hidden="true" />
-            <p className="text-[13px] leading-relaxed text-muted">
-              DeskScholar is a prototype-stage project. Response times may vary during development.
-            </p>
-          </li>
-        </ul>
+        <p className="mt-5 flex items-start justify-center gap-2 text-center text-[13px] leading-relaxed text-[var(--text-lo)]">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--beam)]" aria-hidden="true" />
+          <span>
+            Submissions are emailed to the team via Formspree — no database, no selling, no spam.
+            Details in our{' '}
+            <Link to="/privacy" className="font-semibold text-[var(--beam)] underline underline-offset-4">
+              Privacy Policy
+            </Link>
+            .
+          </span>
+        </p>
       </Section>
     </>
   );

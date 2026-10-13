@@ -1,38 +1,38 @@
 import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
 import { Container } from './Container';
-import { StatusBadge } from './StatusBadge';
 
 interface PageHeaderProps {
   label: string;
   title: ReactNode;
   description: ReactNode;
   children?: ReactNode;
+  /** Optional visual shown beside the copy on wide screens (below it on phones). */
+  visual?: ReactNode;
 }
 
-/** Standard hero header for interior pages — one shared treatment across routes. */
-export function PageHeader({ label, title, description, children }: PageHeaderProps) {
+/**
+ * Shared hero header for interior pages — warm blobs, dot grid, big title.
+ * Copy is visible on first paint (no JS-gated entrance animation).
+ */
+export function PageHeader({ label, title, description, children, visual }: PageHeaderProps) {
   return (
-    <header className="dark-section relative overflow-hidden bg-midnight pb-10 pt-8 md:pb-14 md:pt-10">
-      <div className="projection-grid-dark pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
-      <div
-        className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-brand/15 blur-3xl"
-        aria-hidden="true"
-      />
+    <header className="ph">
+      <div className="ph-blob ph-blob-a" aria-hidden="true" />
+      <div className="ph-blob ph-blob-b" aria-hidden="true" />
+      <div className="ph-dots" aria-hidden="true" />
       <Container className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-          className="max-w-3xl"
-        >
-          <StatusBadge tone="dark" dot>
-            {label}
-          </StatusBadge>
-          <h1 className="mt-4 font-display text-h1 text-text-hi">{title}</h1>
-          <p className="mt-[var(--gap-head-intro)] max-w-prose text-lead text-text-lo">{description}</p>
-          {children && <div className="mt-6 flex flex-wrap gap-3">{children}</div>}
-        </motion.div>
+        <div className={visual ? 'ph-grid' : undefined}>
+          <div className="max-w-3xl">
+            <p className="ph-chip">
+              <span className="ph-chip-dot" aria-hidden="true" />
+              {label}
+            </p>
+            <h1 className="ph-title">{title}</h1>
+            <p className="ph-desc">{description}</p>
+            {children && <div className="mt-6 flex flex-wrap gap-3">{children}</div>}
+          </div>
+          {visual && <div className="ph-visual">{visual}</div>}
+        </div>
       </Container>
     </header>
   );

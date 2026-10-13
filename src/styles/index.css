@@ -42,10 +42,15 @@
   --shadow-ground:  0 36px 56px -30px rgba(23, 33, 31, 0.35);
   --shadow-card:    0 1px 2px rgba(23, 33, 31, 0.05), 0 12px 28px -18px rgba(23, 33, 31, 0.18);
   --glow-aqua:      none;
+  --shadow-lift:    0 2px 4px rgba(23, 33, 31, 0.04), 0 24px 48px -24px rgba(23, 33, 31, 0.28);
+  --pine-grad:      linear-gradient(135deg, #1D7F6C 0%, #145A4D 55%, #0F3F37 100%);
+  --sun:            #F2B544;   /* playful highlight — used sparingly */
+  --sun-dim:        rgba(242, 181, 68, 0.18);
+  --lilac:          #8B7CF6;   /* fraction visuals */
 
   /* ── Radius ─────────────────────────────────────────────── */
-  --radius-control: 4px;
-  --radius-card:    10px;
+  --radius-control: 12px;
+  --radius-card:    20px;
   --radius-none:    0px;
 
   /* ── Motion ─────────────────────────────────────────────── */
@@ -188,6 +193,22 @@
     background-position: right 0.9rem center;
     padding-right: 2.5rem;
   }
+}
+
+/* Scroll-linked section entrance — progressive enhancement only.
+   Where unsupported, nothing is hidden: content renders immediately. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+  }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.985); }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes panel-in {

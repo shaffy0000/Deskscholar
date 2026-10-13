@@ -77,10 +77,16 @@ export default {
       borderRadius: {
         control: 'var(--radius-control)',
         card:    'var(--radius-card)',
+        panel:   '24px',
+        hero:    '32px',
         none:    'var(--radius-none)',
       },
       boxShadow: {
         header: 'var(--shadow-header)',
+        soft:   'var(--shadow-card)',
+        card:   'var(--shadow-card)',
+        plate:  'var(--shadow-plate)',
+        lift:   'var(--shadow-lift)',
       },
       maxWidth: {
         content: 'var(--content-max)',

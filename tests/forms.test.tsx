@@ -27,14 +27,14 @@ afterEach(() => {
 });
 
 async function openEarlyAccessTab() {
-  await screen.findByRole('tab', { name: /Join Early Access/i }, { timeout: 20000 });
+  await screen.findByRole('tab', { name: /Join the waitlist/i }, { timeout: 20000 });
 }
 
 async function fillEarlyAccess(user: ReturnType<typeof userEvent.setup>, opts: { consent?: boolean } = {}) {
   await openEarlyAccessTab();
   await user.type(screen.getByLabelText(/Full name/i), 'Ayesha Khan');
   await user.type(screen.getByLabelText(/^Email/i), 'Ayesha@Example.com');
-  await user.selectOptions(screen.getByLabelText(/^Role/i), 'STUDENT');
+  await user.selectOptions(screen.getByLabelText(/^I am a/i), 'STUDENT');
   if (opts.consent !== false) {
     await user.click(screen.getByRole('checkbox', { name: /agree that the DeskScholar team may contact me about early access/i }));
   }
@@ -49,7 +49,7 @@ describe('early access form → Formspree', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await openEarlyAccessTab();
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
 
     expect(await screen.findByText(/Please enter your full name\./i)).toBeInTheDocument();
     expect(screen.getByText(/Please enter your email address\./i)).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('early access form → Formspree', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await fillEarlyAccess(user, { consent: false });
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
     expect(await screen.findByText(/Consent is required/i)).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
@@ -71,11 +71,11 @@ describe('early access form → Formspree', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await fillEarlyAccess(user);
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
 
     expect(
       await screen.findByText(
-        /Thank you for joining DeskScholar early access\. We have received your registration/i,
+        /You are on the waitlist! We will keep you posted/i,
       ),
     ).toBeInTheDocument();
 
@@ -98,7 +98,7 @@ describe('early access form → Formspree', () => {
 
     // Success region is polite-live + focus lands on it; form reset.
     const status = await screen.findByRole('status');
-    expect(status).toHaveTextContent(/Thank you for joining DeskScholar early access/i);
+    expect(status).toHaveTextContent(/You are on the waitlist/i);
     expect(screen.getByLabelText(/^Email/i)).toHaveValue('');
   });
 
@@ -111,7 +111,7 @@ describe('early access form → Formspree', () => {
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await fillEarlyAccess(user);
 
-    const button = screen.getByRole('button', { name: /Join Early Access/i });
+    const button = screen.getByRole('button', { name: /Join the waitlist/i });
     await user.click(button);
     await user.click(button).catch(() => {}); // disabled → no-op
     await user.click(button).catch(() => {});
@@ -128,14 +128,14 @@ describe('early access form → Formspree', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await fillEarlyAccess(user);
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
 
     const alert = await screen.findByRole('alert');
     expect(alert).toHaveTextContent(/couldn’t submit your form right now\. Please check your connection and try again\./i);
     expect(alert).not.toHaveTextContent(/raw internal provider detail/i);
     expect(screen.getByLabelText(/^Email/i)).toHaveValue('Ayesha@Example.com');
     await waitFor(() =>
-      expect(screen.getByRole('button', { name: /Join Early Access/i })).toBeEnabled(),
+      expect(screen.getByRole('button', { name: /Join the waitlist/i })).toBeEnabled(),
     );
   });
 
@@ -144,7 +144,7 @@ describe('early access form → Formspree', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await fillEarlyAccess(user);
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
     expect(await screen.findByRole('alert')).toHaveTextContent(/couldn’t submit your form right now/i);
   });
 
@@ -157,7 +157,7 @@ describe('early access form → Formspree', () => {
     honeypot!.focus();
     await user.type(honeypot!, 'http://spam.example');
     honeypot!.blur();
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
 
     expect(await screen.findByRole('status')).toBeInTheDocument(); // looks successful to the bot…
     expect(fetchMock).not.toHaveBeenCalled(); // …but nothing left the browser
@@ -168,7 +168,7 @@ describe('early access form → Formspree', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     await fillEarlyAccess(user);
-    await user.click(screen.getByRole('button', { name: /Join Early Access/i }));
+    await user.click(screen.getByRole('button', { name: /Join the waitlist/i }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent(/couldn’t submit your form right now/i);
     expect(fetchMock).not.toHaveBeenCalled();

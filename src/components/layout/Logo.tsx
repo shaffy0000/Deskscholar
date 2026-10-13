@@ -4,40 +4,46 @@ interface LogoProps {
   className?: string;
   /** Icon sizing — only rendered when `mark` is true. */
   iconClass?: string;
-  /**
-   * The navbar uses the wordmark alone as the primary identity (mark=false);
-   * the footer and mobile panel keep the small approved brand mark.
-   */
+  /** Show the brand mark (desk lamp + book) before the wordmark. */
   mark?: boolean;
+  /** `light` renders the wordmark in white for dark surfaces (footer). */
+  tone?: 'default' | 'light';
 }
 
 /**
- * Brand lockup: crisp, well-proportioned "DeskScholar" wordmark, optionally
- * preceded by the approved brand mark at a restrained size. No detailed
- * product illustration.
+ * Brand lockup: the approved desk-lamp mark followed by the "DeskScholar"
+ * wordmark ("Scholar" in pine). The mark tilts slightly when its link is hovered.
  */
-export function Logo({ className, iconClass, mark = true }: LogoProps) {
+export function Logo({ className, iconClass, mark = true, tone = 'default' }: LogoProps) {
+  const light = tone === 'light';
   return (
-    <span className={cn('inline-flex items-center gap-2 whitespace-nowrap', className)}>
+    <span className={cn('group/logo inline-flex items-center gap-2.5 whitespace-nowrap', className)}>
       {mark && (
         <img
-          src="/assets/deskscholar/logo-icon-112.webp"
+          src="/assets/deskscholar/logo-icon.webp"
           srcSet="/assets/deskscholar/logo-icon-112.webp 112w, /assets/deskscholar/logo-icon.webp 165w"
-          sizes="28px"
+          sizes="40px"
           alt=""
           aria-hidden="true"
-          width={110}
-          height={112}
+          width={165}
+          height={168}
           draggable={false}
           decoding="async"
-          className={cn('w-auto select-none', iconClass ?? 'h-[24px] lg:h-[26px]')}
+          className={cn(
+            'w-auto select-none transition-transform duration-300 ease-out group-hover/logo:-rotate-6 group-hover/logo:scale-105 motion-reduce:transition-none',
+            light && 'rounded-xl bg-white/95 p-1',
+            iconClass ?? 'h-9 lg:h-10',
+          )}
         />
       )}
       <span
-        className="text-[17px] font-semibold tracking-[-0.015em] text-[var(--text-hi)] lg:text-[18px]"
+        className={cn(
+          'text-[18px] font-bold tracking-[-0.02em] lg:text-[19px]',
+          light ? 'text-white' : 'text-[var(--text-hi)]',
+        )}
         style={{ fontFamily: "'Space Grotesk', var(--font-display)" }}
       >
-        DeskScholar
+        Desk<span className={light ? 'text-[#F2B544]' : 'text-[var(--beam)]'}>Scholar</span>
       </span>
     </span>
   );

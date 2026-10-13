@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import {
+  BarChart3,
   BookMarked,
+  Lightbulb,
   ClipboardList,
   GraduationCap,
   Languages,
@@ -14,7 +16,6 @@ import {
   Users,
   WifiOff,
 } from 'lucide-react';
-import { ProductImage } from '../components/common/ProductImage';
 import { PageHeader } from '../components/common/PageHeader';
 import { Section } from '../components/common/Section';
 import { Seo } from '../components/common/Seo';
@@ -22,6 +23,8 @@ import { StatusBadge } from '../components/common/StatusBadge';
 import { SchoolInterestForm } from '../components/forms/SchoolInterestForm';
 import { deskScholarImages, deskScholarImageSrcSets } from '../data/assets';
 import { cn } from '../utils/cn';
+
+const tones = ['sun', 'peach', 'lilac', 'pine'] as const;
 
 const challenges = [
   { icon: Smartphone, title: 'Limited student devices', description: 'Not every student has a personal device available for lesson time.' },
@@ -41,11 +44,11 @@ const classroomUses = [
 ];
 
 const teacherBenefits = [
-  { title: 'Hint-first tutoring', description: 'Students are guided, not given answers, protecting the learning process.', status: 'Planned' },
-  { title: 'Teacher-approved content', description: 'Explanations can be grounded in materials teachers choose.', status: 'Planned' },
-  { title: 'Classroom controls', description: 'Manage modes and sessions for a class setting.', status: 'Planned' },
-  { title: 'Activity summaries', description: 'Short summaries of what students practiced and where they struggled.', status: 'Planned' },
-  { title: 'Curriculum-grounded learning', description: 'Local curriculum materials guide relevant explanations.', status: 'In design' },
+  { icon: Lightbulb, title: 'Hint-first tutoring', description: 'Students are guided, not given answers, protecting the learning process.', status: 'Planned' },
+  { icon: BookMarked, title: 'Teacher-approved content', description: 'Explanations can be grounded in materials teachers choose.', status: 'Planned' },
+  { icon: SlidersHorizontal, title: 'Classroom controls', description: 'Manage modes and sessions for a class setting.', status: 'Planned' },
+  { icon: BarChart3, title: 'Activity summaries', description: 'Short summaries of what students practiced and where they struggled.', status: 'Planned' },
+  { icon: School, title: 'Curriculum-grounded learning', description: 'Local curriculum materials guide relevant explanations.', status: 'In design' },
 ];
 
 const deploymentPrinciples = [
@@ -64,13 +67,36 @@ export default function SchoolsPage() {
         label="For Schools"
         title="Bring guided AI learning to the real classroom."
         description="DeskScholar is being explored as an offline-capable learning companion for classrooms, libraries, labs, and shared study spaces."
-      />
+        visual={
+          <div className="relative">
+            <figure className="ph-photo">
+              <img
+                src={deskScholarImages.classroom}
+                srcSet={deskScholarImageSrcSets.classroom}
+                sizes="(min-width: 1024px) 540px, calc(100vw - 40px)"
+                alt="Students and a teacher using DeskScholar during a collaborative classroom learning activity."
+                width={2000}
+                height={1116}
+              />
+            </figure>
+            <p className="ph-sticker">
+              <WifiOff className="h-4 w-4" aria-hidden="true" />
+              Built for shaky school Wi-Fi
+            </p>
+          </div>
+        }
+      >
+        <a href="#pilot-interest" className="inline-flex min-h-[48px] items-center rounded-full bg-beam px-6 text-[15px] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(23,107,91,0.65)] transition-transform hover:-translate-y-0.5">
+          Register pilot interest
+        </a>
+      </PageHeader>
 
       {/* School challenges */}
       <Section
         labelledBy="challenges-heading"
         heading={{
           label: 'The reality in schools',
+          align: 'center',
           title: <span id="challenges-heading">Challenges DeskScholar is designed to address.</span>,
         }}
       >
@@ -86,9 +112,9 @@ export default function SchoolsPage() {
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.8333rem)]"
               >
-                <div className="h-full rounded-panel border border-line bg-white p-6 shadow-soft">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-card bg-brand-light text-brand-dark">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                <div className="lift h-full rounded-panel border border-line bg-white p-6 shadow-soft">
+                  <span className="tile" data-tone={tones[index % tones.length]} aria-hidden="true">
+                    <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="mt-4 font-display text-base font-bold text-ink">{challenge.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{challenge.description}</p>
@@ -108,32 +134,22 @@ export default function SchoolsPage() {
           title: <span id="uses-heading">Where DeskScholar could fit into a school day.</span>,
         }}
       >
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {classroomUses.map((use) => {
-              const Icon = use.icon;
-              return (
-                <li key={use.title} className="rounded-card border border-line bg-ivory p-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-light text-brand-dark">
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                  <p className="mt-3 font-display text-sm font-bold text-ink">{use.title}</p>
-                  <p className="mt-1 text-[13px] leading-relaxed text-muted">{use.description}</p>
-                </li>
-              );
-            })}
-          </ul>
-          <ProductImage
-            src={deskScholarImages.classroom}
-            srcSet={deskScholarImageSrcSets.classroom}
-            sizes="(min-width: 1024px) 590px, calc(100vw - 40px)"
-            alt="Students and a teacher using DeskScholar during a collaborative classroom learning activity."
-            ratio="16 / 9"
-            objectFit="cover"
-            objectPosition="center"
-            caption="A shared learning station — the device stays on the desk while students and teachers keep working together."
-          />
-        </div>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+          {classroomUses.map((use, index) => {
+            const Icon = use.icon;
+            return (
+              <li key={use.title} className="lift flex gap-4 rounded-panel border border-line bg-white p-5 shadow-soft">
+                <span className="tile" data-tone={tones[(index + 1) % tones.length]} aria-hidden="true">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="font-display text-base font-bold text-ink">{use.title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">{use.description}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </Section>
 
       {/* For teachers */}
@@ -141,25 +157,31 @@ export default function SchoolsPage() {
         labelledBy="teachers-heading"
         heading={{
           label: 'For teachers',
+          align: 'center',
           title: <span id="teachers-heading">Teaching-first behavior, by design.</span>,
         }}
       >
         <ul className="mx-auto flex max-w-4xl flex-wrap justify-center gap-4 md:gap-5">
-          {teacherBenefits.map((benefit) => (
+          {teacherBenefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
             <li
               key={benefit.title}
               className="w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.8333rem)]"
             >
-              <div className="flex h-full flex-col rounded-panel border border-line bg-white p-6 shadow-soft">
+              <div className="lift flex h-full flex-col rounded-panel border border-line bg-white p-6 shadow-soft">
                 <div className="flex items-center justify-between gap-2">
-                  <School className="h-5 w-5 text-brand-dark" aria-hidden="true" />
+                  <span className="tile" data-tone={tones[(index + 2) % tones.length]} aria-hidden="true">
+                    <Icon className="h-5 w-5" />
+                  </span>
                   <StatusBadge tone="planned">{benefit.status}</StatusBadge>
                 </div>
                 <h3 className="mt-4 font-display text-base font-bold text-ink">{benefit.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{benefit.description}</p>
               </div>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </Section>
 
@@ -170,6 +192,7 @@ export default function SchoolsPage() {
         heading={{
           dark: true,
           label: 'Deployment vision',
+          align: 'center',
           title: <span id="deployment-heading">Practical by design for shared learning spaces.</span>,
         }}
       >
@@ -198,10 +221,9 @@ export default function SchoolsPage() {
 
       {/* Pilot interest form */}
       <Section id="pilot-interest" anchor ariaLabel="School pilot interest">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-hero border border-[var(--hairline-dark)] bg-[var(--surface-2)] shadow-[var(--shadow-card)]">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-hero border border-[var(--hairline-dark)] bg-white shadow-lift">
           <div className="grid lg:grid-cols-[1fr_1.2fr]">
-            <div className="relative p-8 sm:p-10">
-              <div className="projection-grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+            <div className="section-pine relative p-8 sm:p-10">
               <div className="relative">
                 <StatusBadge tone="dark" dot pulse>
                   Pilot interest

@@ -24,16 +24,15 @@ const visuals: Record<EditionSlug, { src: string; srcSet?: string; alt: string; 
     caption: 'Concept scenario — a connected classroom or tuition centre with reliable Wi-Fi.',
   },
   hybrid: {
-    src: deskScholarImages.studentUse,
-    srcSet: deskScholarImageSrcSets.studentUse,
-    alt: 'A student at a home desk using DeskScholar with a worksheet and projected guidance.',
+    src: deskScholarImages.projectionCloseup,
+    srcSet: deskScholarImageSrcSets.projectionCloseup,
+    alt: 'DeskScholar projecting fraction guidance onto a worksheet on a home study desk.',
     caption: 'Concept scenario — a household desk; the page stays in the room.',
   },
   independent: {
-    src: deskScholarImages.hero,
-    srcSet: deskScholarImageSrcSets.hero,
-    alt: 'The DeskScholar unit on a study desk beside an open worksheet in normal room lighting.',
-    caption: 'Concept render — entirely local learning, readable in normal room lighting.',
+    src: deskScholarImages.faceDisplay,
+    alt: 'Close-up of the DeskScholar face display showing two friendly eyes.',
+    caption: 'Concept render — everything happens inside the unit.',
   },
 };
 
@@ -91,7 +90,6 @@ export function EditionSpotlight() {
         {/* Large product / use-case visual (crossfade) */}
         <figure className="es-visual">
           <div className="es-visual-stack">
-            <span className="es-visual-tag">Concept visual</span>
             {editions.map((e) => (
               <div key={e.slug} className="es-shot" data-on={e.slug === selected}>
                 <img

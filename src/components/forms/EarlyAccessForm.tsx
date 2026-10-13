@@ -45,7 +45,7 @@ export function EarlyAccessForm() {
         setSubmitState({
           status: 'success',
           message:
-            'Thank you for joining DeskScholar early access. We have received your registration and will keep you informed about prototype progress and future testing opportunities.',
+            'You are on the waitlist! We will keep you posted on prototype progress and future testing opportunities.',
         });
         reset();
       },
@@ -77,10 +77,10 @@ export function EarlyAccessForm() {
       aria-labelledby="early-access-heading"
     >
       <h2 id="early-access-heading" className="font-display text-h3 text-ink">
-        Join Early Access
+        Join the waitlist
       </h2>
       <p className="-mt-2 text-sm text-muted">
-        Register your interest to follow prototype progress and future testing opportunities.
+        Takes 20 seconds. Get prototype updates and first access to testing.
       </p>
 
       <FormStatus
@@ -112,7 +112,7 @@ export function EarlyAccessForm() {
             {...register('email')}
           />
         </FormField>
-        <FormField label="Role" htmlFor="ea-role" required error={errors.role?.message}>
+        <FormField label="I am a…" htmlFor="ea-role" required error={errors.role?.message} className="sm:col-span-2">
           <select
             id="ea-role"
             aria-invalid={Boolean(errors.role)}
@@ -128,34 +128,45 @@ export function EarlyAccessForm() {
             ))}
           </select>
         </FormField>
-        <FormField label="Country (optional)" htmlFor="ea-country" error={errors.country?.message}>
-          <input
-            id="ea-country"
-            type="text"
-            autoComplete="country-name"
-            aria-invalid={Boolean(errors.country)}
-            aria-describedby={describedBy('ea-country')}
-            className={inputClasses(Boolean(errors.country))}
-            {...register('country')}
-          />
-        </FormField>
+
       </div>
 
-      <FormField
-        label="Message (optional)"
-        htmlFor="ea-message"
-        error={errors.message?.message}
-        hint="Tell us what you would like to see in DeskScholar."
-      >
-        <textarea
-          id="ea-message"
-          rows={4}
-          aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? 'ea-message-error' : 'ea-message-hint'}
-          className={inputClasses(Boolean(errors.message))}
-          {...register('message')}
-        />
-      </FormField>
+      <details className="group rounded-2xl border border-line bg-[var(--ink-900)] px-4 py-3 open:pb-5">
+        <summary className="cursor-pointer select-none list-none text-sm font-semibold text-ink marker:hidden">
+          <span className="inline-flex items-center gap-2">
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-beam-dim text-beam transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            Add country or a message (optional)
+          </span>
+        </summary>
+        <div className="mt-4 flex flex-col gap-5">
+          <FormField label="Country (optional)" htmlFor="ea-country" error={errors.country?.message}>
+            <input
+              id="ea-country"
+              type="text"
+              autoComplete="country-name"
+              aria-invalid={Boolean(errors.country)}
+              aria-describedby={describedBy('ea-country')}
+              className={inputClasses(Boolean(errors.country))}
+              {...register('country')}
+            />
+          </FormField>
+          <FormField
+            label="Message (optional)"
+            htmlFor="ea-message"
+            error={errors.message?.message}
+            hint="Tell us what you would like to see in DeskScholar."
+          >
+            <textarea
+              id="ea-message"
+              rows={4}
+              aria-invalid={Boolean(errors.message)}
+              aria-describedby={errors.message ? 'ea-message-error' : 'ea-message-hint'}
+              className={inputClasses(Boolean(errors.message))}
+              {...register('message')}
+            />
+          </FormField>
+        </div>
+      </details>
 
       <div>
         <label htmlFor="ea-consent" className="flex items-start gap-3 text-sm text-muted">
@@ -185,7 +196,7 @@ export function EarlyAccessForm() {
         <button
           type="submit"
           disabled={busy}
-          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-7 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-8 text-[15px] font-semibold text-white shadow-soft transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {busy ? (
             <>
@@ -195,13 +206,12 @@ export function EarlyAccessForm() {
           ) : (
             <>
               <Send className="h-4 w-4" aria-hidden="true" />
-              Join Early Access
+              Join the waitlist
             </>
           )}
         </button>
-        <p className="mt-3 text-xs text-muted">
-          Submissions are delivered through Formspree and used only to manage early-access interest.
-          Nothing is stored in a database by this website. See our{' '}
+        <p className="mt-3 text-[13px] text-muted">
+          Used only to manage waitlist updates — never sold or shared. See our{' '}
           <Link to="/privacy" className="font-semibold text-brand-dark underline underline-offset-4">Privacy Policy</Link>.
         </p>
       </div>

@@ -74,6 +74,7 @@ export function Section({
             ? 'border-t border-[var(--hairline-dark)]'
             : 'border-t border-[rgba(0,0,0,0.08)]'),
         anchor && 'scroll-mt-[calc(var(--header-h-lg)+16px)]',
+        tone === 'midnight' && 'section-pine',
         className,
       )}
     >
@@ -82,6 +83,7 @@ export function Section({
           <SectionHeading
             tone={resolved}
             title={heading.title}
+            label={heading.label}
             description={heading.description}
             align={heading.align}
             as={heading.as}

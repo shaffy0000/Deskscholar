@@ -36,7 +36,7 @@ describe('routes', () => {
 
   it('renders the contact page', async () => {
     const heading = await renderRoute('/contact');
-    expect(heading).toHaveTextContent(/Help shape the future/i);
+    expect(heading).toHaveTextContent(/Save your spot/i);
   });
 
   it('renders the privacy page', async () => {

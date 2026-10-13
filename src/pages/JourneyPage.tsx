@@ -1,14 +1,13 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, FlaskConical } from 'lucide-react';
-import { Button } from '../components/common/Button';
 import { PageHeader } from '../components/common/PageHeader';
 import { Section } from '../components/common/Section';
 import { Seo } from '../components/common/Seo';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { cn } from '../utils/cn';
-import { deskScholarImages, deskScholarImageRatios, deskScholarImageSrcSets } from '../data/assets';
-import { ProductImage } from '../components/common/ProductImage';
+import { deskScholarImages, deskScholarImageSrcSets } from '../data/assets';
+import '../styles/team.css';
 
 type MilestoneStatus = 'Completed' | 'In progress' | 'Planned';
 
@@ -72,18 +71,18 @@ interface GalleryItem {
 
 const gallery: GalleryItem[] = [
   {
-    src: deskScholarImages.sideProfile,
-    title: 'DeskScholar Device Render',
-    alt: 'Side profile of the DeskScholar device and articulated projector arm.',
-    fit: 'contain',
-    caption: null,
-  },
-  {
     src: deskScholarImages.explodedView,
     title: 'Conceptual Hardware Architecture',
     alt: 'Conceptual exploded view of DeskScholar hardware components.',
     fit: 'contain',
     caption: 'Conceptual hardware layout — final specifications may change.',
+  },
+  {
+    src: deskScholarImages.sideProfile,
+    title: 'DeskScholar Device Render',
+    alt: 'Side profile of the DeskScholar device and articulated projector arm.',
+    fit: 'contain',
+    caption: null,
   },
   {
     src: deskScholarImages.projectionCloseup,
@@ -101,6 +100,13 @@ const gallery: GalleryItem[] = [
     fit: 'cover',
     caption: null,
   },
+  {
+    src: deskScholarImages.hingeDetail,
+    title: 'Mechanical Prototyping',
+    alt: 'Close-up of DeskScholar’s articulated arm hinge and mechanical joint.',
+    fit: 'cover',
+    caption: 'Articulated arm hinge and mounting detail.',
+  },
 ];
 
 const evaluationAreas = [
@@ -113,6 +119,34 @@ const evaluationAreas = [
   'Cost per learning session',
 ];
 
+/** Header visual — milestone progress, derived from the timeline above. */
+function ProgressCard() {
+  const done = timeline.filter((t) => t.status === 'Completed').length;
+  const active = timeline.filter((t) => t.status === 'In progress').length;
+  const pct = Math.round(((done + active * 0.5) / timeline.length) * 100);
+  return (
+    <div className="jr-progress" aria-hidden="true">
+      <div className="jr-progress-top">
+        <span className="jr-ring" style={{ ['--p' as string]: `${pct}%` }}>
+          <span>{done}/{timeline.length}</span>
+        </span>
+        <div>
+          <p className="jr-progress-title">Milestones completed</p>
+          <p className="jr-progress-sub">{active} in progress right now</p>
+        </div>
+      </div>
+      <ol className="jr-mini">
+        {timeline.slice(0, 6).map((t) => (
+          <li key={t.title} data-status={t.status}>
+            <i />
+            {t.title}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export default function JourneyPage() {
   return (
     <>
@@ -121,6 +155,7 @@ export default function JourneyPage() {
         label="Our journey"
         title="From final-year project to a real learning product."
         description="DeskScholar is being developed as a product-focused engineering project with emphasis on technical feasibility, learning experience, offline AI, and affordability."
+        visual={<ProgressCard />}
       />
 
       {/* Timeline */}
@@ -128,6 +163,7 @@ export default function JourneyPage() {
         labelledBy="timeline-heading"
         heading={{
           label: 'Development timeline',
+          align: 'center',
           title: <span id="timeline-heading">Where the prototype stands today.</span>,
         }}
       >
@@ -153,7 +189,7 @@ export default function JourneyPage() {
               >
                 {index + 1}
               </span>
-              <div className="flex-1 rounded-panel border border-line bg-white p-5 shadow-soft">
+              <div className="lift flex-1 rounded-panel border border-line bg-white p-5 shadow-soft">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="font-display text-base font-bold text-ink">{item.title}</h3>
                   <StatusBadge tone={statusTone[item.status]} dot>
@@ -178,44 +214,24 @@ export default function JourneyPage() {
             'Concept renders and learning scenarios illustrate the current DeskScholar product direction. Real prototype testing photography will be added as hardware development progresses.',
         }}
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <ul className="jr-bento">
           {gallery.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-            >
-              <ProductImage
+            <li key={item.title} className="jr-tile" data-fit={item.fit} data-i={index}>
+              <img
                 src={item.src}
                 srcSet={item.srcSet}
-                sizes="(min-width: 1024px) 290px, (min-width: 640px) 48vw, calc(100vw - 40px)"
+                sizes="(min-width: 1024px) 600px, calc(100vw - 40px)"
                 alt={item.alt}
-                ratio="16 / 9"
-                objectFit={item.fit}
-                surface="light"
-                caption={
-                  <>
-                    <span className="mt-1 block font-display text-[13px] font-bold text-ink">
-                      {item.title}
-                    </span>
-                    {item.caption && <span className="mt-1 block">{item.caption}</span>}
-                  </>
-                }
+                loading="lazy"
+                decoding="async"
               />
-            </motion.div>
+              <div className="jr-tile-cap">
+                <strong>{item.title}</strong>
+                {item.caption && <span>{item.caption}</span>}
+              </div>
+            </li>
           ))}
-        </div>
-        <div className="mx-auto mt-4 max-w-3xl md:mt-5">
-          <ProductImage
-            src={deskScholarImages.hingeDetail}
-            alt="Close-up of DeskScholar’s articulated arm hinge and mechanical joint."
-            ratio={deskScholarImageRatios.hingeDetail}
-            surface="dark"
-            caption="Mechanical prototyping — articulated arm hinge and mounting detail."
-          />
-        </div>
+        </ul>
         <div className="mt-8 text-center md:mt-10">
           <p className="text-sm text-muted">
             <Link
@@ -233,50 +249,40 @@ export default function JourneyPage() {
         labelledBy="evaluation-heading"
         heading={{
           label: 'Research and evaluation',
+          align: 'center',
           title: <span id="evaluation-heading">What we plan to measure.</span>,
           description:
             'DeskScholar will be evaluated with real study sessions. No metric values are published yet because measurement has not started.',
         }}
       >
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {evaluationAreas.map((area) => (
-              <li
-                key={area}
-                className="flex items-center justify-between gap-3 rounded-card border border-line bg-white px-4 py-3 shadow-soft"
-              >
-                <span className="flex items-center gap-2.5 text-sm font-semibold text-ink">
-                  <FlaskConical className="h-4 w-4 shrink-0 text-brand-dark" aria-hidden="true" />
-                  {area}
-                </span>
-                  <StatusBadge tone="neutral">Measurement planned</StatusBadge>
-              </li>
-            ))}
-          </ul>
-          <ProductImage
-            src={deskScholarImages.studentUse}
-            srcSet={deskScholarImageSrcSets.studentUse}
-            sizes="(min-width: 1024px) 590px, calc(100vw - 40px)"
-            alt="A student using DeskScholar to understand a fraction problem projected onto a worksheet."
-            ratio={deskScholarImageRatios.studentUse}
-            objectPosition="center"
-            caption="Concept learning scenario for future usability and response-quality evaluation."
-          />
-        </div>
+        <ul className="jr-eval">
+          {evaluationAreas.map((area, i) => (
+            <li key={area} className="lift">
+              <span className="tile" data-tone={(['sun', 'peach', 'lilac', 'pine'] as const)[i % 4]} aria-hidden="true">
+                <FlaskConical className="h-5 w-5" />
+              </span>
+              {area}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-5 text-center">
+          <StatusBadge tone="sun" dot>All metrics: measurement planned</StatusBadge>
+        </p>
 
-        <div className="mt-14 rounded-hero border border-[var(--hairline-dark)] bg-[var(--surface-2)] p-8 text-center md:mt-16 md:p-12">
-          <h2 className="font-display text-h3 text-text-hi">
-            Interested in research, education, hardware, or product collaboration?
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-text-hi">
+        <div className="pcta mt-14 md:mt-20">
+          <h2>Interested in research, education, hardware, or product collaboration?</h2>
+          <p>
             We welcome conversations with educators, researchers, hardware engineers, product designers,
             and early-stage supporters.
           </p>
-          <div className="mt-7 flex justify-center">
-            <Button variant="dark" size="lg" to="/contact">
+          <div className="pcta-actions">
+            <Link to="/contact" className="pcta-primary">
               Contact the Team
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Button>
+            </Link>
+            <Link to="/team" className="pcta-secondary">
+              Meet the team
+            </Link>
           </div>
         </div>
       </Section>

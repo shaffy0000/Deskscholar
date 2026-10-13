@@ -17,6 +17,7 @@ import {
   Thermometer,
   Volume2,
 } from 'lucide-react';
+import { LoopVisual } from '../components/common/LoopVisual';
 import { InteractiveDemo } from '../components/sections/InteractiveDemo';
 import { AccessibleAccordion } from '../components/common/AccessibleAccordion';
 import { ProductImage } from '../components/common/ProductImage';
@@ -99,6 +100,7 @@ export default function TechnologyPage() {
         label="Technology"
         title="AI that stays close to the learner."
         description="How DeskScholar sees the desk, hears the question and projects guidance — and how that pipeline differs across the three planned editions."
+        visual={<LoopVisual />}
       />
 
       {/* Learning pipeline — edition-aware */}
@@ -111,7 +113,7 @@ export default function TechnologyPage() {
             'The loop is the same on every edition. What changes is where the thinking happens — and each edition is honest about it.',
         }}
       >
-        <div className="mx-auto max-w-5xl rounded-panel border border-line bg-white p-6 shadow-soft sm:p-8">
+        <div className="mx-auto max-w-5xl rounded-[28px] border border-line bg-white p-6 shadow-lift sm:p-8">
           <p className="eyebrow flex items-center gap-2 text-aqua-dark">
             <span className="inline-block h-2 w-2 rounded-full bg-aqua-dark" aria-hidden="true" />
             The learning loop — same on every edition
@@ -121,9 +123,9 @@ export default function TechnologyPage() {
               const Icon = step.icon;
               return (
                 <Fragment key={step.label}>
-                  <li className="flex flex-1 items-center gap-3 rounded-card border border-line bg-ivory px-4 py-3.5 sm:flex-col sm:gap-2.5 sm:px-3 sm:py-5 sm:text-center">
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-aqua-light text-aqua-dark">
-                      <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                  <li className="lift flex flex-1 items-center gap-3 rounded-[18px] border border-line bg-ivory px-4 py-3.5 sm:flex-col sm:gap-2.5 sm:px-3 sm:py-5 sm:text-center">
+                    <span className="tile" aria-hidden="true">
+                      <Icon className="h-5 w-5" />
                     </span>
                     <span className="text-[13px] font-semibold leading-snug text-ink">{step.label}</span>
                   </li>
@@ -139,14 +141,14 @@ export default function TechnologyPage() {
               );
             })}
           </ol>
-          <div className="mt-6 rounded-card border border-brand/30 bg-brand-light/30 p-5">
+          <div className="mt-6 rounded-[20px] border border-[rgba(23,107,91,0.2)] bg-[rgba(23,107,91,0.05)] p-5 sm:p-6">
             <p className="eyebrow flex items-center gap-2 text-brand-dark">
               <Cloud className="h-3.5 w-3.5" aria-hidden="true" />
               Where the thinking happens — by edition
             </p>
             <ul className="mt-3 grid gap-3">
               {editionPipeline.map((edition) => (
-                <li key={edition.name} className="grid gap-1 sm:grid-cols-[minmax(0,220px)_minmax(0,1fr)] sm:gap-4">
+                <li key={edition.name} className="grid gap-1 rounded-2xl bg-white p-4 shadow-soft sm:grid-cols-[minmax(0,220px)_minmax(0,1fr)] sm:gap-4">
                   <p className="text-sm font-semibold text-ink">
                     {edition.name}
                     <span className="block text-[12.5px] font-normal text-brand-dark">{edition.where}</span>
@@ -174,7 +176,7 @@ export default function TechnologyPage() {
         }}
       >
         <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
-          <div className="rounded-panel border border-aqua/40 bg-aqua-light/40 p-6 sm:p-8">
+          <div className="rounded-[28px] border border-[rgba(23,107,91,0.2)] bg-[linear-gradient(160deg,#E2F1EB,#F8FCFA)] p-6 shadow-soft sm:p-8">
             <StatusBadge tone="aqua" dot>
               Planned on-device capabilities
             </StatusBadge>
@@ -199,14 +201,14 @@ export default function TechnologyPage() {
               at the desk while understanding is composed on our servers.
             </p>
           </div>
-          <div className="rounded-panel border border-line bg-ivory p-6 sm:p-8">
+          <div className="rounded-[28px] border border-[rgba(109,91,208,0.18)] bg-[linear-gradient(160deg,#ECE9FE,#FAF9FF)] p-6 shadow-soft sm:p-8">
             <StatusBadge tone="violet" dot>
               Server-assisted capabilities (Connect &amp; Hybrid)
             </StatusBadge>
             <ul className="mt-6 space-y-5">
               {cloudCapabilities.map((capability) => (
                 <li key={capability.title} className="flex gap-3">
-                  <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-card bg-brand-light text-brand-dark">
+                  <span className="tile" data-tone="lilac">
                     <Cloud className="h-4 w-4" aria-hidden="true" />
                   </span>
                   <div>
@@ -231,6 +233,7 @@ export default function TechnologyPage() {
         heading={{
           dark: true,
           label: 'Privacy principles',
+          align: 'center',
           title: <span id="privacy-heading">Designed so student data doesn’t need to travel.</span>,
         }}
       >
@@ -276,7 +279,7 @@ export default function TechnologyPage() {
                 <li
                   key={item.label}
                   className={cn(
-                    'flex items-center gap-3 rounded-card border border-line bg-white px-4 py-3 shadow-soft',
+                    'lift flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 shadow-soft',
                     // Odd final item spans both columns so the grid ends balanced.
                     index === hardwareLabels.length - 1 &&
                       hardwareLabels.length % 2 === 1 &&
@@ -319,6 +322,7 @@ export default function TechnologyPage() {
         labelledBy="tech-faq-heading"
         heading={{
           label: 'Technology FAQ',
+          align: 'center',
           title: <span id="tech-faq-heading">Questions about how it works.</span>,
         }}
         contentClassName="mx-auto max-w-3xl"

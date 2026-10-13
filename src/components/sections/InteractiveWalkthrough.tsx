@@ -137,7 +137,7 @@ export function InteractiveWalkthrough() {
             role="img"
             aria-label={`Simulated concept scene for step ${step.num}, ${step.title}: a student's desk with a worksheet reading “¼ + ¼ = ▢” and a guidance area${active === 2 ? ' showing the projected working “denominators match, add the numerators, ¼ + ¼ = ½”' : ''}.`}
           >
-            <span className="wt-panel-tag">Simulated · planned experience</span>
+            <span className="wt-panel-tag">Simulated</span>
             <div className="wt-photo">
               <img
                 src={deskScholarImages.studentUse}

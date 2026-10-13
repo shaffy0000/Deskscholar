@@ -33,11 +33,11 @@ export function Button({
   const resolved = resolveVariant(variant);
 
   const classes = cn(
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium rounded-control transition-all duration-micro ease-io focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beam focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900',
-    size === 'md' ? 'h-10 px-4 text-sm' : 'h-12 px-6 text-body',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold rounded-full transition-all duration-micro ease-io focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beam focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900',
+    size === 'md' ? 'h-10 px-5 text-sm' : 'h-[52px] px-7 text-body',
     resolved === 'primary'
-      ? 'bg-beam text-ink-900 hover:brightness-110'
-      : 'bg-transparent border border-[var(--hairline-dark)] text-text-hi hover:border-[var(--hairline-strong)]',
+      ? 'bg-beam text-white shadow-[0_10px_24px_-10px_rgba(23,107,91,0.65)] hover:-translate-y-0.5 hover:bg-[var(--beam-hover)] hover:shadow-[0_16px_30px_-12px_rgba(23,107,91,0.7)] active:translate-y-0'
+      : 'bg-white/70 border border-[var(--hairline-strong)] text-text-hi backdrop-blur hover:-translate-y-0.5 hover:border-beam hover:text-beam',
     disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
     className,
   );

@@ -78,7 +78,7 @@ export function Navbar() {
             aria-label="DeskScholar home"
             className="flex min-h-11 shrink-0 items-center rounded-[var(--radius-control)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--beam)]"
           >
-            <Logo mark={false} />
+            <Logo />
           </Link>
 
           {/* Group 2 — navigation (collapses to the mobile panel before items crowd) */}

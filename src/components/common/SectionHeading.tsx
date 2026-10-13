@@ -15,7 +15,7 @@ interface SectionHeadingProps {
 
 export function SectionHeading({
   title,
-  label: _label,
+  label,
   description,
   align = 'left',
   tone,
@@ -64,9 +64,10 @@ export function SectionHeading({
         className,
       )}
     >
+      {label && <p className="sec-eyebrow">{label}</p>}
       <Component
         className={cn(
-          'font-display text-h2 font-bold leading-tight',
+          'font-display text-[clamp(1.8rem,1.2rem+2vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.025em]',
           isDark ? 'text-text-hi' : 'text-ink-hi',
         )}
       >

@@ -1,73 +1,99 @@
-import { deskScholarImages, deskScholarImageSrcSets } from '../../data/assets';
+import { Check, MessageSquareText, Smartphone, X } from 'lucide-react';
 import '../../styles/sections.css';
 
 /**
- * Image-led editorial section — replaces the old heading + three generic cards.
- * Desktop: large approved concept scene on one side; headline, short explanation
- * and three rule-separated observations on the other. Mobile: headline → image →
- * explanation → observations. Content is fully readable without any animation.
+ * Problem section — three side-by-side "what happens when you're stuck" cards.
+ * Text-led (no repeated photo); the DeskScholar card is the highlighted one.
+ * Content is fully readable without animation.
  */
+const options = [
+  {
+    key: 'chatbot',
+    icon: MessageSquareText,
+    title: 'A chatbot',
+    line: 'Types back the final answer.',
+    points: [
+      { ok: false, text: 'Answer first, thinking skipped' },
+      { ok: false, text: 'Worksheet has to be retyped' },
+    ],
+  },
+  {
+    key: 'phone',
+    icon: Smartphone,
+    title: 'A phone',
+    line: 'One question turns into a feed.',
+    points: [
+      { ok: false, text: 'Notifications pull focus away' },
+      { ok: false, text: 'Eyes leave the page' },
+    ],
+  },
+  {
+    key: 'desk',
+    icon: null,
+    title: 'DeskScholar',
+    line: 'Shows the next step on your page.',
+    points: [
+      { ok: true, text: 'Hints and reasoning first' },
+      { ok: true, text: 'Pen and paper stay in charge' },
+      { ok: true, text: 'An offline edition is planned' },
+    ],
+  },
+];
+
 export function ProblemSection() {
   return (
     <section className="pb" id="problem-section" aria-labelledby="problem-heading">
       <div className="pb-inner">
-        <div className="pb-grid">
+        <div className="pb-head">
+          <p className="sec-eyebrow">Why a desk, not a screen</p>
           <h2 className="pb-h2" id="problem-heading">
-            Students don&rsquo;t need another screen.
+            Answers are easy to find.
             <br />
-            They need a better way to understand.
+            <span>Understanding needs a guide.</span>
           </h2>
-
-          <figure className="pb-media">
-            <div className="pb-frame">
-              <span className="pb-tag">Concept image</span>
-              <img
-                src={deskScholarImages.projectionCloseup}
-                srcSet={deskScholarImageSrcSets.projectionCloseup}
-                sizes="(min-width: 1024px) 54vw, calc(100vw - 40px)"
-                alt="The DeskScholar unit at a study desk projecting fraction guidance onto an open mathematics worksheet."
-                loading="lazy"
-                decoding="async"
-                width={2000}
-                height={1244}
-              />
-            </div>
-            <figcaption className="pb-caption">
-              Concept scenario — guidance projected onto the worksheet the student is already reading.
-            </figcaption>
-          </figure>
-
           <p className="pb-explain">
-            A generic chatbot hands back an answer. A phone turns one question into a feed.
-            DeskScholar is planned to keep the student on the page: reading the real worksheet,
-            hearing the real question, and projecting the next step where the pen already is.
+            When a student gets stuck, most tools hand back the answer or open another screen.
+            DeskScholar is planned to stay on the worksheet and coach the next step.
           </p>
-
-          <ul className="pb-points">
-            <li>
-              <h3>The method, not just the answer</h3>
-              <p>
-                Guidance is planned to arrive step by step — hints and reasoning first — so the
-                next problem can be solved without help.
-              </p>
-            </li>
-            <li>
-              <h3>Eyes on the physical page</h3>
-              <p>
-                The work stays on paper. No feed, no notifications, and no second screen between
-                the question and the understanding.
-              </p>
-            </li>
-            <li>
-              <h3>An edition that fits the connection</h3>
-              <p>
-                Offline capability differs by edition: Independent learns with no internet at all,
-                Hybrid reads and checks offline but needs a connection for new explanations, and
-                Connect requires steady internet.
-              </p>
-            </li>
-          </ul>
         </div>
+
+        <ul className="pb-cards">
+          {options.map((o) => {
+            const Icon = o.icon;
+            return (
+              <li key={o.key} className="pb-card rise" data-hero={o.key === 'desk'}>
+                <div className="pb-card-top">
+                  <span className="pb-ico" aria-hidden="true">
+                    {Icon ? (
+                      <Icon className="h-5 w-5" />
+                    ) : (
+                      <span className="pb-mini-eyes">
+                        <i />
+                        <i />
+                      </span>
+                    )}
+                  </span>
+                  {o.key === 'desk' && <span className="pb-badge">The idea</span>}
+                </div>
+                <h3>{o.title}</h3>
+                <p className="pb-line">{o.line}</p>
+                <ul className="pb-points">
+                  {o.points.map((p) => (
+                    <li key={p.text} data-ok={p.ok}>
+                      {p.ok ? (
+                        <Check className="h-4 w-4" aria-hidden="true" />
+                      ) : (
+                        <X className="h-4 w-4" aria-hidden="true" />
+                      )}
+                      <span className="sr-only">{p.ok ? 'Yes: ' : 'No: '}</span>
+                      {p.text}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

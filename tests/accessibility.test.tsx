@@ -30,11 +30,11 @@ describe('contact tabs keyboard behavior', () => {
     const user = userEvent.setup();
     renderWithProviders(<AppRoutes />, { route: '/contact' });
 
-    const earlyAccessTab = await screen.findByRole('tab', { name: /Join Early Access/i });
+    const earlyAccessTab = await screen.findByRole('tab', { name: /Join the waitlist/i });
     const contactTab = screen.getByRole('tab', { name: /Contact the Team/i });
 
     expect(earlyAccessTab).toHaveAttribute('aria-selected', 'true');
-    expect(screen.getByRole('heading', { name: /Join Early Access/i })).toBeVisible();
+    expect(screen.getByRole('heading', { name: /Join the waitlist/i })).toBeVisible();
 
     earlyAccessTab.focus();
     await user.keyboard('{ArrowRight}');
@@ -50,7 +50,7 @@ describe('contact tabs keyboard behavior', () => {
   it('only exposes the active panel content', async () => {
     renderWithProviders(<AppRoutes />, { route: '/contact' });
     const panel = await screen.findByRole('tabpanel');
-    expect(within(panel).getByRole('heading', { name: /Join Early Access/i })).toBeInTheDocument();
+    expect(within(panel).getByRole('heading', { name: /Join the waitlist/i })).toBeInTheDocument();
     expect(within(panel).queryByLabelText('Subject')).not.toBeInTheDocument();
   });
 });
