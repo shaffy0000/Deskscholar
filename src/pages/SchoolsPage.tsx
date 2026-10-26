@@ -66,7 +66,7 @@ export default function SchoolsPage() {
       <PageHeader
         label="For Schools"
         title="Bring guided AI learning to the real classroom."
-        description="DeskScholar is being explored as an offline-capable learning companion for classrooms, libraries, labs, and shared study spaces."
+        description="DeskScholar is being explored as an offline-capable AI learning device for classrooms, libraries, labs, and shared study spaces in Pakistan — with explanations in English and Urdu."
         visual={
           <div className="relative">
             <figure className="ph-photo">

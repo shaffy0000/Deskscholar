@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Lightbulb, Play, WifiOff, BookOpenCheck } from 'lucide-react';
+import { Languages, Lightbulb, Play, WifiOff, BookOpenCheck } from 'lucide-react';
 import { deskScholarImages, deskScholarImageSrcSets } from '../../data/assets';
 import { Button } from '../common/Button';
 import { CloudflareVideoModal } from '../common/CloudflareVideoModal';
@@ -15,6 +15,7 @@ const perks = [
   { icon: Lightbulb, label: 'Hints before answers' },
   { icon: BookOpenCheck, label: 'Works on real paper' },
   { icon: WifiOff, label: 'Offline edition planned' },
+  { icon: Languages, label: 'English & Urdu' },
 ];
 
 export function Hero() {

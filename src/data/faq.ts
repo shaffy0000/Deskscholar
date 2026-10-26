@@ -29,9 +29,27 @@ export const faqs: FaqItem[] = [
   },
   {
     id: 'languages',
-    question: 'Which languages will it support?',
+    question: 'Which languages will it support — can it explain in Urdu?',
     answer:
       'English and Urdu are the initial target languages, including bilingual explanations where a concept is taught in both languages. Additional languages may be explored after the prototype stage.',
+  },
+  {
+    id: 'screen-free',
+    question: 'Is DeskScholar a screen-free AI tutor?',
+    answer:
+      'Yes — that is the core idea. There is no tablet or phone to scroll: the student keeps working on their own paper worksheet or book, and DeskScholar projects hints and steps directly onto the desk. Apart from a small expressive face display on the unit, there is no screen, no feed and no notifications.',
+  },
+  {
+    id: 'vs-apps',
+    question: 'How is it different from AI homework apps and chatbots?',
+    answer:
+      'Most AI homework apps ask you to photograph or retype the question and then show the final answer on a screen. DeskScholar is designed to read the real worksheet on the desk, give hints and reasoning before any answer, and keep the work on paper — with an Independent edition planned to work completely without internet.',
+  },
+  {
+    id: 'pakistan',
+    question: 'Is DeskScholar being built in Pakistan?',
+    answer:
+      'Yes. DeskScholar is being developed by a four-member Computer Engineering team at COMSATS University Islamabad, Lahore Campus, as a product-focused final-year project. It is designed with Pakistani homes and classrooms in mind — unreliable internet, shared study spaces and explanations in both English and Urdu.',
   },
   {
     id: 'finished',

@@ -13,7 +13,7 @@ export function buildStructuredData(siteUrl: string) {
       '@type': 'Organization',
       name: 'DeskScholar',
       description:
-        'Early-stage EdTech and edge-AI project developing an offline-first AI learning companion. Prototype in development.',
+        'Early-stage EdTech and edge-AI project from Lahore, Pakistan, developing a screen-free, offline-capable AI tutor device that explains in English and Urdu. Prototype in development.',
       url: `${siteUrl}/`,
       logo: `${siteUrl}/android-chrome-512x512.png`,
       foundingLocation: {

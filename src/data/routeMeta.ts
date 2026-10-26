@@ -15,51 +15,51 @@ export interface RouteMeta {
 export const routeMeta = {
   home: {
     path: '/',
-    title: 'DeskScholar | Offline-First AI Learning Companion — Three Editions',
+    title: 'DeskScholar — Offline AI Tutor for Students in Pakistan',
     description:
-      'DeskScholar is an offline-first AI learning companion in three editions — Connect, Hybrid and Independent — designed for voice, worksheet understanding and projected guidance on real study desks.',
+      'A screen-free AI tutor device being built in Pakistan. It reads worksheets, explains in English and Urdu, and projects step-by-step hints — even offline.',
   },
   editions: {
     path: '/editions',
-    title: 'Editions — DeskScholar Connect, Hybrid & Independent',
+    title: 'Editions — Offline, Hybrid & Online AI Tutor | DeskScholar',
     description:
-      'Compare three DeskScholar editions: Connect for schools with reliable Wi-Fi, Hybrid for households wanting privacy, and Independent for homes with unreliable internet or no data relationship.',
+      'Compare DeskScholar Connect, Hybrid and Independent — from an online AI tutor for schools with Wi-Fi to an AI tutor that works without internet at home.',
   },
   technology: {
     path: '/technology',
-    title: 'Technology — DeskScholar',
+    title: 'How It Works — AI Tutor That Reads Worksheets | DeskScholar',
     description:
-      'How DeskScholar reads the page, understands the question and projects guidance — and how the pipeline differs across the Connect, Hybrid and Independent editions.',
+      'How DeskScholar reads worksheets and handwriting, understands spoken English and Urdu questions, and projects step-by-step guidance onto the desk.',
   },
   schools: {
     path: '/schools',
-    title: 'For Schools — DeskScholar',
+    title: 'Offline AI Learning Device for Schools in Pakistan | DeskScholar',
     description:
-      'DeskScholar is being explored as an offline-capable AI learning companion for classrooms, libraries, labs, and shared study spaces. Register pilot interest.',
+      'An offline-capable AI learning device for classrooms, libraries and labs in Pakistan — English and Urdu support, no student phones needed. Register pilot interest.',
   },
   journey: {
     path: '/journey',
-    title: 'Our Journey — DeskScholar',
+    title: 'Our Journey — COMSATS Final-Year Project | DeskScholar',
     description:
-      'How DeskScholar grew from a final-year engineering project into an early-stage learning product. Follow the development timeline, prototype gallery, and planned evaluation areas.',
+      'How DeskScholar grew from a COMSATS Lahore computer engineering final-year project into an offline AI tutor device: timeline, prototype gallery and evaluation plan.',
   },
   team: {
     path: '/team',
-    title: 'Meet the DeskScholar Team',
+    title: 'Meet the Team — COMSATS Lahore Engineers | DeskScholar',
     description:
-      'Meet the computer engineering team developing DeskScholar, an offline-first AI learning companion for real desk-based learning.',
+      'Meet the four COMSATS University Islamabad, Lahore Campus computer engineering students building DeskScholar, an offline AI tutor device for students.',
   },
   contact: {
     path: '/contact',
-    title: 'Contact — DeskScholar',
+    title: 'Join the Waitlist — DeskScholar AI Tutor',
     description:
-      'Join DeskScholar early access, express interest in prototype testing, or contact the team about education, research, hardware, product, and investment collaboration.',
+      'Join the DeskScholar waitlist for prototype updates and testing invitations, or contact the team about schools, research, hardware and partnerships.',
   },
   faq: {
     path: '/faq',
-    title: 'FAQ — DeskScholar',
+    title: 'FAQ — Offline, Urdu & Screen-Free AI Tutor | DeskScholar',
     description:
-      'Answers about the three planned DeskScholar editions: offline capability, privacy, subscriptions, languages, prototype status, school testing and availability.',
+      'Does DeskScholar work without internet? Does it explain in Urdu? Is it screen-free? Answers about the planned AI tutor device, privacy, editions and availability.',
   },
   privacy: {
     path: '/privacy',
